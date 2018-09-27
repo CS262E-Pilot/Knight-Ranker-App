@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">Knight Rank</string>
+    <string name="app_name">Prototype</string>
+    <string name="title_activity_team_rankings">TeamRankings</string>
+    <string name="title_activity_selection">Activity Selection</string>
+    <string name="title_my_rankings">My Rankings</string>
+    <string name="title_challenge">Challenge Results</string>
 </resources>
