@@ -1,7 +1,65 @@
 <resources>
     <string name="app_name">Prototype</string>
-    <string name="title_activity_team_rankings">TeamRankings</string>
+    <string name="title_activity_team_rankings">Team Rankings</string>
     <string name="title_activity_selection">Activity Selection</string>
     <string name="title_my_rankings">My Rankings</string>
     <string name="title_challenge">Challenge Results</string>
+    <string name="splash">splash</string>
+    <string name="click_me">Click Me</string>
+    <string name="title_screen">Knight Ranker</string>
+    <string name="button">Button</string>
+
+    <string-array name="ranking_system">
+        <item>Knight of the Round Table</item>
+        <item>Pope</item>
+        <item>King</item>
+        <item>Prince</item>
+        <item>Archbishop</item>
+        <item>Chancellor</item>
+        <item>Prime Minister</item>
+        <item>Lord</item>
+        <item>Duke</item>
+        <item>Marquess</item>
+        <item>Count</item>
+        <item>Viscount</item>
+        <item>Bishop</item>
+        <item>Baron</item>
+        <item>Baronet</item>
+        <item>Knight</item>
+        <item>Esquire</item>
+        <item>Priest</item>
+        <item>Gentleman</item>
+        <item>Monk</item>
+        <item>Freeman</item>
+        <item>Peasant</item>
+        <item>Slave</item>
+    </string-array>
+
+    <string-array name="ranking_system2">
+        <item>King Arthur</item>
+        <item>Artorias of the Abyss</item>
+        <item>Richard the Lionheart</item>
+        <item>Meta Knight</item>
+        <item>Joan of Arc</item>
+        <item>Adrian Fahrenheit Tepes</item>
+        <item>Knight Faramir</item>
+        <item>Sir Lancelot du Lac</item>
+        <item>Divine Knight Greil</item>
+        <item>Don Quixote</item>
+        <item>William Wallace</item>
+        <item>Siegward of Catarina</item>
+        <item>Arkham Knight</item>
+        <item>Beowulf</item>
+        <item>Cecil Harvey</item>
+        <item>Reinhardt Wilhelm</item>
+        <item>Brienne of Tarth</item>
+        <item>Ludwig the Holy Blade</item>
+        <item>Prince Valiant</item>
+        <item>White Hawk Griffith</item>
+        <item>El Cid</item>
+        <item>Ser Arthur Dayne</item>
+        <item>Prodigal Knight Revan</item>
+        <item>Dalinar Kholin</item>
+    </string-array>
+
 </resources>
