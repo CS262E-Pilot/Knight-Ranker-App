@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_gravity="center"
-    android:background="#242729"
+    android:background="#FFD700"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/ic_android_black_24dp"
-        android:contentDescription="splash"
+        android:contentDescription="@string/splash"
         android:scaleType="fitCenter"
         android:visibility="visible" />
 
