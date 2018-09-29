@@ -33,14 +33,6 @@
             android:parentActivityName=".MainActivity"
 
             android:name=".ActivitySelection" />
-        <activity
-            android:parentActivityName=".TeamRankings"
-
-            android:name=".ChallengeResults" />
-        <activity
-            android:parentActivityName=".TeamRankings"
-
-            android:name=".MyRankings"></activity>
     </application>
 
 </manifest>

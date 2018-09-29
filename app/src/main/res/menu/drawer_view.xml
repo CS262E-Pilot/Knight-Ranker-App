@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_activity_selection"
+            android:icon="@drawable/ic_android_black_24dp"
+            android:title="Activity Selection" />
+        <item
+            android:id="@+id/nav_team_rankings"
+            android:icon="@drawable/ic_android_black_24dp"
+            android:title="Team Rankings" />
+        <item
+            android:id="@+id/nav_my_rankings"
+            android:icon="@drawable/ic_android_black_24dp"
+            android:title="My Rankings" />
+        <item
+            android:id="@+id/nav_challenge_results"
+            android:icon="@drawable/ic_android_black_24dp"
+            android:title="Challenge Results" />
+    </group>
+</menu>
