@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="pilot.cs262.calvin.edu.knightrank">
 
     <application
@@ -8,15 +9,14 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
+        tools:ignore="GoogleAppIndexingWarning">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity android:name=".MainActivity"
+            android:label="Main Activity">
         </activity>
-        <activity android:name=".SplashScreen">
+        <activity android:name=".SplashScreen"
+            android:label="Splash Screen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,12 +25,16 @@
         </activity>
         <activity
             android:name=".ActivityRankings"
-            android:label="@string/title_activity_team_rankings"
-            android:parentActivityName=".ActivitySelection" />
+            android:label="Activity Rankings" />
         <activity
             android:name=".ActivitySelection"
-            android:parentActivityName=".MainActivity" />
-        <activity android:name=".AccountCreation"></activity>
+            android:label="Activity Selection"
+            android:parentActivityName=".ActivityRankings"/>
+        <activity
+            android:name=".AccountCreation"
+            android:label="Account Creation"
+            android:parentActivityName=".MainActivity">
+        </activity>
     </application>
 
 </manifest>

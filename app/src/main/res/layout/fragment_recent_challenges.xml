@@ -21,6 +21,20 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/placeholder_challenge3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=" Challenge 3:"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/placeholder_challenge2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=" Challenge 2:"
+                android:textSize="25sp" />
+
+            <TextView
                 android:id="@+id/placeholder_challenge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

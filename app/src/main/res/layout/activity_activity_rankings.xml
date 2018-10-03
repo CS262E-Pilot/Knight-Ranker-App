@@ -7,6 +7,39 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFD700"
+    tools:context=".ActivityRankings"
+    android:orientation="vertical">
+
+    <!-- The ActionBar displayed at the top -->
+    <include
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- The main content view where fragments are loaded -->
+    <!--<TextView-->
+        <!--android:id="@+id/message"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:textColor="#800000"-->
+        <!--android:textSize="48sp"-->
+        <!--android:text="Activity Rankings" />-->
+
+    <FrameLayout
+        android:id="@+id/fragment_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+    </FrameLayout>
+</LinearLayout>
+
     <!-- Container for contents of drawer - use NavigationView to make configuration easier -->
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
@@ -16,52 +49,5 @@
         android:fitsSystemWindows="true"
         app:menu="@menu/drawer_view"
         app:headerLayout="@layout/nav_header" />
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FFD700"
-    tools:context=".ActivityRankings">
-
-    <!-- The ActionBar displayed at the top -->
-    <include
-        layout="@layout/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <!-- The main content view where fragments are loaded -->
-    <FrameLayout
-        android:id="@+id/fragment_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <TextView
-        android:id="@+id/message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="7dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="96dp"
-        android:text="Activity Rankings"
-        android:textColor="#800000"
-        android:textSize="48sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!--<android.support.v7.widget.Toolbar-->
-        <!--android:id="@+id/my_toolbar"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="?attr/actionBarSize"-->
-        <!--android:background="?attr/colorPrimary"-->
-        <!--android:elevation="4dp"-->
-        <!--android:theme="@style/ThemeOverlay.AppCompat.ActionBar"-->
-        <!--app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>-->
-
-</RelativeLayout>
 
 </android.support.v4.widget.DrawerLayout>

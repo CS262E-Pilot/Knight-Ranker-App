@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/lin_lay"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/splash_layout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_gravity="center"
@@ -8,13 +8,21 @@
     android:gravity="center"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/app_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:textColor="#800000"
+        android:textAlignment="center"
+        android:text="Knight Ranker" />
+
     <ImageView
         android:id="@+id/splash"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ic_android_black_24dp"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:src="@drawable/ic_android_black_24dp"
         android:contentDescription="@string/splash"
-        android:scaleType="fitCenter"
-        android:visibility="visible" />
+        android:layout_centerInParent="true" />
 
-</LinearLayout>
+</RelativeLayout>

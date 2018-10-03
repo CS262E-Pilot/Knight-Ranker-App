@@ -18,15 +18,6 @@
         android:text="Losses"
         android:textSize="25sp" />
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/my_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
-
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
@@ -59,8 +50,8 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/textView1"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="-23dp"
-        android:layout_marginBottom="195dp"
+        android:layout_marginStart="-28dp"
+        android:layout_marginBottom="197dp"
         android:text="Whatever"
         android:textSize="25sp" />
 

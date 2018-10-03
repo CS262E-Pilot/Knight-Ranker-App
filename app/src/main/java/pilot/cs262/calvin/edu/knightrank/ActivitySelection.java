@@ -27,10 +27,16 @@ public class ActivitySelection extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
 
         // Enable the Up button
-        ab.setDisplayHomeAsUpEnabled(true);
+        if (ab != null) {
+            ab.setDisplayHomeAsUpEnabled(true);
+        }
     }
 
-    // Launches activity upon button click.
+    /**
+     * Method for button click that launches the activity.
+     *
+     * @param view as stated
+     */
     public void launchActivity(View view) {
 
         Intent intent = new Intent(this, ActivityRankings.class);
