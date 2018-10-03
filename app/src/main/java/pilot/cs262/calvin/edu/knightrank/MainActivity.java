@@ -23,10 +23,20 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
     }
 
-    // Launches activity upon button click.
+    // Launches team rankings activity upon button click.
     public void launchActivity(View view) {
 
-        Intent intent = new Intent(this, ActivitySelection.class);
+        Intent intent = new Intent(this, ActivityRankings.class);
+
+        startActivity(intent);
+
+        Log.d(LOG_TAG, "Button clicked!");
+    }
+
+    // Launches account login activity upon button click.
+    public void launchActivity2(View view) {
+
+        Intent intent = new Intent(this, AccountCreation.class);
 
         startActivity(intent);
 

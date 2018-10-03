@@ -6,9 +6,13 @@
             android:icon="@drawable/ic_android_black_24dp"
             android:title="Activity Selection" />
         <item
-            android:id="@+id/nav_team_rankings"
+            android:id="@+id/nav_new_challenges"
             android:icon="@drawable/ic_android_black_24dp"
-            android:title="Team Rankings" />
+            android:title="New Challenges" />
+        <item
+            android:id="@+id/nav_recent_challenges"
+            android:icon="@drawable/ic_android_black_24dp"
+            android:title="Recent Challenges" />
         <item
             android:id="@+id/nav_my_rankings"
             android:icon="@drawable/ic_android_black_24dp"

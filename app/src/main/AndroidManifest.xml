@@ -24,15 +24,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:parentActivityName=".ActivitySelection"
-
-            android:name=".TeamRankings"
-            android:label="@string/title_activity_team_rankings" />
-
+            android:name=".ActivityRankings"
+            android:label="@string/title_activity_team_rankings"
+            android:parentActivityName=".ActivitySelection" />
         <activity
-            android:parentActivityName=".MainActivity"
-
-            android:name=".ActivitySelection" />
+            android:name=".ActivitySelection"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".AccountCreation"></activity>
     </application>
 
 </manifest>
