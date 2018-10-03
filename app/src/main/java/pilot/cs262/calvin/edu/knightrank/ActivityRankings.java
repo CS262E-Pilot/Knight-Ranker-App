@@ -1,7 +1,9 @@
 package pilot.cs262.calvin.edu.knightrank;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,15 +17,16 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class ActivityRankings extends AppCompatActivity {
+public class ActivityRankings extends AppCompatActivity
+        implements NewChallenges.OnFragmentInteractionListener, RecentChallenges.OnFragmentInteractionListener {
 
     //Class variables.
     private static final String LOG_TAG =
             ActivityRankings.class.getSimpleName();
 
     private DrawerLayout mDrawerLayout;
-    private NavigationView navigationView;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -38,33 +41,47 @@ public class ActivityRankings extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
 
         // Enable the Up button
-        ab.setDisplayHomeAsUpEnabled(true);
+        if (ab != null) {
+            ab.setDisplayHomeAsUpEnabled(true);
+        }
 
         // Custom icon for the Up button
-        ab.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
+        if (ab != null) {
+            ab.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
+        }
 
-        // Set-up for the drawer navigation.
+        // Find drawer components.
         mDrawerLayout = findViewById(R.id.drawer_layout);
-        navigationView = findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
 
         // Method call to setup drawer view.
-        setupDrawerContent(navigationView);
+        setupDrawerContent(navigationView, savedInstanceState);
 
-        // Placeholder - in case we want to do something with drawer states.
+        // Method call to manipulate drawer states.
+        navDrawerStates();
+
+        Log.e(LOG_TAG, "Reaches end of onCreate?");
+    }
+
+    /**
+     * Method to execute functions according to navigation drawer states.
+     * Note: Placeholder - can be removed if we don't want to do anything in the future.
+     */
+    private void navDrawerStates() {
         mDrawerLayout.addDrawerListener(
                 new DrawerLayout.DrawerListener() {
                     @Override
-                    public void onDrawerSlide(View drawerView, float slideOffset) {
+                    public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
                         // Respond when the drawer's position changes
                     }
 
                     @Override
-                    public void onDrawerOpened(View drawerView) {
+                    public void onDrawerOpened(@NonNull View drawerView) {
                         // Respond when the drawer is opened
                     }
 
                     @Override
-                    public void onDrawerClosed(View drawerView) {
+                    public void onDrawerClosed(@NonNull View drawerView) {
                         // Respond when the drawer is closed
                     }
 
@@ -78,8 +95,9 @@ public class ActivityRankings extends AppCompatActivity {
 
     /**
      * Method to control what happens when menu items are selected.
-     * @param item
-     * @return
+     *
+     * @param item the item selected
+     * @return whatever
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -94,14 +112,17 @@ public class ActivityRankings extends AppCompatActivity {
 
     /**
      * Method to set-up the navigation drawer.
-     * @param navigationView
+     *
+     * @param navigationView navigation drawer .xml code in activity_activity_rankings.xml
+     * @param savedInstanceState necessary for conditional checks before implementing fragment switch
      */
-    private void setupDrawerContent(NavigationView navigationView) {
+    private void setupDrawerContent(NavigationView navigationView, final Bundle savedInstanceState) {
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        selectDrawerItem(menuItem);
+                    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                        Log.e(LOG_TAG, "Reaches onNavigationItemSelected?");
+                        selectDrawerItem(menuItem, savedInstanceState);
                         return true;
                     }
                 });
@@ -109,9 +130,11 @@ public class ActivityRankings extends AppCompatActivity {
 
     /**
      * Method that controls what happens when we select a navigation drawer item.
-     * @param menuItem
+     *
+     * @param menuItem the item selected
+     * @param savedInstanceState necessary for conditional checks before implementing fragment switch
      */
-    public void selectDrawerItem(MenuItem menuItem) {
+    public boolean selectDrawerItem(MenuItem menuItem, Bundle savedInstanceState) {
 
         // Create a new fragment and specify the fragment to show based on nav item clicked
         Fragment fragment = null;
@@ -119,15 +142,22 @@ public class ActivityRankings extends AppCompatActivity {
 
         // To handle selection of menu items.
         switch (menuItem.getItemId()) {
-            case R.id.nav_activity_selection:
-                Log.e(LOG_TAG, "Reaches here?");
-                fragmentClass = ActivitySelection.class;
-                Intent intent1 = new Intent(getApplicationContext(), ActivitySelection.class);
+            case R.id.nav_main_activity:
+                fragmentClass = MainActivity.class;
+                Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent1);
+                Log.e(LOG_TAG, "Selected the main activity!");
+                Toast.makeText(getApplicationContext(), "Selected", Toast.LENGTH_SHORT).show();
+                return true;
+            //break;
+            case R.id.nav_activity_selection:
+                fragmentClass = ActivitySelection.class;
+                Intent intent2 = new Intent(getApplicationContext(), ActivitySelection.class);
+                startActivity(intent2);
                 Log.e(LOG_TAG, "Selected the activity selection activity!");
-                //Toast.makeText(getApplicationContext(), "Selected", Toast.LENGTH_SHORT).show();
-                return;
-                //break;
+                Toast.makeText(getApplicationContext(), "Selected", Toast.LENGTH_SHORT).show();
+                return true;
+            //break;
             case R.id.nav_new_challenges:
                 fragmentClass = NewChallenges.class;
                 Log.e(LOG_TAG, "Selected the new challenges fragment!");
@@ -148,17 +178,17 @@ public class ActivityRankings extends AppCompatActivity {
                 fragmentClass = ActivitySelection.class;
         }
 
-//        // Check that the activity is using the layout version with
-//        // the fragment_container FrameLayout
-//        if (findViewById(R.id.fragment_content) != null) {
-//
-//            // However, if we're being restored from a previous state,
-//            // then we don't need to do anything and should return or else
-//            // we could end up with overlapping fragments.
-//            if (savedInstanceState != null) {
-//                return false;
-//            }
-//        }
+        // Check that the activity is using the layout version with
+        // the fragment_container FrameLayout
+        if (findViewById(R.id.fragment_content) != null) {
+
+            // However, if we're being restored from a previous state,
+            // then we don't need to do anything and should return or else
+            // we could end up with overlapping fragments.
+            if (savedInstanceState != null) {
+                return false;
+            }
+        }
 
         // Create a new Fragment.
         try {
@@ -169,23 +199,18 @@ public class ActivityRankings extends AppCompatActivity {
 
         // In case this activity was started with special instructions from an
         // Intent, pass the Intent's extras to the fragment as arguments
-        try {
+        if (fragment != null) {
             fragment.setArguments(getIntent().getExtras());
-        } catch (Exception e){
-            e.printStackTrace();
         }
+
 
         // Necessary for fragments.
         FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
 
         // Replace whatever is in the fragment_container view with this fragment,
-        // and add the transaction to the back stack so the user can navigate back
-        transaction.replace(R.id.fragment_content, fragment).commit();
-        transaction.addToBackStack(null);
-
-        // Commit the transaction
-        transaction.commit();
+        // and add the transaction to the back stack so the user can navigate back,
+        // and finally commit to the transaction.
+        fragmentManager.beginTransaction().replace(R.id.fragment_content, fragment).addToBackStack(null).commit();
 
         // Highlight the selected item has been done by NavigationView
         menuItem.setChecked(true);
@@ -193,5 +218,20 @@ public class ActivityRankings extends AppCompatActivity {
         setTitle(menuItem.getTitle());
         // Close the navigation drawer
         mDrawerLayout.closeDrawers();
+
+        Log.e(LOG_TAG, "Reaches end of selectDrawerItem?");
+        return true;
+    }
+
+    /**
+     * Method for default Host Activity - Fragment communication
+     * Note: Can be removed as long as we remove the corresponding OnFragmentInteractionListener
+     * method in the specific fragment itself.
+     *
+     * @param uri the data you want sent/received
+     */
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }

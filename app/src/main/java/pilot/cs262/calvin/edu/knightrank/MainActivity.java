@@ -23,7 +23,11 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
     }
 
-    // Launches team rankings activity upon button click.
+    /**
+     * Method for button click that launches the activity.
+     *
+     * @param view as stated
+     */
     public void launchActivity(View view) {
 
         Intent intent = new Intent(this, ActivityRankings.class);
@@ -33,7 +37,11 @@ public class MainActivity extends AppCompatActivity {
         Log.d(LOG_TAG, "Button clicked!");
     }
 
-    // Launches account login activity upon button click.
+    /**
+     * Method for button click that launches the activity.
+     *
+     * @param view as stated
+     */
     public void launchActivity2(View view) {
 
         Intent intent = new Intent(this, AccountCreation.class);

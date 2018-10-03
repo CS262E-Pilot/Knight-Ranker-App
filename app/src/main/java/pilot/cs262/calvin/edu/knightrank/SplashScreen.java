@@ -9,8 +9,12 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 public class SplashScreen extends AppCompatActivity {
+
+    // Class variables.
+    Thread splashTread;
 
     public void onAttachedToWindow() {
         super.onAttachedToWindow();
@@ -18,8 +22,6 @@ public class SplashScreen extends AppCompatActivity {
         Window window = getWindow();
         window.setFormat(PixelFormat.RGBA_8888);
     }
-
-    Thread splashTread;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,13 +34,13 @@ public class SplashScreen extends AppCompatActivity {
     private void StartAnimations() {
         Animation loadAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_anim);
         loadAnimation.reset();
-        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.lin_lay);
+        RelativeLayout linearLayout = findViewById(R.id.splash_layout);
         linearLayout.clearAnimation();
         linearLayout.startAnimation(loadAnimation);
 
         loadAnimation = AnimationUtils.loadAnimation(this, R.anim.translate_anim);
         loadAnimation.reset();
-        ImageView imageView = (ImageView) findViewById(R.id.splash);
+        ImageView imageView = findViewById(R.id.splash);
         imageView.clearAnimation();
         imageView.startAnimation(loadAnimation);
 
@@ -57,7 +59,7 @@ public class SplashScreen extends AppCompatActivity {
                     startActivity(intent);
                     SplashScreen.this.finish();
                 } catch (InterruptedException e) {
-
+                    e.printStackTrace();
                 } finally {
                     SplashScreen.this.finish();
                 }
