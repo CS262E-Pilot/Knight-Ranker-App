@@ -5,9 +5,10 @@
     <string name="title_my_rankings">My Rankings</string>
     <string name="title_challenge">Challenge Results</string>
     <string name="splash">splash</string>
-    <string name="click_me">Click Me</string>
+
     <string name="title_screen">Knight Ranker</string>
     <string name="button">Button</string>
+    <string name="button_login">Login</string>
 
     <string-array name="ranking_system">
         <item>Knight of the Round Table</item>
