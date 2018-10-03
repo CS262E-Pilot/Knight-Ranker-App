@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFD700"
+    tools:context=".NewChallenges">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:id="@+id/location_of_challenge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="356dp"
+        android:text="Location of Challenge:"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/activity_of_challenge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="33dp"
+        android:layout_marginTop="272dp"
+        android:text="Activity of Challenge:"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/new_challenge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="31dp"
+        android:layout_marginTop="11dp"
+        android:text="New Challenge"
+        android:textColor="#800000"
+        android:textSize="45sp" />
+
+    <TextView
+        android:id="@+id/date_of_challenge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="193dp"
+        android:text="Date of Challenge:"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/team_challenged"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="125dp"
+        android:text="Team Challenged:"
+        android:textSize="25sp" />
+
+    <Button
+        android:id="@+id/button_challenge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="-10dp"
+        android:layout_marginBottom="19dp"
+        android:layout_toEndOf="@+id/activity_of_challenge"
+        android:text="Challenge" />
+</RelativeLayout>

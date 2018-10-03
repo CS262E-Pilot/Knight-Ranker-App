@@ -11,13 +11,13 @@
         android:id="@+id/button_main2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="8dp"
+        android:layout_alignParentBottom="true"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:onClick="launchActivity"
-        android:text="@string/click_me"
+        android:text="Return to Activity Rankings"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -63,71 +63,71 @@
                 android:id="@+id/button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/button"
-                android:onClick="launchActivity"/>
+                android:onClick="launchActivity"
+                android:text="Chess" />
 
             <Button
                 android:id="@+id/button2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/button"
-                android:onClick="launchActivity"/>
+                android:onClick="launchActivity"
+                android:text="Football" />
 
             <Button
                 android:id="@+id/button3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/button"
-                android:onClick="launchActivity"/>
+                android:onClick="launchActivity"
+                android:text="World of Warcraft Arena" />
 
             <Button
                 android:id="@+id/button4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/button"
-                android:onClick="launchActivity"/>
+                android:onClick="launchActivity"
+                android:text="DOTA 2" />
 
             <Button
                 android:id="@+id/button5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/button"
-                android:onClick="launchActivity"/>
+                android:onClick="launchActivity"
+                android:text="PUBG" />
 
             <Button
                 android:id="@+id/button6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/button"
-                android:onClick="launchActivity"/>
+                android:onClick="launchActivity"
+                android:text="Volleyball" />
 
             <Button
                 android:id="@+id/button7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/button"
-                android:onClick="launchActivity"/>
+                android:onClick="launchActivity"
+                android:text="Overwatch" />
 
             <Button
                 android:id="@+id/button8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/button"
-                android:onClick="launchActivity"/>
+                android:onClick="launchActivity"
+                android:text="Starcraft 2" />
 
             <Button
                 android:id="@+id/button9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/button"
-                android:onClick="launchActivity"/>
+                android:onClick="launchActivity"
+                android:text="Tom Clancy's Rainbow Six Siege" />
 
             <Button
                 android:id="@+id/button10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/button"
-                android:onClick="launchActivity"/>
+                android:onClick="launchActivity"
+                android:text="Randomized" />
         </LinearLayout>
     </ScrollView>
 
