@@ -61,7 +61,7 @@ public class AccountCreation extends AppCompatActivity {
         String user_confirmed_password = confirmPassword.getText().toString();
 
         if(!user_name.equals("")) {
-            if(user_password.equals(user_confirmed_password)) {
+            if(user_password.equals(user_confirmed_password) && !user_password.equals("")) {
                 Intent intent = new Intent(this, MainActivity.class);
 
                 startActivity(intent);
