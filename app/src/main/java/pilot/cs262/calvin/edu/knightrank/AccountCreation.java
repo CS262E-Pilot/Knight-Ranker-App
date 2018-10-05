@@ -24,9 +24,9 @@ public class AccountCreation extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_creation);
-        username = (EditText) findViewById(R.id.editText_username);
-        password = (EditText) findViewById(R.id.editText_password);
-        confirmPassword = (EditText) findViewById(R.id.editText_confirm_Password);
+        username = (EditText) findViewById(R.id.editText_username_create);
+        password = (EditText) findViewById(R.id.editText_password_create);
+        confirmPassword = (EditText) findViewById(R.id.editText_confirm_Password_create);
 
         // my_child_toolbar is defined in the layout file
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);

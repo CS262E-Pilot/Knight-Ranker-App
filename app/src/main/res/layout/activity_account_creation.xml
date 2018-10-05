@@ -17,7 +17,7 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
     <TextView
-        android:id="@+id/user_name"
+        android:id="@+id/textView_username_create"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -26,50 +26,50 @@
         android:textSize="25sp" />
 
     <EditText
-        android:id="@+id/editText_username"
+        android:id="@+id/editText_username_create"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/user_name"
+        android:layout_below="@+id/textView_username_create"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
         android:inputType="textPersonName" />
 
     <TextView
-        android:id="@+id/user_password"
+        android:id="@+id/textView_password_create"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_below="@+id/editText_username"
+        android:layout_below="@+id/editText_username_create"
         android:text="Enter Password:"
         android:textSize="25sp" />
 
     <EditText
-        android:id="@+id/editText_password"
+        android:id="@+id/editText_password_create"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/user_password"
+        android:layout_below="@+id/textView_password_create"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:ems="10"
         android:inputType="textPassword" />
 
     <TextView
-        android:id="@+id/user_confirm_password"
+        android:id="@+id/textView_confirm_password_create"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
-        android:layout_below="@+id/editText_password"
+        android:layout_below="@+id/editText_password_create"
         android:text="Confirm Password:"
         android:textSize="25sp" />
 
     <EditText
-        android:id="@+id/editText_confirm_Password"
+        android:id="@+id/editText_confirm_Password_create"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/user_confirm_password"
+        android:layout_below="@+id/textView_confirm_password_create"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:ems="10"

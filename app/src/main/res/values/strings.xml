@@ -64,7 +64,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="button_activity_ranking">Activity Rankings</string>
     <string name="button_create_account">Create Account</string>
+    <string name="log_in_button">Log in</string>
 
 </resources>
