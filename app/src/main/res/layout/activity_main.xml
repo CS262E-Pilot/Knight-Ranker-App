@@ -26,6 +26,40 @@
         android:layout_alignParentTop= "true"
         android:layout_marginTop="55dp" />
 
+    <TextView
+        android:id="@+id/textView_username_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:text="Username: "
+        android:textSize="26sp"
+        android:layout_marginLeft="8dp" />
+
+    <EditText
+        android:id="@+id/editText_username_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_username_main"
+        android:layout_marginLeft="8dp"
+        android:inputType="textPersonName"/>
+
+    <TextView
+        android:id="@+id/textView_password_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editText_username_main"
+        android:text="Password: "
+        android:textSize="26sp"
+        android:layout_marginLeft="8dp" />
+
+    <EditText
+        android:id="@+id/editText_password_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView_password_main"
+        android:layout_marginLeft="8dp"
+        android:inputType="textPassword"/>
+
     <Button
         android:id="@+id/activity_rankings"
         android:layout_width="wrap_content"
@@ -35,7 +69,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:onClick="launchActivity"
-        android:text="@string/button_activity_ranking" />
+        android:text="@string/log_in_button" />
 
     <Button
         android:id="@+id/create_account"
