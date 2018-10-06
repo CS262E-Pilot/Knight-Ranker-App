@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -28,11 +29,11 @@ public class NewChallenges extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     // For use with shared preferences.
-    private static final String PLACEHOLDER1 = "";
+    private static final String PLACEHOLDER3 = "";
 
     // Share preferences file.
     private SharedPreferences mPreferences;
-    private String sharedPrefFile = "pilot.cs262.calvin.edu.knightrank";
+    private static final String sharedPrefFile = "pilot.cs262.calvin.edu.knightrank";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -73,6 +74,7 @@ public class NewChallenges extends Fragment {
         // Set shared preferences component.
         // Note: modified from the one in activities as this is a fragment.
         mPreferences = Objects.requireNonNull(this.getActivity()).getSharedPreferences(sharedPrefFile, Context.MODE_PRIVATE);
+        //mPreferences = PreferenceManager.getDefaultSharedPreferences(this.getActivity());
 
         // Placeholder code as example of how to restore values to UI components from shared preferences.
         //username_main.setText(mPreferences.getString(USER_NAME, ""));
@@ -132,10 +134,10 @@ public class NewChallenges extends Fragment {
     public void onPause() {
         super.onPause();
 
-        SharedPreferences.Editor preferencesEditor = mPreferences.edit();
+        SharedPreferences.Editor preferencesEditor5 = mPreferences.edit();
 
-        preferencesEditor.putString(PLACEHOLDER1, "Placeholder text");
+        preferencesEditor5.putString(PLACEHOLDER3, "Placeholder text 3");
 
-        preferencesEditor.apply();
+        preferencesEditor5.apply();
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -18,15 +19,15 @@ public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG =
             MainActivity.class.getSimpleName();
 
-    private static final String USER_NAME = "";
-    private static final String USER_PASSWORD = "";
+    private static final String USER_NAME = "user_name";
+    private static final String USER_PASSWORD = "user_password";
 
     private EditText username_main;
     private EditText password_main;
 
     // Share preferences file.
     private SharedPreferences mPreferences;
-    private String sharedPrefFile = "pilot.cs262.calvin.edu.knightrank";
+    private static final String sharedPrefFile = "pilot.cs262.calvin.edu.knightrank";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +44,11 @@ public class MainActivity extends AppCompatActivity {
 
         // Set shared preferences component.
         mPreferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
+        //mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         // Restores user name and user password from saved preferences file.
-        username_main.setText(mPreferences.getString(USER_NAME, ""));
-        password_main.setText(mPreferences.getString(USER_PASSWORD, ""));
+        username_main.setText(mPreferences.getString(USER_NAME, "My user name"));
+        password_main.setText(mPreferences.getString(USER_PASSWORD, "My user password"));
     }
 
     /**
@@ -98,12 +100,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
-        SharedPreferences.Editor preferencesEditor = mPreferences.edit();
+        SharedPreferences.Editor preferencesEditor1 = mPreferences.edit();
 
-        preferencesEditor.putString(USER_NAME, username_main.getText().toString());
-        preferencesEditor.putString(USER_PASSWORD, username_main.getText().toString());
+        preferencesEditor1.putString(USER_NAME, username_main.getText().toString());
+        preferencesEditor1.putString(USER_PASSWORD, password_main.getText().toString());
 
-        preferencesEditor.apply();
+        preferencesEditor1.apply();
     }
 
     /**

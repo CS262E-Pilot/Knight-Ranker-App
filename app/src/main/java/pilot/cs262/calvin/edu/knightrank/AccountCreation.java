@@ -1,7 +1,9 @@
 package pilot.cs262.calvin.edu.knightrank;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,9 +19,9 @@ public class AccountCreation extends AppCompatActivity {
     private static final String LOG_TAG =
             MainActivity.class.getSimpleName();
 
-    private static final String USER_NAME = "";
-    private static final String USER_PASSWORD = "";
-    private static final String CONFIRM_PASSWORD = "";
+    private static final String USER_NAME_CREATION = "user name creation";
+    private static final String USER_PASSWORD_CREATION = "user password creation";
+    private static final String CONFIRM_PASSWORD = "confirm password";
 
     private EditText username;
     private EditText password;
@@ -27,7 +29,7 @@ public class AccountCreation extends AppCompatActivity {
 
     // Share preferences file.
     private SharedPreferences mPreferences;
-    private String sharedPrefFile = "pilot.cs262.calvin.edu.knightrank";
+    private static final String sharedPrefFile = "pilot.cs262.calvin.edu.knightrank";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +55,12 @@ public class AccountCreation extends AppCompatActivity {
 
         // Set shared preferences component.
         mPreferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
+        //mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         // Restores user name and user password from saved preferences file.
-        username.setText(mPreferences.getString(USER_NAME, ""));
-        password.setText(mPreferences.getString(USER_PASSWORD, ""));
-        confirmPassword.setText(mPreferences.getString(CONFIRM_PASSWORD, ""));
+        username.setText(mPreferences.getString(USER_NAME_CREATION, "User name"));
+        password.setText(mPreferences.getString(USER_PASSWORD_CREATION, "User password"));
+        confirmPassword.setText(mPreferences.getString(CONFIRM_PASSWORD, "User password"));
     }
 
     /**
@@ -109,13 +112,13 @@ public class AccountCreation extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
-        SharedPreferences.Editor preferencesEditor = mPreferences.edit();
+        SharedPreferences.Editor preferencesEditor2 = mPreferences.edit();
 
-        preferencesEditor.putString(USER_NAME, username.getText().toString());
-        preferencesEditor.putString(USER_PASSWORD, password.getText().toString());
-        preferencesEditor.putString(CONFIRM_PASSWORD, confirmPassword.getText().toString());
+        preferencesEditor2.putString(USER_NAME_CREATION, username.getText().toString());
+        preferencesEditor2.putString(USER_PASSWORD_CREATION, password.getText().toString());
+        preferencesEditor2.putString(CONFIRM_PASSWORD, confirmPassword.getText().toString());
 
-        preferencesEditor.apply();
+        preferencesEditor2.apply();
     }
 
     /**
