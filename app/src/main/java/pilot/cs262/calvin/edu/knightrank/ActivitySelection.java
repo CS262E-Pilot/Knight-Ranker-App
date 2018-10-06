@@ -1,6 +1,7 @@
 package pilot.cs262.calvin.edu.knightrank;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,13 @@ public class ActivitySelection extends AppCompatActivity {
     //Class variables.
     private static final String LOG_TAG =
             ActivitySelection.class.getSimpleName();
+
+    // For use with shared preferences.
+    private static final String PLACEHOLDER1 = "";
+
+    // Share preferences file.
+    private SharedPreferences mPreferences;
+    private String sharedPrefFile = "pilot.cs262.calvin.edu.knightrank";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +38,13 @@ public class ActivitySelection extends AppCompatActivity {
         if (ab != null) {
             ab.setDisplayHomeAsUpEnabled(true);
         }
+
+        // Set shared preferences component.
+        mPreferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
+
+        // Placeholder code as example of how to restore values to UI components from shared preferences.
+        //username_main.setText(mPreferences.getString(USER_NAME, ""));
+        //password_main.setText(mPreferences.getString(USER_PASSWORD, ""));
     }
 
     /**
@@ -44,5 +59,19 @@ public class ActivitySelection extends AppCompatActivity {
         startActivity(intent);
 
         Log.d(LOG_TAG, "Button clicked!");
+    }
+
+    /**
+     * Method currently called to store values to shared preferences file.
+     */
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        SharedPreferences.Editor preferencesEditor = mPreferences.edit();
+
+        preferencesEditor.putString(PLACEHOLDER1, "Placeholder text");
+
+        preferencesEditor.apply();
     }
 }
