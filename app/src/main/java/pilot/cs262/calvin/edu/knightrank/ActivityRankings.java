@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -28,13 +29,13 @@ public class ActivityRankings extends AppCompatActivity
             ActivityRankings.class.getSimpleName();
 
     // For use with shared preferences.
-    private static final String PLACEHOLDER1 = "";
+    private static final String PLACEHOLDER1 = "placeholder1";
 
     private DrawerLayout mDrawerLayout;
 
     // Share preferences file.
     private SharedPreferences mPreferences;
-    private String sharedPrefFile = "pilot.cs262.calvin.edu.knightrank";
+    private static final String sharedPrefFile = "pilot.cs262.calvin.edu.knightrank";
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -70,6 +71,7 @@ public class ActivityRankings extends AppCompatActivity
 
         // Set shared preferences component.
         mPreferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
+        //mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         // Placeholder code as example of how to restore values to UI components from shared preferences.
         //username_main.setText(mPreferences.getString(USER_NAME, ""));
@@ -258,10 +260,10 @@ public class ActivityRankings extends AppCompatActivity
     protected void onPause() {
         super.onPause();
 
-        SharedPreferences.Editor preferencesEditor = mPreferences.edit();
+        SharedPreferences.Editor preferencesEditor3 = mPreferences.edit();
 
-        preferencesEditor.putString(PLACEHOLDER1, "Placeholder text");
+        preferencesEditor3.putString(PLACEHOLDER1, "Placeholder text 1");
 
-        preferencesEditor.apply();
+        preferencesEditor3.apply();
     }
 }
