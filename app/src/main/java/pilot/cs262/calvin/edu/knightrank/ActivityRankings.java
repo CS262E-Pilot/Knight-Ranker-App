@@ -1,6 +1,7 @@
 package pilot.cs262.calvin.edu.knightrank;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -26,7 +27,14 @@ public class ActivityRankings extends AppCompatActivity
     private static final String LOG_TAG =
             ActivityRankings.class.getSimpleName();
 
+    // For use with shared preferences.
+    private static final String PLACEHOLDER1 = "";
+
     private DrawerLayout mDrawerLayout;
+
+    // Share preferences file.
+    private SharedPreferences mPreferences;
+    private String sharedPrefFile = "pilot.cs262.calvin.edu.knightrank";
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -60,7 +68,15 @@ public class ActivityRankings extends AppCompatActivity
         // Method call to manipulate drawer states.
         navDrawerStates();
 
+        // Set shared preferences component.
+        mPreferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
+
+        // Placeholder code as example of how to restore values to UI components from shared preferences.
+        //username_main.setText(mPreferences.getString(USER_NAME, ""));
+        //password_main.setText(mPreferences.getString(USER_PASSWORD, ""));
+
         Log.e(LOG_TAG, "Reaches end of onCreate?");
+
     }
 
     /**
@@ -233,5 +249,19 @@ public class ActivityRankings extends AppCompatActivity
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    /**
+     * Method currently called to store values to shared preferences file.
+     */
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        SharedPreferences.Editor preferencesEditor = mPreferences.edit();
+
+        preferencesEditor.putString(PLACEHOLDER1, "Placeholder text");
+
+        preferencesEditor.apply();
     }
 }
