@@ -62,9 +62,23 @@
         <item>Dalinar Kholin</item>
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- TODO: Is there a better naming scheme for these -->
     <string name="button_create_account">Create Account</string>
     <string name="log_in_button">Log in</string>
+    <string name="enter_username">Enter Username:</string>
+    <string name="enter_password">Enter Password:</string>
+    <string name="confirm_password">Confirm Password:</string>
+    <string name="return_to_login">Return to Login</string>
+    <string name="create_new_account">Create new account</string>
+    <string name="username">Username:</string>
+    <string name="password">Password:</string>
+    <string name="losses">Losses</string>
+    <string name="wins">Wins</string>
+    <string name="location_of_challenge">Location of Challenge:</string>
+    <string name="activity_of_challenge">Activity of Challenge:</string>
+    <string name="new_challenge">New Challenge</string>
+    <string name="date_of_challenge">Date of Challenge:</string>
+    <string name="team_challenged">Team Challenged:</string>
+    <string name="challenge">Challenge</string>
 
 </resources>

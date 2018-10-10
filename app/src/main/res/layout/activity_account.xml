@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFD700"
+    android:background="@color/colorBackground"
     tools:context=".AccountCreation">
 
     <android.support.v7.widget.Toolbar
@@ -22,8 +22,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="116dp"
-        android:text="Enter Username:"
-        android:textSize="25sp" />
+        android:text="@string/enter_username"
+        android:textSize="25sp"
+        android:textColor="@color/colorAuxiliary"/>
 
     <EditText
         android:id="@+id/editText_username_create"
@@ -42,8 +43,9 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_below="@+id/editText_username_create"
-        android:text="Enter Password:"
-        android:textSize="25sp" />
+        android:text="@string/enter_password"
+        android:textSize="25sp"
+        android:textColor="@color/colorAuxiliary"/>
 
     <EditText
         android:id="@+id/editText_password_create"
@@ -62,8 +64,9 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:layout_below="@+id/editText_password_create"
-        android:text="Confirm Password:"
-        android:textSize="25sp" />
+        android:text="@string/confirm_password"
+        android:textSize="25sp"
+        android:textColor="@color/colorAuxiliary"/>
 
     <EditText
         android:id="@+id/editText_confirm_Password_create"
@@ -81,10 +84,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="false"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
         android:onClick="launchActivity"
-        android:text="Return to Login" />
+        android:text="@string/return_to_login" />
 
     <Button
         android:id="@+id/finish_account_creation"
@@ -95,6 +98,6 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:onClick="createAccount"
-        android:text="Create new account" />
+        android:text="@string/create_new_account" />
 
 </RelativeLayout>
