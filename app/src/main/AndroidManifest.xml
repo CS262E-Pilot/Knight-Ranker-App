@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="pilot.cs262.calvin.edu.knightrank">
 
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,17 +16,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-
-        <activity android:name=".MainActivity"
-            android:label="Main Activity">
-        </activity>
-        <activity android:name=".SplashScreen"
+        <activity
+            android:name=".MainActivity"
+            android:label="Main Activity" />
+        <activity
+            android:name=".SplashScreen"
             android:label="Splash Screen">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".ActivityRankings"
@@ -29,11 +30,17 @@
         <activity
             android:name=".ActivitySelection"
             android:label="Activity Selection"
-            android:parentActivityName=".ActivityRankings"/>
+            android:parentActivityName=".ActivityRankings" />
         <activity
             android:name=".AccountCreation"
             android:label="Account Creation"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".Login">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
