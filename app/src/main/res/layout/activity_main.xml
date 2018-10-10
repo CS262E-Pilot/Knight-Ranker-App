@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFD700"
+    android:background="@color/colorBackground"
     tools:context=".MainActivity">
 
     <android.support.v7.widget.Toolbar
@@ -20,27 +20,28 @@
         android:id="@+id/textView1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop= "true"
+        android:layout_marginTop="55dp"
         android:text="@string/title_screen"
         android:textSize="48sp"
-        android:textColor="#800000"
-        android:layout_alignParentTop= "true"
-        android:layout_marginTop="55dp" />
+        android:textColor="@color/colorAuxiliary"/>
 
     <TextView
         android:id="@+id/textView_username_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView1"
-        android:text="Username: "
+        android:layout_marginStart="8dp"
+        android:text="@string/username"
         android:textSize="26sp"
-        android:layout_marginLeft="8dp" />
+        android:textColor="@color/colorAuxiliary" />
 
     <EditText
         android:id="@+id/editText_username_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView_username_main"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
         android:inputType="textPersonName"/>
 
     <TextView
@@ -48,16 +49,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/editText_username_main"
-        android:text="Password: "
+        android:layout_marginStart="8dp"
+        android:text="@string/password"
         android:textSize="26sp"
-        android:layout_marginLeft="8dp" />
+        android:textColor="@color/colorAuxiliary" />
 
     <EditText
         android:id="@+id/editText_password_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView_password_main"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
         android:inputType="textPassword"/>
 
     <Button
