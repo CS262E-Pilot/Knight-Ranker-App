@@ -4,7 +4,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_gravity="center"
-    android:background="#FFD700"
+    android:background="@color/colorBackground"
     android:gravity="center"
     android:orientation="vertical">
 
@@ -13,15 +13,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="25sp"
-        android:textColor="#800000"
+        android:textColor="@color/colorAuxiliary"
         android:textAlignment="center"
-        android:text="Knight Ranker" />
+        android:text="Welcome to" />
 
     <ImageView
         android:id="@+id/splash"
         android:layout_width="250dp"
         android:layout_height="250dp"
-        android:src="@drawable/ic_android_black_24dp"
+        android:src="@drawable/knight_ranker_logo"
         android:contentDescription="@string/splash"
         android:layout_centerInParent="true" />
 
