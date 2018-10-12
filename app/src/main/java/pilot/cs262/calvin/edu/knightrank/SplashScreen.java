@@ -8,7 +8,6 @@ import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 public class SplashScreen extends AppCompatActivity {
@@ -27,7 +26,7 @@ public class SplashScreen extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_splash_screen);
+        setContentView(R.layout.activity_splash);
         StartAnimations();
     }
 

@@ -4,12 +4,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -18,7 +16,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class ActivityRankings extends AppCompatActivity
@@ -40,7 +37,7 @@ public class ActivityRankings extends AppCompatActivity
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_activity_rankings);
+        setContentView(R.layout.activity_rankings);
 
         // my_child_toolbar is defined in the layout file
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -131,8 +128,7 @@ public class ActivityRankings extends AppCompatActivity
     /**
      * Method to set-up the navigation drawer.
      *
-     * @param navigationView navigation drawer .xml code in activity_activity_rankings.xml
-     * @param savedInstanceState necessary for conditional checks before implementing fragment switch
+     * @param navigationView navigation drawer .xml code in activity_rankings * @param savedInstanceState necessary for conditional checks before implementing fragment switch
      */
     private void setupDrawerContent(NavigationView navigationView, final Bundle savedInstanceState) {
         navigationView.setNavigationItemSelectedListener(

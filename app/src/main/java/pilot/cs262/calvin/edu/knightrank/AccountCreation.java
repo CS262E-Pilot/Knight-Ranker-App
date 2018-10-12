@@ -1,9 +1,7 @@
 package pilot.cs262.calvin.edu.knightrank;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,7 +32,7 @@ public class AccountCreation extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_account_creation);
+        setContentView(R.layout.activity_account);
 
         // Find UI components.
         username = findViewById(R.id.editText_username_create);
