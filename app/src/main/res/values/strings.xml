@@ -65,6 +65,20 @@
     <!-- TODO: Is there a better naming scheme for these -->
     <string name="button_create_account">Create Account</string>
     <string name="log_in_button">Log in</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
     <string name="enter_username">Enter Username:</string>
     <string name="enter_password">Enter Password:</string>
     <string name="confirm_password">Confirm Password:</string>
@@ -80,5 +94,4 @@
     <string name="date_of_challenge">Date of Challenge:</string>
     <string name="team_challenged">Team Challenged:</string>
     <string name="challenge">Challenge</string>
-
 </resources>
