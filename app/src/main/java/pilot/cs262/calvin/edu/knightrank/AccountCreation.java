@@ -5,8 +5,11 @@ import android.content.SharedPreferences;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -25,9 +28,14 @@ public class AccountCreation extends AppCompatActivity {
     private EditText password;
     private EditText confirmPassword;
 
-    // Share preferences file.
+    // Share preferences file (custom)
     private SharedPreferences mPreferences;
+    // Shared preferences file (default)
+    private SharedPreferences mPreferencesDefault;
+
+    // Name of the custom shared preferences file.
     private static final String sharedPrefFile = "pilot.cs262.calvin.edu.knightrank";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +61,10 @@ public class AccountCreation extends AppCompatActivity {
 
         // Set shared preferences component.
         mPreferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
-        //mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mPreferencesDefault = PreferenceManager.getDefaultSharedPreferences(this);
+
+        // Placeholder code as example of how to get values from the default SharedPrefs file.
+        String syncFreq = mPreferencesDefault.getString(SettingsActivity.KEY_SYNC_FREQUENCY, "-1");
 
         // Restores user name and user password from saved preferences file.
         username.setText(mPreferences.getString(USER_NAME_CREATION, "User name"));
@@ -130,5 +141,38 @@ public class AccountCreation extends AppCompatActivity {
         SharedPreferences.Editor preferencesEditor = mPreferences.edit();
         preferencesEditor.clear();
         preferencesEditor.apply();
+    }
+
+    /**
+     * Method adds an options menu to the toolbar.
+     *
+     * @param menu menu object
+     * @return true
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    /**
+     * Method to control what happens when menu items are selected.
+     *
+     * @param item the item selected
+     * @return whatever
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // The action bar home/up action should open or close the drawer.
+        switch (item.getItemId()) {
+            case R.id.settings:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                // Do nothing
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
