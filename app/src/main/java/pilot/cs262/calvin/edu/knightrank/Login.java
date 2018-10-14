@@ -3,7 +3,10 @@ package pilot.cs262.calvin.edu.knightrank;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.preference.PreferenceManager;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -15,6 +18,11 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
+/**
+ * Login class provides Google OAuth functionality.
+ *
+ * Note: Good luck Mark Wissink in integrating this with out back-end ;D
+ */
 public class Login extends AppCompatActivity {
     private static final int RC_SIGN_IN = 1;
     private GoogleSignInClient mGoogleSignInClient;
@@ -42,6 +50,11 @@ public class Login extends AppCompatActivity {
         SignInButton signInButton = findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_WIDE);
         signInButton.setOnClickListener(mClickListener);
+
+        // Set default values for SettingsActivity SharedPreferences values.
+        PreferenceManager.setDefaultValues(this, R.xml.pref_general, false);
+        PreferenceManager.setDefaultValues(this, R.xml.pref_notification, false);
+        PreferenceManager.setDefaultValues(this, R.xml.pref_data_sync, false);
     }
 
     @Override

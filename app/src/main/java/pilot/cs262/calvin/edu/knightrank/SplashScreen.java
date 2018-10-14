@@ -10,6 +10,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+/**
+ * This class implements an animated splash screen.
+ */
 public class SplashScreen extends AppCompatActivity {
 
     // Class variables.
@@ -30,6 +33,9 @@ public class SplashScreen extends AppCompatActivity {
         StartAnimations();
     }
 
+    /**
+     * This method controls the animation performed for the splash screen.
+     */
     private void StartAnimations() {
         Animation loadAnimation = AnimationUtils.loadAnimation(this, R.anim.alpha_anim);
         loadAnimation.reset();

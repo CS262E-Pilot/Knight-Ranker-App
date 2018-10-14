@@ -12,8 +12,10 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -30,8 +32,12 @@ public class ActivityRankings extends AppCompatActivity
 
     private DrawerLayout mDrawerLayout;
 
-    // Share preferences file.
+    // Share preferences file (custom)
     private SharedPreferences mPreferences;
+    // Shared preferences file (default)
+    private SharedPreferences mPreferencesDefault;
+
+    // Name of the custom shared preferences file.
     private static final String sharedPrefFile = "pilot.cs262.calvin.edu.knightrank";
 
     @Override
@@ -68,7 +74,10 @@ public class ActivityRankings extends AppCompatActivity
 
         // Set shared preferences component.
         mPreferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
-        //mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mPreferencesDefault = PreferenceManager.getDefaultSharedPreferences(this);
+
+        // Placeholder code as example of how to get values from the default SharedPrefs file.
+        String syncFreq = mPreferencesDefault.getString(SettingsActivity.KEY_SYNC_FREQUENCY, "-1");
 
         // Placeholder code as example of how to restore values to UI components from shared preferences.
         //username_main.setText(mPreferences.getString(USER_NAME, ""));
@@ -109,6 +118,19 @@ public class ActivityRankings extends AppCompatActivity
     }
 
     /**
+     * Method adds an options menu to the toolbar.
+     *
+     * @param menu menu object
+     * @return true
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    /**
      * Method to control what happens when menu items are selected.
      *
      * @param item the item selected
@@ -121,6 +143,12 @@ public class ActivityRankings extends AppCompatActivity
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 return true;
+            case R.id.settings:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                // Do nothing
         }
         return super.onOptionsItemSelected(item);
     }
