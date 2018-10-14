@@ -2,6 +2,7 @@ package pilot.cs262.calvin.edu.knightrank;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 public class AccountCreation extends AppCompatActivity {
@@ -70,6 +72,15 @@ public class AccountCreation extends AppCompatActivity {
         username.setText(mPreferences.getString(USER_NAME_CREATION, "User name"));
         password.setText(mPreferences.getString(USER_PASSWORD_CREATION, "User password"));
         confirmPassword.setText(mPreferences.getString(CONFIRM_PASSWORD, "User password"));
+
+        // Change the background color to what was selected in color picker.
+        // Note: Change color by using findViewById and ID of the UI element you wish to change.
+        RelativeLayout thisLayout = findViewById(R.id.activity_account_root_layout);
+        thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.COLOR_ARGB, Color.YELLOW));
+
+        int value = mPreferences.getInt(ColorPicker.COLOR_ARGB, Color.BLACK);
+
+        Log.e(LOG_TAG,"Value of color is: " + value);
     }
 
     /**
@@ -167,8 +178,12 @@ public class AccountCreation extends AppCompatActivity {
         // The action bar home/up action should open or close the drawer.
         switch (item.getItemId()) {
             case R.id.settings:
-                Intent intent = new Intent(this, SettingsActivity.class);
-                startActivity(intent);
+                Intent intent1 = new Intent(this, SettingsActivity.class);
+                startActivity(intent1);
+                return true;
+            case R.id.color_picker:
+                Intent intent2 = new Intent(this, ColorPicker.class);
+                startActivity(intent2);
                 return true;
             default:
                 // Do nothing

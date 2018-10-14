@@ -2,19 +2,25 @@ package pilot.cs262.calvin.edu.knightrank;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import java.util.Objects;
 
 public class ChallengeResults extends Fragment {
 
-    // Class variables.
+    //Class variables.
+    private static final String LOG_TAG =
+            ChallengeResults.class.getSimpleName();
 
     // For use with shared preferences.
     private static String PLACEHOLDER2 = "";
@@ -52,6 +58,26 @@ public class ChallengeResults extends Fragment {
 
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_challenge_results, container, false);
+    }
+
+    /**
+     * Method implemented to change background color programmatically via color picket.
+     *
+     * @param view object
+     * @param savedInstanceState object
+     */
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // Change the background color to what was selected in color picker.
+        // Note: Change color by using findViewById and ID of the UI element you wish to change.
+        RelativeLayout thisLayout = Objects.requireNonNull(getView()).findViewById(R.id.fragment_challenge_results_root_layout);
+        thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.COLOR_ARGB, Color.YELLOW));
+
+        int value = mPreferences.getInt(ColorPicker.COLOR_ARGB, Color.BLACK);
+
+        Log.e(LOG_TAG,"Value of color is: " + value);
     }
 
     /**

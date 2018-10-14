@@ -2,6 +2,7 @@ package pilot.cs262.calvin.edu.knightrank;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 public class ActivitySelection extends AppCompatActivity {
 
@@ -57,6 +60,15 @@ public class ActivitySelection extends AppCompatActivity {
         // Placeholder code as example of how to restore values to UI components from shared preferences.
         //username_main.setText(mPreferences.getString(USER_NAME, ""));
         //password_main.setText(mPreferences.getString(USER_PASSWORD, ""));
+
+        // Change the background color to what was selected in color picker.
+        // Note: Change color by using findViewById and ID of the UI element you wish to change.
+        RelativeLayout thisLayout = findViewById(R.id.activity_selection_root_layout);
+        thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.COLOR_ARGB, Color.YELLOW));
+
+        int value = mPreferences.getInt(ColorPicker.COLOR_ARGB, Color.BLACK);
+
+        Log.e(LOG_TAG,"Value of color is: " + value);
     }
 
     /**
@@ -83,8 +95,12 @@ public class ActivitySelection extends AppCompatActivity {
         // The action bar home/up action should open or close the drawer.
         switch (item.getItemId()) {
             case R.id.settings:
-                Intent intent = new Intent(this, SettingsActivity.class);
-                startActivity(intent);
+                Intent intent1 = new Intent(this, SettingsActivity.class);
+                startActivity(intent1);
+                return true;
+            case R.id.color_picker:
+                Intent intent2 = new Intent(this, ColorPicker.class);
+                startActivity(intent2);
                 return true;
             default:
                 // Do nothing

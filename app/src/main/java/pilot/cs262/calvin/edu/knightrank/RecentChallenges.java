@@ -2,14 +2,19 @@ package pilot.cs262.calvin.edu.knightrank;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import java.util.Objects;
 
@@ -27,6 +32,10 @@ public class RecentChallenges extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    //Class variables.
+    private static final String LOG_TAG =
+            RecentChallenges.class.getSimpleName();
 
     // For use with shared preferences.
     private static String PLACEHOLDER4 = "";
@@ -94,6 +103,26 @@ public class RecentChallenges extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_recent_challenges, container, false);
+    }
+
+    /**
+     * Method implemented to change background color programmatically via color picket.
+     *
+     * @param view object
+     * @param savedInstanceState object
+     */
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // Change the background color to what was selected in color picker.
+        // Note: Change color by using findViewById and ID of the UI element you wish to change.
+        RelativeLayout thisLayout = Objects.requireNonNull(getView()).findViewById(R.id.fragment_recent_challenges_root_layout);
+        thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.COLOR_ARGB, Color.YELLOW));
+
+        int value = mPreferences.getInt(ColorPicker.COLOR_ARGB, Color.BLACK);
+
+        Log.e(LOG_TAG,"Value of color is: " + value);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

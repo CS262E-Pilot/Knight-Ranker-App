@@ -3,6 +3,7 @@ package pilot.cs262.calvin.edu.knightrank;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.view.GravityCompat;
@@ -13,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -60,6 +62,15 @@ public class MainActivity extends AppCompatActivity {
         // Restores user name and user password from saved preferences file.
         username_main.setText(mPreferences.getString(USER_NAME, "My user name"));
         password_main.setText(mPreferences.getString(USER_PASSWORD, "My user password"));
+
+        // Change the background color to what was selected in color picker.
+        // Note: Change color by using findViewById and ID of the UI element you wish to change.
+        RelativeLayout thisLayout = findViewById(R.id.activity_main_root_layout);
+        thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.COLOR_ARGB, Color.YELLOW));
+
+        int value = mPreferences.getInt(ColorPicker.COLOR_ARGB, Color.BLACK);
+
+        Log.e(LOG_TAG,"Value of color is: " + value);
     }
 
     /**
@@ -156,8 +167,12 @@ public class MainActivity extends AppCompatActivity {
         // The action bar home/up action should open or close the drawer.
         switch (item.getItemId()) {
             case R.id.settings:
-                Intent intent = new Intent(this, SettingsActivity.class);
-                startActivity(intent);
+                Intent intent1 = new Intent(this, SettingsActivity.class);
+                startActivity(intent1);
+                return true;
+            case R.id.color_picker:
+                Intent intent2 = new Intent(this, ColorPicker.class);
+                startActivity(intent2);
                 return true;
             default:
                 // Do nothing

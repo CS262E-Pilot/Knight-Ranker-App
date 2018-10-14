@@ -10,13 +10,13 @@
 
     <application
         android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
-        tools:ignore="GoogleAppIndexingWarning"
-        android:fullBackupContent="@xml/backup_descriptor">
+        tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".MainActivity"
             android:label="Main Activity" />
@@ -48,6 +48,12 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="pilot.cs262.calvin.edu.knightrank.MainActivity" />
+        </activity>
+        <activity
+            android:name=".ColorPicker"
+            android:label="Color Picker"
+            android:parentActivityName=".ActivityRankings">
+
         </activity>
     </application>
 
