@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,21 +12,24 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link RecentChallenges.OnFragmentInteractionListener} interface
+ * {@link UpcomingChallenges.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link RecentChallenges#newInstance} factory method to
+ * Use the {@link UpcomingChallenges#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RecentChallenges extends Fragment {
+public class UpcomingChallenges extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -35,7 +37,7 @@ public class RecentChallenges extends Fragment {
 
     //Class variables.
     private static final String LOG_TAG =
-            RecentChallenges.class.getSimpleName();
+            UpcomingChallenges.class.getSimpleName();
 
     // For use with shared preferences.
     private static String PLACEHOLDER4 = "";
@@ -48,6 +50,7 @@ public class RecentChallenges extends Fragment {
     // Name of the custom shared preferences file.
     private static final String sharedPrefFile = "pilot.cs262.calvin.edu.knightrank";
 
+    private ListView mRecentChallenges;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -55,7 +58,7 @@ public class RecentChallenges extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public RecentChallenges() {
+    public UpcomingChallenges() {
         // Required empty public constructor
     }
 
@@ -65,11 +68,11 @@ public class RecentChallenges extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment RecentChallenges.
+     * @return A new instance of fragment UpcomingChallenges.
      */
     // TODO: Rename and change types and number of parameters
-    public static RecentChallenges newInstance(String param1, String param2) {
-        RecentChallenges fragment = new RecentChallenges();
+    public static UpcomingChallenges newInstance(String param1, String param2) {
+        UpcomingChallenges fragment = new UpcomingChallenges();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -102,7 +105,7 @@ public class RecentChallenges extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_recent_challenges, container, false);
+        return inflater.inflate(R.layout.fragment_upcoming_challenges, container, false);
     }
 
     /**
@@ -121,6 +124,20 @@ public class RecentChallenges extends Fragment {
         thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.COLOR_ARGB, Color.YELLOW));
 
         int value = mPreferences.getInt(ColorPicker.COLOR_ARGB, Color.BLACK);
+
+        mRecentChallenges = (ListView) getView().findViewById(R.id.recent_challenges_listview);
+        List<String> recent_challenges_arraylist = new ArrayList<String>();
+        /*
+        Theoretical entries, as we don't have a backend #FIXME
+        */
+        recent_challenges_arraylist.add("Samantha vs. Tommy, Street Fighter V");
+        recent_challenges_arraylist.add("Adrien vs. John, Chess");
+        recent_challenges_arraylist.add("Jeluba vs. Jesse, Super Mario Strikers");
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                getActivity(),
+                android.R.layout.simple_list_item_1,
+                recent_challenges_arraylist);
+        mRecentChallenges.setAdapter(arrayAdapter);
 
         Log.e(LOG_TAG,"Value of color is: " + value);
     }

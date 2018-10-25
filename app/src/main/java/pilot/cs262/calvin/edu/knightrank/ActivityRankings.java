@@ -23,7 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class ActivityRankings extends AppCompatActivity
-        implements NewChallenges.OnFragmentInteractionListener, RecentChallenges.OnFragmentInteractionListener {
+        implements NewChallenges.OnFragmentInteractionListener, UpcomingChallenges.OnFragmentInteractionListener {
 
     //Class variables.
     private static final String LOG_TAG =
@@ -196,6 +196,7 @@ public class ActivityRankings extends AppCompatActivity
 
         // To handle selection of menu items.
         switch (menuItem.getItemId()) {
+            /*
             case R.id.nav_main_activity:
                 fragmentClass = MainActivity.class;
                 Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
@@ -203,6 +204,7 @@ public class ActivityRankings extends AppCompatActivity
                 Log.e(LOG_TAG, "Selected the main activity!");
                 Toast.makeText(getApplicationContext(), "Selected", Toast.LENGTH_SHORT).show();
                 return true;
+                */
             //break;
             case R.id.nav_activity_selection:
                 fragmentClass = ActivitySelection.class;
@@ -217,11 +219,11 @@ public class ActivityRankings extends AppCompatActivity
                 Log.e(LOG_TAG, "Selected the new challenges fragment!");
                 break;
             case R.id.nav_recent_challenges:
-                fragmentClass = RecentChallenges.class;
+                fragmentClass = UpcomingChallenges.class;
                 Log.e(LOG_TAG, "Selected the recent challenges fragment!");
                 break;
             case R.id.nav_my_rankings:
-                fragmentClass = MyRankings.class;
+                fragmentClass = MyStats.class;
                 Log.e(LOG_TAG, "Selected the my rankings fragment!");
                 break;
             case R.id.nav_challenge_results:

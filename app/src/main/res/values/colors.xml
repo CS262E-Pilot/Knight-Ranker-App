@@ -6,4 +6,5 @@
     <color name="colorBackground">#f7f7f7</color>
     <color name="colorAuxiliary">#8c2133</color>
     <color name="colorHighLight">#fec52e</color>
+    <color name="golden_yellow">#FFDF00</color>
 </resources>

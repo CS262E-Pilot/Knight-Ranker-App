@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_new_challenges_root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    tools:context=".NewChallenges">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <!--
+    <TextView
+        android:id="@+id/new_challenge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="11dp"
+        android:text="@string/title_new_challenge"
+        android:textColor="@color/colorAuxiliary"
+        android:textSize="36sp" />
+        -->
+
+    <TextView
+        android:id="@+id/activity_of_challenge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:layout_marginStart="5dp"
+        android:text="@string/activity_of_challenge"
+        android:textSize="25sp"
+        android:textColor="@color/colorAuxiliary"/>
+
+        <!--
+        android:layout_below="@+id/new_challenge"
+        -->
+
+    <EditText
+        android:id="@+id/activity_of_challenge_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_below="@+id/activity_of_challenge"
+        android:textSize="18sp"
+        android:inputType="textPersonName"/>
+
+    <TextView
+        android:id="@+id/team_challenged"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_below="@+id/activity_of_challenge_edittext"
+        android:text="@string/team_challenged"
+        android:textSize="25sp"
+        android:textColor="@color/colorAuxiliary"/>
+
+    <EditText
+        android:id="@+id/team_challenged_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_below="@+id/team_challenged"
+        android:textSize="18sp"
+        android:inputType="textPersonName"/>
+
+    <TextView
+        android:id="@+id/location_of_challenge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_below="@+id/team_challenged_edittext"
+        android:text="@string/location_of_challenge"
+        android:textSize="25sp"
+        android:textColor="@color/colorAuxiliary"/>
+
+    <EditText
+        android:id="@+id/location_of_challenge_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_below="@+id/location_of_challenge"
+        android:textSize="18sp"
+        android:inputType="textPersonName"/>
+
+
+    <TextView
+        android:id="@+id/date_of_challenge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_below="@+id/location_of_challenge_edittext"
+        android:text="@string/date_of_challenge"
+        android:textSize="25sp"
+        android:textColor="@color/colorAuxiliary"/>
+
+    <EditText
+        android:id="@+id/date_of_challenge_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_below="@+id/date_of_challenge"
+        android:textSize="18sp"
+        android:inputType="textPersonName"/>
+
+
+
+    <Button
+        android:id="@+id/button_challenge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:text="@string/challenge" />
+</RelativeLayout>

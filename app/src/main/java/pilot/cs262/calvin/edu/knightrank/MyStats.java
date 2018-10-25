@@ -3,7 +3,6 @@ package pilot.cs262.calvin.edu.knightrank;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,15 +11,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-public class MyRankings extends Fragment {
+public class MyStats extends Fragment {
 
     //Class variables.
     private static final String LOG_TAG =
-            MyRankings.class.getSimpleName();
+            MyStats.class.getSimpleName();
 
     // For use with shared preferences.
     private static String PLACEHOLDER6 = "";
@@ -32,6 +38,10 @@ public class MyRankings extends Fragment {
 
     // Name of the custom shared preferences file.
     private static final String sharedPrefFile = "pilot.cs262.calvin.edu.knightrank";
+
+    private TextView winStat;
+    private TextView lossStat;
+    private ListView mUpcomingMatchesList;
 
 
     @Override
@@ -57,7 +67,7 @@ public class MyRankings extends Fragment {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_rankings, container, false);
+        return inflater.inflate(R.layout.fragment_my_stats, container, false);
     }
 
     /**
@@ -76,6 +86,25 @@ public class MyRankings extends Fragment {
         thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.COLOR_ARGB, Color.YELLOW));
 
         int value = mPreferences.getInt(ColorPicker.COLOR_ARGB, Color.BLACK);
+
+        lossStat = (TextView) getView().findViewById(R.id.loss_stat_textview);
+        winStat = (TextView) getView().findViewById(R.id.win_stat_textview);
+        mUpcomingMatchesList = (ListView) getView().findViewById(R.id.my_stats_upcoming_matches_listview);
+
+        List<String> upcomingMatchesArrayList = new ArrayList<String>();
+
+        upcomingMatchesArrayList.add("vs. Tom, Injustice 2");
+        upcomingMatchesArrayList.add("vs. Jerry, Mortal Kombat X");
+        upcomingMatchesArrayList.add("vs. Bill, Super Smash Bros Melee");
+        upcomingMatchesArrayList.add("vs. Ted, Soulcaliber V");
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                getActivity(),
+                android.R.layout.simple_list_item_1,
+                upcomingMatchesArrayList);
+
+
+        mUpcomingMatchesList.setAdapter(arrayAdapter);
 
         Log.e(LOG_TAG,"Value of color is: " + value);
     }
