@@ -1,29 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
+        <!--
         <item
             android:id="@+id/nav_main_activity"
             android:icon="@drawable/ic_android_black_24dp"
             android:title="Main Activity" />
+            -->
         <item
             android:id="@+id/nav_activity_selection"
             android:icon="@drawable/ic_android_black_24dp"
-            android:title="Activity Selection" />
+            android:title="@string/title_view_rankings" />
         <item
             android:id="@+id/nav_new_challenges"
             android:icon="@drawable/ic_android_black_24dp"
-            android:title="New Challenges" />
+            android:title="@string/title_new_challenge" />
         <item
             android:id="@+id/nav_recent_challenges"
             android:icon="@drawable/ic_android_black_24dp"
-            android:title="Recent Challenges" />
-        <item
-            android:id="@+id/nav_my_rankings"
-            android:icon="@drawable/ic_android_black_24dp"
-            android:title="My Rankings" />
+            android:title="@string/title_upcoming_challenges" />
         <item
             android:id="@+id/nav_challenge_results"
             android:icon="@drawable/ic_android_black_24dp"
-            android:title="Challenge Results" />
+            android:title="@string/title_challenge_results" />
+        <item
+            android:id="@+id/nav_my_rankings"
+            android:icon="@drawable/ic_android_black_24dp"
+            android:title="@string/title_my_stats" />
+
     </group>
 </menu>

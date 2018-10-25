@@ -12,8 +12,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class ChallengeResults extends Fragment {
@@ -32,6 +36,8 @@ public class ChallengeResults extends Fragment {
 
     // Name of the custom shared preferences file.
     private static final String sharedPrefFile = "pilot.cs262.calvin.edu.knightrank";
+
+    private ListView mChallengeResults;
 
 
     @Override
@@ -56,6 +62,7 @@ public class ChallengeResults extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_challenge_results, container, false);
     }
@@ -74,6 +81,21 @@ public class ChallengeResults extends Fragment {
         // Note: Change color by using findViewById and ID of the UI element you wish to change.
         RelativeLayout thisLayout = Objects.requireNonNull(getView()).findViewById(R.id.fragment_challenge_results_root_layout);
         thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.COLOR_ARGB, Color.YELLOW));
+
+
+        mChallengeResults = (ListView) getView().findViewById(R.id.challenge_results_listview);
+        List<String> challenge_results_arraylist = new ArrayList<String>();
+        /*
+        Theoretical entries, as we don't have a backend #FIXME
+        */
+        challenge_results_arraylist.add("Bob vs. Tommy, Smash 4: 3-0");
+        challenge_results_arraylist.add("Jimbo vs. Samantha, Tekken 7: 1-3");
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                getActivity(),
+                android.R.layout.simple_list_item_1,
+                challenge_results_arraylist);
+        mChallengeResults.setAdapter(arrayAdapter);
+
 
         int value = mPreferences.getInt(ColorPicker.COLOR_ARGB, Color.BLACK);
 

@@ -2,8 +2,9 @@
     <string name="app_name">Prototype</string>
     <string name="title_activity_team_rankings">Team Rankings</string>
     <string name="title_activity_selection">Activity Selection</string>
-    <string name="title_my_rankings">My Rankings</string>
-    <string name="title_challenge">Challenge Results</string>
+    <string name="title_my_stats">My Stats</string>
+    <string name="title_challenge_results">Challenge Results</string>
+    <string name="title_new_challenge">Issue New Challenge</string>
     <string name="splash">splash</string>
     <string name="click_me">Click Me</string>
     <string name="title_screen">Knight Ranker</string>
@@ -86,14 +87,14 @@
     <string name="create_new_account">Create new account</string>
     <string name="username">Username:</string>
     <string name="password">Password:</string>
-    <string name="losses">Losses</string>
-    <string name="wins">Wins</string>
-    <string name="location_of_challenge">Location of Challenge:</string>
-    <string name="activity_of_challenge">Activity of Challenge:</string>
-    <string name="new_challenge">New Challenge</string>
-    <string name="date_of_challenge">Date of Challenge:</string>
-    <string name="team_challenged">Team Challenged:</string>
-    <string name="challenge">Challenge</string>
+    <string name="losses">Losses: </string>
+    <string name="wins">Wins: </string>
+    <string name="location_of_challenge">Location:</string>
+    <string name="activity_of_challenge">Activity:</string>
+
+    <string name="date_of_challenge">Date:</string>
+    <string name="team_challenged">Team:</string>
+    <string name="challenge">Issue Challenge</string>
     <string name="title_activity_settings">Settings</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -172,4 +173,7 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="color_picker">Color picker</string>
+    <string name="title_upcoming_challenges">Upcoming Challenges</string>
+    <string name="title_view_rankings">View Rankings</string>
+    <string name="my_upcoming_matches">My Upcoming Matches</string>
 </resources>
