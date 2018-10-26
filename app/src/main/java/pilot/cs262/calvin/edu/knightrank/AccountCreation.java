@@ -3,6 +3,7 @@ package pilot.cs262.calvin.edu.knightrank;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -76,9 +77,14 @@ public class AccountCreation extends AppCompatActivity {
         // Change the background color to what was selected in color picker.
         // Note: Change color by using findViewById and ID of the UI element you wish to change.
         RelativeLayout thisLayout = findViewById(R.id.activity_account_root_layout);
-        thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.COLOR_ARGB, Color.YELLOW));
+        thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.YELLOW));
 
-        int value = mPreferences.getInt(ColorPicker.COLOR_ARGB, Color.BLACK);
+        int value = mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.BLACK);
+
+        int toolbarColor = mPreferences.getInt(ColorPicker.APP_TOOLBAR_COLOR_ARGB, Color.YELLOW);
+
+        // Change the toolbar color to what was selected in color picker.
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(toolbarColor));
 
         Log.e(LOG_TAG,"Value of color is: " + value);
     }

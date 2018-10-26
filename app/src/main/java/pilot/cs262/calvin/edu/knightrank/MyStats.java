@@ -83,9 +83,9 @@ public class MyStats extends Fragment {
         // Change the background color to what was selected in color picker.
         // Note: Change color by using findViewById and ID of the UI element you wish to change.
         RelativeLayout thisLayout = Objects.requireNonNull(getView()).findViewById(R.id.fragment_my_rankings_root_layout);
-        thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.COLOR_ARGB, Color.YELLOW));
+        thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.YELLOW));
 
-        int value = mPreferences.getInt(ColorPicker.COLOR_ARGB, Color.BLACK);
+        int value = mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.BLACK);
 
         lossStat = (TextView) getView().findViewById(R.id.loss_stat_textview);
         winStat = (TextView) getView().findViewById(R.id.win_stat_textview);

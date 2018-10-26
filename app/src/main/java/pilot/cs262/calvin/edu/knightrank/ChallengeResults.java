@@ -80,7 +80,7 @@ public class ChallengeResults extends Fragment {
         // Change the background color to what was selected in color picker.
         // Note: Change color by using findViewById and ID of the UI element you wish to change.
         RelativeLayout thisLayout = Objects.requireNonNull(getView()).findViewById(R.id.fragment_challenge_results_root_layout);
-        thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.COLOR_ARGB, Color.YELLOW));
+        thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.YELLOW));
 
 
         mChallengeResults = (ListView) getView().findViewById(R.id.challenge_results_listview);
@@ -97,7 +97,7 @@ public class ChallengeResults extends Fragment {
         mChallengeResults.setAdapter(arrayAdapter);
 
 
-        int value = mPreferences.getInt(ColorPicker.COLOR_ARGB, Color.BLACK);
+        int value = mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.BLACK);
 
         Log.e(LOG_TAG,"Value of color is: " + value);
     }
