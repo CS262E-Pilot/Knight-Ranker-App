@@ -137,6 +137,13 @@
                 android:orientation="vertical">
 
                 <Button
+                    android:id="@+id/button2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="changeAppToolBarColor"
+                    android:text="App toolbar color" />
+
+                <Button
                     android:id="@+id/button13"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

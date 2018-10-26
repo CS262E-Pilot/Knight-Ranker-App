@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.view.GravityCompat;
@@ -17,6 +18,8 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -66,9 +69,14 @@ public class MainActivity extends AppCompatActivity {
         // Change the background color to what was selected in color picker.
         // Note: Change color by using findViewById and ID of the UI element you wish to change.
         RelativeLayout thisLayout = findViewById(R.id.activity_main_root_layout);
-        thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.COLOR_ARGB, Color.YELLOW));
+        thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.YELLOW));
 
-        int value = mPreferences.getInt(ColorPicker.COLOR_ARGB, Color.BLACK);
+        int value = mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.BLACK);
+
+        int toolbarColor = mPreferences.getInt(ColorPicker.APP_TOOLBAR_COLOR_ARGB, Color.YELLOW);
+
+        // Change the toolbar color to what was selected in color picker.
+        Objects.requireNonNull(getSupportActionBar()).setBackgroundDrawable(new ColorDrawable(toolbarColor));
 
         Log.e(LOG_TAG,"Value of color is: " + value);
     }

@@ -121,9 +121,9 @@ public class UpcomingChallenges extends Fragment {
         // Change the background color to what was selected in color picker.
         // Note: Change color by using findViewById and ID of the UI element you wish to change.
         RelativeLayout thisLayout = Objects.requireNonNull(getView()).findViewById(R.id.fragment_recent_challenges_root_layout);
-        thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.COLOR_ARGB, Color.YELLOW));
+        thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.YELLOW));
 
-        int value = mPreferences.getInt(ColorPicker.COLOR_ARGB, Color.BLACK);
+        int value = mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.BLACK);
 
         mRecentChallenges = (ListView) getView().findViewById(R.id.recent_challenges_listview);
         List<String> recent_challenges_arraylist = new ArrayList<String>();

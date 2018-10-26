@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -73,9 +74,14 @@ public class ActivitySelection extends AppCompatActivity {
         // Change the background color to what was selected in color picker.
         // Note: Change color by using findViewById and ID of the UI element you wish to change.
         RelativeLayout thisLayout = findViewById(R.id.activity_selection_root_layout);
-        thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.COLOR_ARGB, Color.YELLOW));
+        thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.YELLOW));
 
-        int value = mPreferences.getInt(ColorPicker.COLOR_ARGB, Color.BLACK);
+        int value = mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.BLACK);
+
+        int toolbarColor = mPreferences.getInt(ColorPicker.APP_TOOLBAR_COLOR_ARGB, Color.YELLOW);
+
+        // Change the toolbar color to what was selected in color picker.
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(toolbarColor));
 
         mActivitiesListView = (ListView) findViewById(R.id.activity_selection_listview);
 

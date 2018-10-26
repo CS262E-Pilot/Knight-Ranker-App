@@ -38,14 +38,15 @@ public class ColorPicker extends AppCompatActivity implements SeekBar.OnSeekBarC
     private SeekBar SeekB;
 
     // Store the current color.
-    private int[] myColor = {Color.BLACK};
+    private int[] myColor = {Color.BLACK, Color.BLACK};
 
     //Reference the TextView
     private TextView ShowColor;
 
     // For use with shared preferences.
     // Note: Don't make private so we can access the key's name in other classes.
-    static final String COLOR_ARGB = "ARGB color";
+    static final String APP_BACKGROUND_COLOR_ARGB = "App background ARGB color";
+    static final String APP_TOOLBAR_COLOR_ARGB = "App toolbar ARGB color";
 
     private DrawerLayout mDrawerLayout;
 
@@ -187,6 +188,7 @@ public class ColorPicker extends AppCompatActivity implements SeekBar.OnSeekBarC
 
         // Store color object in int array.
         myColor[0] = Color.argb(avalue, rvalue, gvalue, bvalue);
+        myColor[1] = Color.argb(avalue, rvalue, gvalue, bvalue);
 
         //show the color value
         ShowColor.setText("0x" + String.format("%02x", avalue) + String.format("%02x", rvalue)
@@ -227,15 +229,37 @@ public class ColorPicker extends AppCompatActivity implements SeekBar.OnSeekBarC
 
         SharedPreferences.Editor preferencesEditor3 = mPreferences.edit();
 
-        preferencesEditor3.putInt(COLOR_ARGB, myColor[0]);
+        preferencesEditor3.putInt(APP_BACKGROUND_COLOR_ARGB, myColor[0]);
 
         preferencesEditor3.apply();
 
-        int value = mPreferences.getInt(COLOR_ARGB, Color.WHITE);
+        int colorValue1 = mPreferences.getInt(APP_BACKGROUND_COLOR_ARGB, Color.WHITE);
 
         // Debug purposes
-        Log.e(LOG_TAG, "value of color key is: " + value);
+        Log.e(LOG_TAG, "value of color key is: " + colorValue1);
         Log.e(LOG_TAG, "value of color array is: " + myColor[0]);
+    }
+
+    /**
+     * Button click method to change app toolbar color.
+     *
+     * Note: This is a test.  Will find a better way to do this later on.
+     *
+     * @param view object
+     */
+    public void changeAppToolBarColor(View view) {
+
+        SharedPreferences.Editor preferencesEditor4 = mPreferences.edit();
+
+        preferencesEditor4.putInt(APP_TOOLBAR_COLOR_ARGB, myColor[1]);
+
+        preferencesEditor4.apply();
+
+        int colorValue2 = mPreferences.getInt(APP_TOOLBAR_COLOR_ARGB, Color.WHITE);
+
+        // Debug purposes
+        Log.e(LOG_TAG, "value of color key is: " + colorValue2);
+        Log.e(LOG_TAG, "value of color array is: " + myColor[1]);
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////
