@@ -19,8 +19,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ActivityRankings extends AppCompatActivity
         implements NewChallenges.OnFragmentInteractionListener, UpcomingChallenges.OnFragmentInteractionListener {
@@ -42,10 +49,34 @@ public class ActivityRankings extends AppCompatActivity
     // Name of the custom shared preferences file.
     private static final String sharedPrefFile = "pilot.cs262.calvin.edu.knightrank";
 
+    private TextView mActivityName;
+    private ListView mActivityRankings;
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rankings);
+
+
+        mActivityName = (TextView) findViewById(R.id.activity_name);
+        mActivityName.setText(getIntent().getStringExtra("activityName"));
+
+        mActivityRankings = (ListView) findViewById(R.id.activity_rankings_listview);
+
+        List<String> mActivityRankingsArrayList = new ArrayList<String>();
+
+        /*TODO: Implement creation of rankings based on database backend*/
+        mActivityRankingsArrayList.add("1. mrsillydog");
+
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_list_item_1,
+                mActivityRankingsArrayList);
+
+
+        mActivityRankings.setAdapter(arrayAdapter);
+
+
 
         // my_child_toolbar is defined in the layout file
         Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -91,6 +122,7 @@ public class ActivityRankings extends AppCompatActivity
         thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.COLOR_ARGB, Color.YELLOW));
 
         int value = mPreferences.getInt(ColorPicker.COLOR_ARGB, Color.BLACK);
+
 
         Log.e(LOG_TAG,"Value of color is: " + value);
     }

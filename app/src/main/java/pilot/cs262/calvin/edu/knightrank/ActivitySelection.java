@@ -1,5 +1,6 @@
 package pilot.cs262.calvin.edu.knightrank;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -12,8 +13,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ActivitySelection extends AppCompatActivity {
 
@@ -31,6 +38,8 @@ public class ActivitySelection extends AppCompatActivity {
 
     // Name of the custom shared preferences file.
     private static final String sharedPrefFile = "pilot.cs262.calvin.edu.knightrank";
+
+    private ListView mActivitiesListView;
 
 
     @Override
@@ -67,6 +76,42 @@ public class ActivitySelection extends AppCompatActivity {
         thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.COLOR_ARGB, Color.YELLOW));
 
         int value = mPreferences.getInt(ColorPicker.COLOR_ARGB, Color.BLACK);
+
+        mActivitiesListView = (ListView) findViewById(R.id.activity_selection_listview);
+
+        List<String> myActivitiesArrayList = new ArrayList<String>();
+
+        myActivitiesArrayList.add("Super Smash Bros. Melee");
+        myActivitiesArrayList.add("Chess");
+        myActivitiesArrayList.add("Tekken 7");
+        myActivitiesArrayList.add("Tennis");
+        myActivitiesArrayList.add("Super Smash Bros. 4");
+        myActivitiesArrayList.add("Street Fighter V");
+        myActivitiesArrayList.add("Injustice 2");
+        myActivitiesArrayList.add("FIFA");
+        myActivitiesArrayList.add("Frisbee Golf");
+        myActivitiesArrayList.add("Golf");
+        myActivitiesArrayList.add("World of Warcraft Arena");
+
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                this,
+                android.R.layout.simple_list_item_1,
+                myActivitiesArrayList);
+
+
+        mActivitiesListView.setAdapter(arrayAdapter);
+
+        mActivitiesListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String item = arrayAdapter.getItem(position);
+
+                Intent intent = new Intent(ActivitySelection.this, ActivityRankings.class);
+                //based on item add info to intent
+                intent.putExtra("activityName", item);
+                startActivity(intent);
+            }
+        });
 
         Log.e(LOG_TAG,"Value of color is: " + value);
     }

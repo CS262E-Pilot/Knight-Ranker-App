@@ -81,6 +81,7 @@ public class Login extends AppCompatActivity {
 
     public void startMainActivity(View view) {
         Intent intent = new Intent(this, ActivityRankings.class);
+        intent.putExtra("activityName", "All Activities");
         startActivity(intent);
     }
 
