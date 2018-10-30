@@ -79,15 +79,14 @@ public class Login extends AppCompatActivity {
         }
     }
 
-    public void startMainActivity(View view) {
-        Intent intent = new Intent(this, ActivityRankings.class);
-        intent.putExtra("activityName", "All Activities");
+    public void startNextActivity(View view) {
+        Intent intent = new Intent(this, SportSelection.class);
         startActivity(intent);
     }
 
     private void updateUI(GoogleSignInAccount account) {
         if (account != null) {
-            startMainActivity(null);
+            startNextActivity(null);
         }
     }
 
