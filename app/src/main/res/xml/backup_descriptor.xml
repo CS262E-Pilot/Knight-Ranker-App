@@ -4,5 +4,5 @@
     <!-- Exclude the shared preferences file that contains the GCM registrationId -->
     <exclude
         domain="sharedpref"
-        path="pilot.cs262.calvin.edu.knightrank.xml" />
+        path="edu.calvin.cs262.pilot.knightrank.xml" />
 </full-backup-content>

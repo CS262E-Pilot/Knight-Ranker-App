@@ -1,8 +1,9 @@
-package pilot.cs262.calvin.edu.knightrank;
+package edu.calvin.cs262.pilot.knightrank;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,22 +15,19 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class MyStats extends Fragment {
+public class ChallengeResults extends Fragment {
 
     //Class variables.
     private static final String LOG_TAG =
-            MyStats.class.getSimpleName();
+            ChallengeResults.class.getSimpleName();
 
     // For use with shared preferences.
-    private static String PLACEHOLDER6 = "";
+    private static String PLACEHOLDER2 = "";
 
     // Share preferences file (custom)
     private SharedPreferences mPreferences;
@@ -39,9 +37,7 @@ public class MyStats extends Fragment {
     // Name of the custom shared preferences file.
     private static final String sharedPrefFile = "pilot.cs262.calvin.edu.knightrank";
 
-    private TextView winStat;
-    private TextView lossStat;
-    private ListView mUpcomingMatchesList;
+    private ListView mChallengeResults;
 
 
     @Override
@@ -66,8 +62,9 @@ public class MyStats extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_stats, container, false);
+        return inflater.inflate(R.layout.fragment_challenge_results, container, false);
     }
 
     /**
@@ -82,29 +79,25 @@ public class MyStats extends Fragment {
 
         // Change the background color to what was selected in color picker.
         // Note: Change color by using findViewById and ID of the UI element you wish to change.
-        RelativeLayout thisLayout = Objects.requireNonNull(getView()).findViewById(R.id.fragment_my_rankings_root_layout);
+        RelativeLayout thisLayout = Objects.requireNonNull(getView()).findViewById(R.id.fragment_challenge_results_root_layout);
         thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.YELLOW));
 
-        int value = mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.BLACK);
 
-        lossStat = (TextView) getView().findViewById(R.id.loss_stat_textview);
-        winStat = (TextView) getView().findViewById(R.id.win_stat_textview);
-        mUpcomingMatchesList = (ListView) getView().findViewById(R.id.my_stats_upcoming_matches_listview);
-
-        List<String> upcomingMatchesArrayList = new ArrayList<String>();
-
-        upcomingMatchesArrayList.add("vs. Tom, Injustice 2");
-        upcomingMatchesArrayList.add("vs. Jerry, Mortal Kombat X");
-        upcomingMatchesArrayList.add("vs. Bill, Super Smash Bros Melee");
-        upcomingMatchesArrayList.add("vs. Ted, Soulcaliber V");
-
+        mChallengeResults = (ListView) getView().findViewById(R.id.challenge_results_listview);
+        List<String> challenge_results_arraylist = new ArrayList<String>();
+        /*
+        Theoretical entries, as we don't have a backend #FIXME
+        */
+        challenge_results_arraylist.add("Bob vs. Tommy, Smash 4: 3-0");
+        challenge_results_arraylist.add("Jimbo vs. Samantha, Tekken 7: 1-3");
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                 getActivity(),
                 android.R.layout.simple_list_item_1,
-                upcomingMatchesArrayList);
+                challenge_results_arraylist);
+        mChallengeResults.setAdapter(arrayAdapter);
 
 
-        mUpcomingMatchesList.setAdapter(arrayAdapter);
+        int value = mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.BLACK);
 
         Log.e(LOG_TAG,"Value of color is: " + value);
     }
@@ -116,10 +109,10 @@ public class MyStats extends Fragment {
     public void onPause() {
         super.onPause();
 
-        SharedPreferences.Editor preferencesEditor8 = mPreferences.edit();
+        SharedPreferences.Editor preferencesEditor4 = mPreferences.edit();
 
-        preferencesEditor8.putString(PLACEHOLDER6, "Placeholder text 6");
+        preferencesEditor4.putString(PLACEHOLDER2, "Placeholder text 2");
 
-        preferencesEditor8.apply();
+        preferencesEditor4.apply();
     }
 }
