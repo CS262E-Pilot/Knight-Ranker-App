@@ -1,4 +1,4 @@
-package pilot.cs262.calvin.edu.knightrank;
+package edu.calvin.cs262.pilot.knightrank;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

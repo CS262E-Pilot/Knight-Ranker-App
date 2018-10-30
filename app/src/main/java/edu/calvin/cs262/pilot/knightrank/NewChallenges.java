@@ -1,4 +1,4 @@
-package pilot.cs262.calvin.edu.knightrank;
+package edu.calvin.cs262.pilot.knightrank;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -12,24 +12,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link UpcomingChallenges.OnFragmentInteractionListener} interface
+ * {@link NewChallenges.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link UpcomingChallenges#newInstance} factory method to
+ * Use the {@link NewChallenges#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class UpcomingChallenges extends Fragment {
+public class NewChallenges extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -37,10 +33,10 @@ public class UpcomingChallenges extends Fragment {
 
     //Class variables.
     private static final String LOG_TAG =
-            UpcomingChallenges.class.getSimpleName();
+            NewChallenges.class.getSimpleName();
 
     // For use with shared preferences.
-    private static String PLACEHOLDER4 = "";
+    private static final String PLACEHOLDER3 = "";
 
     // Share preferences file (custom)
     private SharedPreferences mPreferences;
@@ -50,7 +46,6 @@ public class UpcomingChallenges extends Fragment {
     // Name of the custom shared preferences file.
     private static final String sharedPrefFile = "pilot.cs262.calvin.edu.knightrank";
 
-    private ListView mRecentChallenges;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -58,7 +53,7 @@ public class UpcomingChallenges extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public UpcomingChallenges() {
+    public NewChallenges() {
         // Required empty public constructor
     }
 
@@ -68,11 +63,11 @@ public class UpcomingChallenges extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment UpcomingChallenges.
+     * @return A new instance of fragment NewChallenges.
      */
     // TODO: Rename and change types and number of parameters
-    public static UpcomingChallenges newInstance(String param1, String param2) {
-        UpcomingChallenges fragment = new UpcomingChallenges();
+    public static NewChallenges newInstance(String param1, String param2) {
+        NewChallenges fragment = new NewChallenges();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -105,7 +100,14 @@ public class UpcomingChallenges extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_upcoming_challenges, container, false);
+        return inflater.inflate(R.layout.fragment_new_challenge, container, false);
+    }
+
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
     }
 
     /**
@@ -120,33 +122,12 @@ public class UpcomingChallenges extends Fragment {
 
         // Change the background color to what was selected in color picker.
         // Note: Change color by using findViewById and ID of the UI element you wish to change.
-        RelativeLayout thisLayout = Objects.requireNonNull(getView()).findViewById(R.id.fragment_recent_challenges_root_layout);
+        RelativeLayout thisLayout = Objects.requireNonNull(getView()).findViewById(R.id.fragment_new_challenges_root_layout);
         thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.YELLOW));
 
         int value = mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.BLACK);
 
-        mRecentChallenges = (ListView) getView().findViewById(R.id.recent_challenges_listview);
-        List<String> recent_challenges_arraylist = new ArrayList<String>();
-        /*
-        Theoretical entries, as we don't have a backend #FIXME
-        */
-        recent_challenges_arraylist.add("Samantha vs. Tommy, Street Fighter V");
-        recent_challenges_arraylist.add("Adrien vs. John, Chess");
-        recent_challenges_arraylist.add("Jeluba vs. Jesse, Super Mario Strikers");
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                getActivity(),
-                android.R.layout.simple_list_item_1,
-                recent_challenges_arraylist);
-        mRecentChallenges.setAdapter(arrayAdapter);
-
         Log.e(LOG_TAG,"Value of color is: " + value);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     @Override
@@ -188,10 +169,10 @@ public class UpcomingChallenges extends Fragment {
     public void onPause() {
         super.onPause();
 
-        SharedPreferences.Editor preferencesEditor6 = mPreferences.edit();
+        SharedPreferences.Editor preferencesEditor5 = mPreferences.edit();
 
-        preferencesEditor6.putString(PLACEHOLDER4, "Placeholder text 4");
+        preferencesEditor5.putString(PLACEHOLDER3, "Placeholder text 3");
 
-        preferencesEditor6.apply();
+        preferencesEditor5.apply();
     }
 }

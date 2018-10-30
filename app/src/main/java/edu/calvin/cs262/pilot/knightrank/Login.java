@@ -1,4 +1,4 @@
-package pilot.cs262.calvin.edu.knightrank;
+package edu.calvin.cs262.pilot.knightrank;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

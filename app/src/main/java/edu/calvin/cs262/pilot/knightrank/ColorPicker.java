@@ -1,4 +1,4 @@
-package pilot.cs262.calvin.edu.knightrank;
+package edu.calvin.cs262.pilot.knightrank;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -174,13 +174,13 @@ public class ColorPicker extends AppCompatActivity implements SeekBar.OnSeekBarC
         int id = seekBar.getId();
 
         //Get the changed value
-        if (id == pilot.cs262.calvin.edu.knightrank.R.id.seekA)
+        if (id == edu.calvin.cs262.pilot.knightrank.R.id.seekA)
             avalue = progress;
-        else if (id == pilot.cs262.calvin.edu.knightrank.R.id.seekR)
+        else if (id == edu.calvin.cs262.pilot.knightrank.R.id.seekR)
             rvalue = progress;
-        else if (id == pilot.cs262.calvin.edu.knightrank.R.id.seekG)
+        else if (id == edu.calvin.cs262.pilot.knightrank.R.id.seekG)
             gvalue = progress;
-        else if (id == pilot.cs262.calvin.edu.knightrank.R.id.seekB)
+        else if (id == edu.calvin.cs262.pilot.knightrank.R.id.seekB)
             bvalue = progress;
 
         //Build and show the new color

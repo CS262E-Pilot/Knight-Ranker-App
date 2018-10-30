@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="pilot.cs262.calvin.edu.knightrank">
+    package="edu.calvin.cs262.pilot.knightrank">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -47,7 +47,7 @@
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="pilot.cs262.calvin.edu.knightrank.MainActivity" />
+                android:value="edu.calvin.cs262.pilot.knightrank.MainActivity" />
         </activity>
         <activity
             android:name=".ColorPicker"
