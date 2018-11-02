@@ -11,6 +11,7 @@
     tools:showIn="@layout/activity_sport_selection">
 
     <TextView
+        android:layout_margin="@dimen/activity_horizontal_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/select_sport_prompt"/>
