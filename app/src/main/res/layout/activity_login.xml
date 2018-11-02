@@ -18,5 +18,5 @@
         android:text="Skip and view rankings"
         android:clickable="true"
         android:focusable="true"
-        android:onClick="startMainActivity"/>
+        android:onClick="startNextActivity"/>
 </LinearLayout>

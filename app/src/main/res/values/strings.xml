@@ -176,4 +176,6 @@
     <string name="title_upcoming_challenges">Upcoming Challenges</string>
     <string name="title_view_rankings">View Rankings</string>
     <string name="my_upcoming_matches">My Upcoming Matches</string>
+    <string name="title_activity_sport_selection">SportSelection</string>
+    <string name="select_sport_prompt">Select Interests</string>
 </resources>
