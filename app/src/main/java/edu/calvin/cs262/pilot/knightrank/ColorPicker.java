@@ -32,7 +32,7 @@ public class ColorPicker extends AppCompatActivity implements SeekBar.OnSeekBarC
             ColorPicker.class.getSimpleName();
 
     //Reference the seek bars
-    private SeekBar SeekA;
+    //private SeekBar SeekA;
     private SeekBar SeekR;
     private SeekBar SeekG;
     private SeekBar SeekB;
@@ -66,7 +66,7 @@ public class ColorPicker extends AppCompatActivity implements SeekBar.OnSeekBarC
         setContentView(R.layout.activity_color_picker);
 
         //Get a reference to the seekbars
-        SeekA = findViewById(R.id.seekA);
+        //SeekA = findViewById(R.id.seekA);
         SeekR = findViewById(R.id.seekR);
         SeekG = findViewById(R.id.seekG);
         SeekB = findViewById(R.id.seekB);
@@ -75,7 +75,7 @@ public class ColorPicker extends AppCompatActivity implements SeekBar.OnSeekBarC
         ShowColor = findViewById(R.id.textView);
 
         //This activity implements SeekBar OnSeekBarChangeListener
-        SeekA.setOnSeekBarChangeListener(this);
+        //SeekA.setOnSeekBarChangeListener(this);
         SeekR.setOnSeekBarChangeListener(this);
         SeekG.setOnSeekBarChangeListener(this);
         SeekB.setOnSeekBarChangeListener(this);
@@ -165,7 +165,7 @@ public class ColorPicker extends AppCompatActivity implements SeekBar.OnSeekBarC
 
         //get current ARGB values
         // Store ARGB values.
-        int avalue = SeekA.getProgress();
+        //int avalue = SeekA.getProgress();
         int rvalue = SeekR.getProgress();
         int gvalue = SeekG.getProgress();
         int bvalue = SeekB.getProgress();
@@ -174,9 +174,9 @@ public class ColorPicker extends AppCompatActivity implements SeekBar.OnSeekBarC
         int id = seekBar.getId();
 
         //Get the changed value
-        if (id == edu.calvin.cs262.pilot.knightrank.R.id.seekA)
+        /*if (id == edu.calvin.cs262.pilot.knightrank.R.id.seekA)
             avalue = progress;
-        else if (id == edu.calvin.cs262.pilot.knightrank.R.id.seekR)
+        else */if (id == edu.calvin.cs262.pilot.knightrank.R.id.seekR)
             rvalue = progress;
         else if (id == edu.calvin.cs262.pilot.knightrank.R.id.seekG)
             gvalue = progress;
@@ -184,14 +184,14 @@ public class ColorPicker extends AppCompatActivity implements SeekBar.OnSeekBarC
             bvalue = progress;
 
         //Build and show the new color
-        ShowColor.setBackgroundColor(Color.argb(avalue, rvalue, gvalue, bvalue));
+        ShowColor.setBackgroundColor(Color.argb(255, rvalue, gvalue, bvalue));
 
         // Store color object in int array.
-        myColor[0] = Color.argb(avalue, rvalue, gvalue, bvalue);
-        myColor[1] = Color.argb(avalue, rvalue, gvalue, bvalue);
+        myColor[0] = Color.argb(255, rvalue, gvalue, bvalue);
+        myColor[1] = Color.argb(255, rvalue, gvalue, bvalue);
 
         //show the color value
-        ShowColor.setText("0x" + String.format("%02x", avalue) + String.format("%02x", rvalue)
+        ShowColor.setText("0x" + String.format("%02x", 255) + String.format("%02x", rvalue)
                 + String.format("%02x", gvalue) + String.format("%02x", bvalue));
 
         //some math so text shows (needs improvement for greys)
