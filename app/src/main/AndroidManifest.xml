@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="edu.calvin.cs262.pilot.knightrank">
 
+    <!-- Allows network connectivity -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
@@ -17,12 +21,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity
-            android:name=".MainActivity"
-            android:label="Main Activity" />
+        <!--<activity-->
+            <!--android:name=".MainActivity"-->
+            <!--android:label="Main Activity" />-->
         <activity
             android:name=".SplashScreen"
-            android:label="Splash Screen" />
+            android:label="Splash Screen" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+
         <activity
             android:name=".ActivityRankings"
             android:label="Activity Rankings" />
@@ -38,7 +49,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
@@ -52,11 +63,18 @@
         <activity
             android:name=".ColorPicker"
             android:label="Color Picker"
-            android:parentActivityName=".ActivityRankings"></activity>
+            android:parentActivityName=".ActivityRankings" />
         <activity
             android:name=".SportSelection"
             android:label="@string/title_activity_sport_selection"
-            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"></activity>
+            android:parentActivityName=".Login"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+        <activity
+            android:name=".TestBackEnd"
+            android:label="Test Back End"
+            android:parentActivityName=".ActivityRankings">
+
+        </activity>
     </application>
 
 </manifest>

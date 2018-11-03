@@ -178,4 +178,18 @@
     <string name="my_upcoming_matches">My Upcoming Matches</string>
     <string name="title_activity_sport_selection">SportSelection</string>
     <string name="select_sport_prompt">Select Interests</string>
+    <string name="test_backend">Test Backend</string>
+
+    <!-- Strings for querying via URI-->
+    <string name="no_results_found">No Results Found</string>
+    <string name="loading_in_process">Loading in process</string>
+    <string name="no_search_term">Please enter a search term</string>
+    <string name="no_connection">Please check your network connection and try again.</string>
+    <string name="search_string_hint">Blank = All players; Positive integer = Player with that ID</string>
+    <string name="search_results_text">Results</string>
+    <string name="connection_failed">Connection failed!</string>
+    <string name="json_failure">JSON retrieval failure!</string>
+    <string name="display_failure">Failed to display results!</string>
+    <string name="button_text_fetch">Fetch</string>
+    <string name="sport_selection">Sport Selection</string>
 </resources>

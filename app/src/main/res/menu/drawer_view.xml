@@ -27,6 +27,14 @@
             android:id="@+id/nav_my_rankings"
             android:icon="@drawable/ic_android_black_24dp"
             android:title="@string/title_my_stats" />
+        <item
+            android:id="@+id/nav_test_backend"
+            android:icon="@drawable/ic_android_black_24dp"
+            android:title="@string/test_backend" />
+        <item
+            android:id="@+id/nav_sport_selection"
+            android:icon="@drawable/ic_android_black_24dp"
+            android:title="@string/sport_selection" />
 
     </group>
 </menu>

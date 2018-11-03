@@ -251,7 +251,21 @@ public class ActivityRankings extends AppCompatActivity
                 Log.e(LOG_TAG, "Selected the activity selection activity!");
                 Toast.makeText(getApplicationContext(), "Selected", Toast.LENGTH_SHORT).show();
                 return true;
-            //break;
+                //break;
+            case R.id.nav_test_backend:
+                fragmentClass = TestBackEnd.class;
+                Intent intent3 = new Intent(getApplicationContext(), TestBackEnd.class);
+                startActivity(intent3);
+                Log.e(LOG_TAG, "Selected the test back end activity!");
+                Toast.makeText(getApplicationContext(), "Selected", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.nav_sport_selection:
+                fragmentClass = SportSelection.class;
+                Intent intent4 = new Intent(getApplicationContext(), SportSelection.class);
+                startActivity(intent4);
+                Log.e(LOG_TAG, "Selected the sport selection activity!");
+                Toast.makeText(getApplicationContext(), "Selected", Toast.LENGTH_SHORT).show();
+                return true;
             case R.id.nav_new_challenges:
                 fragmentClass = NewChallenges.class;
                 Log.e(LOG_TAG, "Selected the new challenges fragment!");
