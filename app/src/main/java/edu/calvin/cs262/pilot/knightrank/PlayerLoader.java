@@ -48,11 +48,11 @@ public class PlayerLoader extends AsyncTaskLoader<String> {
         // Based on whether string is empty or contains a positive integer value.
         if(mQueryString.length() == 0){
             Log.e(LOG_TAG, "getPlayerListInfo called!");
-            return NetworkUtils.getPlayerListInfo(mQueryString);
+            return PlayerNetworkUtils.getPlayerListInfo(mQueryString);
         }
         else {
             Log.e(LOG_TAG, "getPlayerIDInfo called!");
-            return NetworkUtils.getPlayerIDInfo(mQueryString);
+            return PlayerNetworkUtils.getPlayerIDInfo(mQueryString);
         }
     }
 }

@@ -196,8 +196,10 @@ public class TestBackEnd extends AppCompatActivity implements LoaderManager.Load
     @NonNull
     @Override
     public Loader<String> onCreateLoader(int i, @Nullable Bundle bundle) {
-        return new PlayerLoader(this, Objects.requireNonNull(bundle).getString("queryString"));
+        //return new PlayerLoader(this, Objects.requireNonNull(bundle).getString("queryString"));
         //return new SportLoader(this, Objects.requireNonNull(bundle).getString("queryString"));
+        //return new MatchLoader(this, Objects.requireNonNull(bundle).getString("queryString"));
+        return new FollowLoader(this, Objects.requireNonNull(bundle).getString("queryString"));
     }
 
     /**
@@ -211,6 +213,345 @@ public class TestBackEnd extends AppCompatActivity implements LoaderManager.Load
     @SuppressLint("SetTextI18n")
     @Override
     public void onLoadFinished(@NonNull Loader<String> loader, String s) {
+
+        // Method call to test player GET.
+        //TestPlayerGETBackEnd(s);
+
+        // Method call to test sport GET.
+        //TestSportGETBackend(s);
+
+        // Method call to test match GET.
+        //TestMatchGETBackend(s);
+
+        // Method call to test match GET.
+        TestFollowGETBackend(s);
+    }
+
+    private void TestFollowGETBackend(String s) {
+
+        // If string s is empty, then connection failed.
+        if (s.contains("Connection failed!")){
+            textViewSearchResults.setText("");
+            textViewSearchResults.setText(R.string.connection_failed);
+            Toast.makeText(this, R.string.connection_failed, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(s.length() == 0){
+            textViewSearchResults.setText("");
+            textViewSearchResults.setText(R.string.no_results_found);
+            Toast.makeText(this, R.string.no_results_found, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // obtain the JSON array of results items
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            JSONArray itemsArray;
+
+            // Condition to handle getting the player list
+            if(queryString.length() == 0){
+                itemsArray = jsonObject.getJSONArray("items");
+
+                Log.e(LOG_TAG, "Length of itemsArray: " + itemsArray.length());
+
+                //Iterate through the results
+                for (int i = 0; i < itemsArray.length(); i++) {
+                    JSONObject follow = itemsArray.getJSONObject(i); //Get the current item
+                    String id = "id";
+                    String sportID = "sportID";
+                    String playerID = "playerID";
+                    String rank = "rank";
+
+                    try {
+                        id = follow.getString("id");
+                        sportID = follow.getString("sportID");
+                        playerID = follow.getString("playerID");
+                        rank = follow.getString("rank");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    //If information field requested exists, update the TextViews and return
+                    if (id != null || sportID != null || playerID != null || rank != null)  {
+                        textViewSearchResults.append("\n\nid: " + id + "\n" + "sportID: " + sportID + "\n"
+                                + "playerID: " + playerID + "\n" + "rank: " + rank + "\n");
+                    }
+                    else{
+                        textViewSearchResults.append("\n\nFailure to retrieve any information for this particular follow!\n");
+                    }
+                }
+                return;
+            }
+            // Condition to get a specific player in list
+            else{
+                String id = "id";
+                String sportID = "sportID";
+                String playerID = "playerID";
+                String rank = "rank";
+
+                try {
+                    id = jsonObject.getString("id");
+                    sportID = jsonObject.getString("sportID");
+                    playerID = jsonObject.getString("playerID");
+                    rank = jsonObject.getString("rank");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                //If information field requested exists, update the TextViews and return
+                if (id != null || sportID != null || playerID != null || rank != null)  {
+                    textViewSearchResults.append("\n\nid: " + id + "\n" + "sportID: " + sportID + "\n"
+                            + "playerID: " + playerID + "\n" + "rank: " + rank + "\n");
+                    return;
+                }
+            }
+
+            textViewSearchResults.setText("");
+            textViewSearchResults.setText(R.string.display_failure);
+            Toast.makeText(this, R.string.display_failure, Toast.LENGTH_SHORT).show();
+
+        } catch (Exception ex){
+
+            textViewSearchResults.setText("");
+            textViewSearchResults.setText(R.string.json_failure);
+            Toast.makeText(this, R.string.json_failure, Toast.LENGTH_SHORT).show();
+            ex.printStackTrace();
+
+        } finally{
+            Log.e(LOG_TAG,"Finished query process!");
+        }
+    }
+
+    /**
+     * Method to test retrieval of Match Table values.
+     *
+     * @param s string storing JSON result object.
+     */
+    private void TestMatchGETBackend(String s) {
+
+        // If string s is empty, then connection failed.
+        if (s.contains("Connection failed!")){
+            textViewSearchResults.setText("");
+            textViewSearchResults.setText(R.string.connection_failed);
+            Toast.makeText(this, R.string.connection_failed, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(s.length() == 0){
+            textViewSearchResults.setText("");
+            textViewSearchResults.setText(R.string.no_results_found);
+            Toast.makeText(this, R.string.no_results_found, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // obtain the JSON array of results items
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            JSONArray itemsArray;
+
+            // Condition to handle getting the player list
+            if(queryString.length() == 0){
+                itemsArray = jsonObject.getJSONArray("items");
+
+                Log.e(LOG_TAG, "Length of itemsArray: " + itemsArray.length());
+
+                //Iterate through the results
+                for (int i = 0; i < itemsArray.length(); i++) {
+                    JSONObject match = itemsArray.getJSONObject(i); //Get the current item
+                    String id = "id";
+                    String sportID = "sportID";
+                    String playerOneID = "playerOneID";
+                    String playerTwoID = "playerTwoID";
+                    String playerOneScore = "playerOneScore";
+                    String playerTwoScore = "playerTwoScore";
+                    String winner = "winner";
+                    String time = "time";
+                    String verified = "verified";
+
+                    try {
+                        id = match.getString("id");
+                        sportID = match.getString("sportID");
+                        playerOneID = match.getString("playerOneID");
+                        playerTwoID = match.getString("playerTwoID");
+                        playerOneScore = match.getString("playerOneScore");
+                        playerTwoScore = match.getString("playerTwoScore");
+                        winner = match.getString("winner");
+                        time = match.getString("time");
+                        verified = match.getString("verified");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    //If information field requested exists, update the TextViews and return
+                    if (id != null || sportID != null || playerOneID != null || playerTwoID != null
+                            || playerOneScore != null || playerTwoScore != null || winner != null
+                            || time != null || verified != null)  {
+                        textViewSearchResults.append("\n\nid: " + id + "\n" + "sportID: " + sportID
+                                + "\n" + "playerOneID: " + playerOneID + "\n"+ "playerTwoID: " + playerTwoID + "\n"
+                                + "playerOneScore: " + playerOneScore + "\n" + "playerTwoScore: " + playerTwoScore + "\n"
+                                + "winner: " + winner + "\n" + "time: " + time + "\n"
+                                + "verified: " + verified + "\n");
+                    }
+                    else{
+                        textViewSearchResults.append("\n\nFailure to retrieve any information for this particular match!\n");
+                    }
+                }
+                return;
+            }
+            // Condition to get a specific player in list
+            else{
+                String id = "no id found";
+                String sportID = "no sport ID found";
+                String playerOneID = "no player one ID found";
+                String playerTwoID = "no player two ID found";
+                String playerOneScore = "no player one score found";
+                String playerTwoScore = "no player two score found";
+                String winner = "no winner found";
+                String time = "no time found";
+                String verified = "no verified found";
+
+                try {
+                    id = jsonObject.getString("id");
+                    sportID = jsonObject.getString("sportID");
+                    playerOneID = jsonObject.getString("playerOneID");
+                    playerTwoID = jsonObject.getString("playerTwoID");
+                    playerOneScore = jsonObject.getString("playerOneScore");
+                    playerTwoScore = jsonObject.getString("playerTwoScore");
+                    winner = jsonObject.getString("winner");
+                    time = jsonObject.getString("time");
+                    verified = jsonObject.getString("verified");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                //If information field requested exists, update the TextViews and return
+                if (id != null || sportID != null || playerOneID != null || playerTwoID != null
+                        || playerOneScore != null || playerTwoScore != null || winner != null
+                        || time != null || verified != null)  {
+                    textViewSearchResults.append("\n\nid: " + id + "\n" + "sportID: " + sportID
+                            + "\n" + "playerOneID: " + playerOneID + "\n"+ "playerTwoID: " + playerTwoID + "\n"
+                            + "playerOneScore: " + playerOneScore + "\n" + "playerTwoScore: " + playerTwoScore + "\n"
+                            + "winner: " + winner + "\n" + "time: " + time + "\n"
+                            + "verified: " + verified + "\n");
+                    return;
+                }
+            }
+
+            textViewSearchResults.setText("");
+            textViewSearchResults.setText(R.string.display_failure);
+            Toast.makeText(this, R.string.display_failure, Toast.LENGTH_SHORT).show();
+
+        } catch (Exception ex){
+
+            textViewSearchResults.setText("");
+            textViewSearchResults.setText(R.string.json_failure);
+            Toast.makeText(this, R.string.json_failure, Toast.LENGTH_SHORT).show();
+            ex.printStackTrace();
+
+        } finally{
+            Log.e(LOG_TAG,"Finished query process!");
+        }
+    }
+
+    /**
+     * Method to test retrieval of Sport Table values.
+     *
+     * @param s string storing JSON result object.
+     */
+    private void TestSportGETBackend(String s) {
+
+        // If string s is empty, then connection failed.
+        if (s.contains("Connection failed!")){
+            textViewSearchResults.setText("");
+            textViewSearchResults.setText(R.string.connection_failed);
+            Toast.makeText(this, R.string.connection_failed, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(s.length() == 0){
+            textViewSearchResults.setText("");
+            textViewSearchResults.setText(R.string.no_results_found);
+            Toast.makeText(this, R.string.no_results_found, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // obtain the JSON array of results items
+        try {
+            JSONObject jsonObject = new JSONObject(s);
+            JSONArray itemsArray;
+
+            // Condition to handle getting the player list
+            if(queryString.length() == 0){
+                itemsArray = jsonObject.getJSONArray("items");
+
+                Log.e(LOG_TAG, "Length of itemsArray: " + itemsArray.length());
+
+                //Iterate through the results
+                for (int i = 0; i < itemsArray.length(); i++) {
+                    JSONObject sport = itemsArray.getJSONObject(i); //Get the current item
+                    String id = "id";
+                    String name = "name";
+                    String type = "type";
+
+                    try {
+                        id = sport.getString("id");
+                        name = sport.getString("name");
+                        type = sport.getString("type");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    //If information field requested exists, update the TextViews and return
+                    if (id != null || name != null || type != null)  {
+                        textViewSearchResults.append("\n\nid: " + id + "\n" + "name: " + name + "\n" + "type: " + type + "\n");
+                    }
+                    else{
+                        textViewSearchResults.append("\n\nFailure to retrieve any information for this particular sport!\n");
+                    }
+                }
+                return;
+            }
+            // Condition to get a specific player in list
+            else{
+                String id = "no id found";
+                String name = "no name found";
+                String type = "no type found";
+
+                try {
+                    id = jsonObject.getString("id");
+                    name = jsonObject.getString("name");
+                    type = jsonObject.getString("type");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                //If information field requested exists, update the TextViews and return
+                if (id != null || name != null || type != null) {
+                    textViewSearchResults.append("\n\nid: " + id + "\n" + "name: " + name + "\n" + "type: " + type + "\n");
+                    return;
+                }
+            }
+
+            textViewSearchResults.setText("");
+            textViewSearchResults.setText(R.string.display_failure);
+            Toast.makeText(this, R.string.display_failure, Toast.LENGTH_SHORT).show();
+
+        } catch (Exception ex){
+
+            textViewSearchResults.setText("");
+            textViewSearchResults.setText(R.string.json_failure);
+            Toast.makeText(this, R.string.json_failure, Toast.LENGTH_SHORT).show();
+            ex.printStackTrace();
+
+        } finally{
+            Log.e(LOG_TAG,"Finished query process!");
+        }
+    }
+
+    /**
+     * Method to test retrieval of Player Table values.
+     *
+     * @param s string storing JSON result object.
+     */
+    private void TestPlayerGETBackEnd(String s) {
 
         // If string s is empty, then connection failed.
         if (s.contains("Connection failed!")){
@@ -241,20 +582,20 @@ public class TestBackEnd extends AppCompatActivity implements LoaderManager.Load
                 for (int i = 0; i < itemsArray.length(); i++) {
                     JSONObject player = itemsArray.getJSONObject(i); //Get the current item
                     String id = "id";
-                    String email = "email";
-                    String name = "default";
+                    String emailAddress = "emailAddress";
+                    String accountCreationDate = "default";
 
                     try {
                         id = player.getString("id");
-                        email = player.getString("emailAddress");
-                        name = player.getString("name");
+                        emailAddress = player.getString("emailAddress");
+                        accountCreationDate = player.getString("accountCreationDate");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
 
                     //If information field requested exists, update the TextViews and return
-                    if (id != null || email != null || name != null)  {
-                        textViewSearchResults.append("\n\nid: " + id + "\n" + "email: " + email + "\n" + "name: " + name + "\n");
+                    if (id != null || emailAddress != null || accountCreationDate != null)  {
+                        textViewSearchResults.append("\n\nid: " + id + "\n" + "emailAddress: " + emailAddress + "\n" + "accountCreationDate: " + accountCreationDate + "\n");
                     }
                     else{
                         textViewSearchResults.append("\n\nFailure to retrieve any information for this particular player!\n");
@@ -265,20 +606,20 @@ public class TestBackEnd extends AppCompatActivity implements LoaderManager.Load
             // Condition to get a specific player in list
             else{
                 String id = "no id found";
-                String email = "no email found";
-                String name = "no name found";
+                String emailAddress = "no email address found";
+                String accountCreationDate = "no account creation date found";
 
                 try {
                     id = jsonObject.getString("id");
-                    email = jsonObject.getString("emailAddress");
-                    name = jsonObject.getString("name");
+                    emailAddress = jsonObject.getString("emailAddress");
+                    accountCreationDate = jsonObject.getString("accountCreationDate");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
 
                 //If information field requested exists, update the TextViews and return
-                if (id != null || email != null || name != null) {
-                    textViewSearchResults.append("\n\nid: " + id + "\n" + "email: " + email + "\n" + "name: " + name + "\n");
+                if (id != null || emailAddress != null || accountCreationDate != null) {
+                    textViewSearchResults.append("\n\nid: " + id + "\n" + "emailAddress: " + emailAddress + "\n" + "accountCreationDate: " + accountCreationDate + "\n");
                     return;
                 }
             }
