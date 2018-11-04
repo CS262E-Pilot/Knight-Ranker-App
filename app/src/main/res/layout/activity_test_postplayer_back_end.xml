@@ -41,7 +41,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="1dp"
-        android:layout_marginTop="220dp"
+        android:layout_marginTop="206dp"
         android:text="Account Creation Date (must match timestamp type)" />
 
 
@@ -54,7 +54,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="145dp"
         android:autofillHints=""
-        android:hint="Enter a email"
+        android:hint="Enter a email (string):"
         android:inputType="text"
         android:textSize="12sp" />
 
@@ -67,7 +67,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="252dp"
         android:autofillHints=""
-        android:hint="Enter a account creation date"
+        android:hint="Enter a account creation date (timestamp format)"
         android:inputType="text"
         android:textSize="12sp" />
 
@@ -100,5 +100,13 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="176dp"
         android:text="Request Status:" />
+
+    <TextView
+        android:id="@+id/player_timestamp_note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/account_creation_date"
+        android:layout_alignParentStart="true"
+        android:text="Format: 2018-11-03 00:53:57.048546" />
 
 </RelativeLayout>
