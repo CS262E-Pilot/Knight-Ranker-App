@@ -33,7 +33,13 @@
                 android:id="@+id/match_note"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Need to disable foreign constraint enforcement to test" />
+                android:text="Note: Need to disable foreign constraint enforcement to test" />
+
+            <TextView
+                android:id="@+id/match_note_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Note: Scroll up/down to see all fields." />
 
             <TextView
                 android:id="@+id/match_sport_id"
@@ -118,6 +124,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Match Time:" />
+
+            <TextView
+                android:id="@+id/match_note_timestamp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Format: 2018-11-03 00:53:57.048546" />
 
             <EditText
                 android:id="@+id/input_match_time"

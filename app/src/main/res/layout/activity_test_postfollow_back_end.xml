@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/post_follow"
         android:layout_centerHorizontal="true"
-        android:text="Disable foreign costraint enforcement to test" />
+        android:text="Note: Disable foreign constraint enforcement to test" />
 
     <TextView
         android:id="@+id/follow_rank"

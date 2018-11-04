@@ -54,7 +54,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="145dp"
         android:autofillHints=""
-        android:hint="Enter a name"
+        android:hint="Enter a name (string):"
         android:inputType="text"
         android:textSize="12sp" />
 
@@ -67,7 +67,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="252dp"
         android:autofillHints=""
-        android:hint="Enter a type"
+        android:hint="Enter a type (string)"
         android:inputType="text"
         android:textSize="12sp" />
 
