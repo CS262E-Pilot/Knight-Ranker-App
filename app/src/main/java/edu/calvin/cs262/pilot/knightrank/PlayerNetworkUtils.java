@@ -29,6 +29,7 @@ public class PlayerNetworkUtils {
     private static final String PLAYER_LIST_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/players";
     private static final String PLAYER_ID_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/player/";
     private static final String PLAYER_POST_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/player";
+    private static final String PLAYER_DELETE_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/player/";
 
     /**
      * Method posts to the specified URI.
@@ -71,7 +72,7 @@ public class PlayerNetworkUtils {
             writer.write(jsonObject.toString());
 
             // Write to log.e what we're trying to send.
-            Log.e(SportNetworkUtils.class.toString(), jsonObject.toString());
+            Log.e(PlayerNetworkUtils.class.toString(), jsonObject.toString());
 
             // Close resources.
             writer.flush();
@@ -242,6 +243,49 @@ public class PlayerNetworkUtils {
             }
             else{
                 return "";
+            }
+        }
+    }
+
+    /**
+     * Method deletes the data entry in the table specified by the ID.
+     * TODO: Not functional yet.
+     *
+     * @param player_data_entry_id player id - primary key
+     * @return the results of the request
+     */
+    public static String deletePlayerInfo(String player_data_entry_id) {
+
+        HttpURLConnection urlConnection = null;
+        BufferedReader reader = null;
+
+        try {
+            //Build up your query URI.
+            Uri builtURI = Uri.parse(PLAYER_DELETE_URL).buildUpon().appendPath(player_data_entry_id)
+
+                    .build();
+
+            Log.e(LOG_TAG, builtURI.toString());
+
+            // Convert URI to URL
+            URL requestURL = new URL(builtURI.toString());
+
+            // Open connection and make request.
+            urlConnection = (HttpURLConnection) requestURL.openConnection();
+            urlConnection.setRequestMethod("DELETE");
+            urlConnection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+            urlConnection.connect();
+
+        } catch (Exception ex) {
+
+            ex.printStackTrace();
+            return "DELETE failed!";
+        } finally {
+            try {
+                return Objects.requireNonNull(urlConnection).getResponseMessage() + "";
+            } catch(Exception ex){
+                ex.printStackTrace();
+                return "DELETE failed!";
             }
         }
     }

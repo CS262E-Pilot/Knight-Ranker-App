@@ -24,6 +24,7 @@ public class FollowNetworkUtils
     private static final String FOLLOW_LIST_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/follows";
     private static final String FOLLOW_ID_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/follow/";
     private static final String FOLLOW_POST_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/follow";
+    private static final String FOLLOW_DELETE_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/follow/";
 
     /**
      * Method posts to the specified URI.
@@ -68,7 +69,7 @@ public class FollowNetworkUtils
             writer.write(jsonObject.toString());
 
             // Write to log.e what we're trying to send.
-            Log.e(SportNetworkUtils.class.toString(), jsonObject.toString());
+            Log.e(FollowNetworkUtils.class.toString(), jsonObject.toString());
 
             // Close resources.
             writer.flush();
@@ -239,6 +240,70 @@ public class FollowNetworkUtils
             }
             else{
                 return "";
+            }
+        }
+    }
+
+    /**
+     * Method deletes the data entry in the table specified by the ID.
+     * TODO: Not functional yet.
+     *
+     * @param follow_data_entry_id follow id - primary key
+     * @return the results of the request
+     */
+    public static String deleteFollowInfo(String follow_data_entry_id) {
+
+        HttpURLConnection urlConnection = null;
+        BufferedReader reader = null;
+
+        try {
+            //Build up your query URI.
+            Uri builtURI = Uri.parse(FOLLOW_DELETE_URL).buildUpon()
+
+                    .build();
+
+            // Convert URI to URL
+            URL requestURL = new URL(builtURI.toString());
+
+            // Define connection and request.
+            urlConnection = (HttpURLConnection) requestURL.openConnection();
+            urlConnection.setRequestMethod("DELETE");
+            urlConnection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+
+            // Define the data we wish to send.
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.accumulate("ID", follow_data_entry_id);
+
+            // Create stream to output the data.
+            OutputStream os = urlConnection.getOutputStream();
+
+            // Create writer to write to the stream to output the data.
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+
+            // Write the data.
+            writer.write(jsonObject.toString());
+
+            // Write to log.e what we're trying to send.
+            Log.e(SportNetworkUtils.class.toString(), jsonObject.toString());
+
+            // Close resources.
+            writer.flush();
+            writer.close();
+            os.close();
+
+            // Initiate the connection and attempt to post.
+            urlConnection.connect();
+
+        } catch (Exception ex) {
+
+            ex.printStackTrace();
+            return "DELETE failed!";
+        } finally {
+            try {
+                return Objects.requireNonNull(urlConnection).getResponseMessage() + "";
+            } catch(Exception ex){
+                ex.printStackTrace();
+                return "DELETE failed!";
             }
         }
     }

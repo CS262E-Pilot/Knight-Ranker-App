@@ -8,6 +8,19 @@
     tools:context="edu.calvin.cs262.pilot.knightrank.TestPOSTFollowBackEnd">
 
     <TextView
+        android:id="@+id/post_follow_note_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="409dp"
+        android:layout_marginEnd="8dp"
+        android:text="Bug: Click into any field first time after loading into activity before hitting post, otherwise activity crashes."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_string" />
+
+    <TextView
         android:id="@+id/follow_note"
         android:layout_width="332dp"
         android:layout_height="wrap_content"
@@ -127,8 +140,8 @@
         android:layout_height="57dp"
         android:layout_alignStart="@+id/network_connected"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="-1dp"
-        android:layout_marginBottom="76dp"
+        android:layout_marginStart="-7dp"
+        android:layout_marginBottom="65dp"
         android:text="Request Status:" />
 
 </RelativeLayout>
