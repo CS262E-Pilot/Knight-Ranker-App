@@ -251,7 +251,7 @@ public class ActivityRankings extends AppCompatActivity
                 Toast.makeText(getApplicationContext(), "Selected", Toast.LENGTH_SHORT).show();
                 return true;
                 //break;
-            case R.id.nav_test_backend:
+            case R.id.nav_test_get_backend:
                 fragmentClass = TestGETBackEnd.class;
                 Intent intent3 = new Intent(getApplicationContext(), TestGETBackEnd.class);
                 startActivity(intent3);
@@ -291,6 +291,13 @@ public class ActivityRankings extends AppCompatActivity
                 Intent intent8 = new Intent(getApplicationContext(), TestPOSTMatchBackEnd.class);
                 startActivity(intent8);
                 Log.e(LOG_TAG, "Selected the test post match back end activity!");
+                Toast.makeText(getApplicationContext(), "Selected", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.nav_test_delete_backend:
+                fragmentClass = TestDELETEBackEnd.class;
+                Intent intent9 = new Intent(getApplicationContext(), TestDELETEBackEnd.class);
+                startActivity(intent9);
+                Log.e(LOG_TAG, "Selected the test delete back end activity!");
                 Toast.makeText(getApplicationContext(), "Selected", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.nav_new_challenges:

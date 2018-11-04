@@ -7,6 +7,19 @@
     android:id="@+id/activity_test_sport_post_back_end_root_layout"
     tools:context="edu.calvin.cs262.pilot.knightrank.TestPOSTSportBackEnd">
 
+    <TextView
+        android:id="@+id/post_sport_note_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="409dp"
+        android:layout_marginEnd="8dp"
+        android:text="Bug: Click into any field first time after loading into activity before hitting post, otherwise activity crashes."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_string" />
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
@@ -43,7 +56,6 @@
         android:layout_marginStart="1dp"
         android:layout_marginTop="220dp"
         android:text="Sport Type:" />
-
 
     <EditText
         android:id="@+id/input_sport_name"

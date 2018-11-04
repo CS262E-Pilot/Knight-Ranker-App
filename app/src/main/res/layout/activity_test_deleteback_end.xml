@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/activity_test_delete_back_end_root_layout"
+    tools:context="edu.calvin.cs262.pilot.knightrank.TestDELETEBackEnd">
+
+    <TextView
+        android:id="@+id/delete_note_3"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/data_entry_id"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="-73dp"
+        android:layout_marginBottom="262dp"
+        android:text="Not yet functional!" />
+
+    <TextView
+        android:id="@+id/delete_bug_note"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="228dp"
+        android:layout_marginEnd="8dp"
+        android:text="Bug: Click into enter id field first time after loading into activity before hitting delete, otherwise activity crashes."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_string" />
+
+    <Button
+        android:id="@+id/button_delete_follow"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:layout_alignBottom="@+id/network_connected"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="112dp"
+        android:layout_marginBottom="36dp"
+        android:onClick="delete_follow"
+        android:text="DELETE Follow"
+        android:textSize="8sp" />
+
+    <Button
+        android:id="@+id/button_delete_match"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:layout_alignBottom="@+id/network_connected"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="113dp"
+        android:layout_marginBottom="-4dp"
+        android:onClick="delete_match"
+        android:text="DELETE Match"
+        android:textSize="8sp" />
+
+    <Button
+        android:id="@+id/button_delete_sport"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:layout_alignBottom="@+id/network_connected"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="18dp"
+        android:layout_marginBottom="37dp"
+        android:onClick="delete_sport"
+        android:text="DELETE Sport"
+        android:textSize="8sp" />
+
+    <Button
+        android:id="@+id/button_delete_player"
+        android:layout_width="wrap_content"
+        android:layout_height="34dp"
+        android:layout_alignBottom="@+id/network_connected"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="17dp"
+        android:layout_marginBottom="-5dp"
+        android:onClick="delete_player"
+        android:text="DELETE Player"
+        android:textSize="8sp" />
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+    <TextView
+        android:id="@+id/delete_data_entry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="69dp"
+        android:text="Delete Data Entry" />
+
+    <TextView
+        android:id="@+id/data_entry_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="114dp"
+        android:text="Data Entry ID:" />
+
+    <EditText
+        android:id="@+id/input_data_entry_id"
+        android:layout_width="361dp"
+        android:layout_height="52dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="145dp"
+        android:autofillHints=""
+        android:hint="Enter Data Entry ID (integer):"
+        android:inputType="text"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/network_connected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="18dp"
+        android:text="Network Connectivity" />
+
+    <TextView
+        android:id="@+id/request_status"
+        android:layout_width="344dp"
+        android:layout_height="57dp"
+        android:layout_alignStart="@+id/network_connected"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="176dp"
+        android:text="Request Status:" />
+
+</RelativeLayout>

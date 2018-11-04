@@ -28,9 +28,13 @@
             android:icon="@drawable/ic_android_black_24dp"
             android:title="@string/title_my_stats" />
         <item
-            android:id="@+id/nav_test_backend"
+            android:id="@+id/nav_test_get_backend"
             android:icon="@drawable/ic_android_black_24dp"
             android:title="@string/test_get_backend" />
+        <item
+            android:id="@+id/nav_test_delete_backend"
+            android:icon="@drawable/ic_android_black_24dp"
+            android:title="Test DELETE Backend" />
         <item
             android:id="@+id/nav_test_sport_post_backend"
             android:icon="@drawable/ic_android_black_24dp"

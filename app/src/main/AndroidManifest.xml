@@ -89,6 +89,11 @@
             android:name=".TestPOSTMatchBackEnd"
             android:label="Test POST Match Back End"
             android:parentActivityName=".ActivityRankings">
+        </activity>
+        <activity
+            android:name=".TestDELETEBackEnd"
+            android:label="Test DELETE Back End"
+            android:parentActivityName=".ActivityRankings">
 
         </activity>
     </application>
