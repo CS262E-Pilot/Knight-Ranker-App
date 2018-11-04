@@ -6,9 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.AsyncTaskLoader;
 import android.util.Log;
 
-public class FollowLoader extends AsyncTaskLoader<String> {
+public class FollowGETLoader extends AsyncTaskLoader<String> {
 
-    private static final String LOG_TAG = FollowLoader.class.getSimpleName();
+    private static final String LOG_TAG = FollowGETLoader.class.getSimpleName();
 
     private String mQueryString;
 
@@ -28,7 +28,7 @@ public class FollowLoader extends AsyncTaskLoader<String> {
      *
      * @param context application context.
      */
-    public FollowLoader(@NonNull Context context, String query) {
+    public FollowGETLoader(@NonNull Context context, String query) {
         super(context);
 
         this.mQueryString = query;

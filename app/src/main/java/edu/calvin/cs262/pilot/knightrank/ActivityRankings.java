@@ -23,7 +23,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -253,8 +252,8 @@ public class ActivityRankings extends AppCompatActivity
                 return true;
                 //break;
             case R.id.nav_test_backend:
-                fragmentClass = TestBackEnd.class;
-                Intent intent3 = new Intent(getApplicationContext(), TestBackEnd.class);
+                fragmentClass = TestGETBackEnd.class;
+                Intent intent3 = new Intent(getApplicationContext(), TestGETBackEnd.class);
                 startActivity(intent3);
                 Log.e(LOG_TAG, "Selected the test back end activity!");
                 Toast.makeText(getApplicationContext(), "Selected", Toast.LENGTH_SHORT).show();
@@ -264,6 +263,34 @@ public class ActivityRankings extends AppCompatActivity
                 Intent intent4 = new Intent(getApplicationContext(), SportSelection.class);
                 startActivity(intent4);
                 Log.e(LOG_TAG, "Selected the sport selection activity!");
+                Toast.makeText(getApplicationContext(), "Selected", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.nav_test_sport_post_backend:
+                fragmentClass = TestPOSTSportBackEnd.class;
+                Intent intent5 = new Intent(getApplicationContext(), TestPOSTSportBackEnd.class);
+                startActivity(intent5);
+                Log.e(LOG_TAG, "Selected the test post sport back end activity!");
+                Toast.makeText(getApplicationContext(), "Selected", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.nav_test_player_post_backend:
+                fragmentClass = TestPOSTPlayerBackEnd.class;
+                Intent intent6 = new Intent(getApplicationContext(), TestPOSTPlayerBackEnd.class);
+                startActivity(intent6);
+                Log.e(LOG_TAG, "Selected the test post player back end activity!");
+                Toast.makeText(getApplicationContext(), "Selected", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.nav_test_follow_post_backend:
+                fragmentClass = TestPOSTFollowBackEnd.class;
+                Intent intent7 = new Intent(getApplicationContext(), TestPOSTFollowBackEnd.class);
+                startActivity(intent7);
+                Log.e(LOG_TAG, "Selected the test post follow back end activity!");
+                Toast.makeText(getApplicationContext(), "Selected", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.nav_test_match_post_backend:
+                fragmentClass = TestPOSTMatchBackEnd.class;
+                Intent intent8 = new Intent(getApplicationContext(), TestPOSTMatchBackEnd.class);
+                startActivity(intent8);
+                Log.e(LOG_TAG, "Selected the test post match back end activity!");
                 Toast.makeText(getApplicationContext(), "Selected", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.nav_new_challenges:

@@ -3,12 +3,18 @@ package edu.calvin.cs262.pilot.knightrank;
 import android.net.Uri;
 import android.util.Log;
 
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Objects;
 
 public class FollowNetworkUtils
 {
@@ -17,6 +23,74 @@ public class FollowNetworkUtils
     // Follow URI for Knight-Ranker Database Follow Table.
     private static final String FOLLOW_LIST_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/follows";
     private static final String FOLLOW_ID_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/follow/";
+    private static final String FOLLOW_POST_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/follow";
+
+    /**
+     * Method posts to the specified URI.
+     *
+     * @param sportID sport id of the follow
+     * @param playerID player id of the follow
+     * @param rank rank of the follow
+     * @return String indicating success or failure
+     */
+    static String postFollowInfo(String sportID, String playerID, String rank) {
+
+        HttpURLConnection urlConnection = null;
+        BufferedReader reader = null;
+
+        try {
+            //Build up your query URI.
+            Uri builtURI = Uri.parse(FOLLOW_POST_URL).buildUpon()
+
+                    .build();
+
+            // Convert URI to URL
+            URL requestURL = new URL(builtURI.toString());
+
+            // Define connection and request.
+            urlConnection = (HttpURLConnection) requestURL.openConnection();
+            urlConnection.setRequestMethod("POST");
+            urlConnection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+
+            // Define the data we wish to send.
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.accumulate("sportID", sportID);
+            jsonObject.accumulate("playerID",  playerID);
+            jsonObject.accumulate("rank",  rank);
+
+            // Create stream to output the data.
+            OutputStream os = urlConnection.getOutputStream();
+
+            // Create writer to write to the stream to output the data.
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+
+            // Write the data.
+            writer.write(jsonObject.toString());
+
+            // Write to log.e what we're trying to send.
+            Log.e(SportNetworkUtils.class.toString(), jsonObject.toString());
+
+            // Close resources.
+            writer.flush();
+            writer.close();
+            os.close();
+
+            // Initiate the connection and attempt to post.
+            urlConnection.connect();
+
+        } catch (Exception ex) {
+
+            ex.printStackTrace();
+            return "POST failed!";
+        } finally {
+            try {
+                return Objects.requireNonNull(urlConnection).getResponseMessage() + "";
+            } catch(Exception ex){
+                ex.printStackTrace();
+                return "POST failed!";
+            }
+        }
+    }
 
     /**
      * Method queries specified URI.
