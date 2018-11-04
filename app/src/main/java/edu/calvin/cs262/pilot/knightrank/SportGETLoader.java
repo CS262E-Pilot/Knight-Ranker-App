@@ -6,9 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.AsyncTaskLoader;
 import android.util.Log;
 
-public class MatchLoader extends AsyncTaskLoader<String> {
+public class SportGETLoader extends AsyncTaskLoader<String> {
 
-    private static final String LOG_TAG = MatchLoader.class.getSimpleName();
+    private static final String LOG_TAG = SportGETLoader.class.getSimpleName();
 
     private String mQueryString;
 
@@ -28,7 +28,7 @@ public class MatchLoader extends AsyncTaskLoader<String> {
      *
      * @param context application context.
      */
-    public MatchLoader(@NonNull Context context, String query) {
+    public SportGETLoader(@NonNull Context context, String query) {
         super(context);
 
         this.mQueryString = query;
@@ -47,12 +47,12 @@ public class MatchLoader extends AsyncTaskLoader<String> {
         // Call method to query specified URI.
         // Based on whether string is empty or contains a positive integer value.
         if(mQueryString.length() == 0){
-            Log.e(LOG_TAG, "getMatchListInfo called!");
-            return MatchNetworkUtils.getMatchListInfo(mQueryString);
+            Log.e(LOG_TAG, "getSportListInfo called!");
+            return SportNetworkUtils.getSportListInfo(mQueryString);
         }
         else {
-            Log.e(LOG_TAG, "getMatchIDInfo called!");
-            return MatchNetworkUtils.getMatchIDInfo(mQueryString);
+            Log.e(LOG_TAG, "getSportIDInfo called!");
+            return SportNetworkUtils.getSportIDInfo(mQueryString);
         }
     }
 }

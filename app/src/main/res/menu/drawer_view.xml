@@ -30,7 +30,23 @@
         <item
             android:id="@+id/nav_test_backend"
             android:icon="@drawable/ic_android_black_24dp"
-            android:title="@string/test_backend" />
+            android:title="@string/test_get_backend" />
+        <item
+            android:id="@+id/nav_test_sport_post_backend"
+            android:icon="@drawable/ic_android_black_24dp"
+            android:title="Test POST Sport" />
+        <item
+            android:id="@+id/nav_test_player_post_backend"
+            android:icon="@drawable/ic_android_black_24dp"
+            android:title="Test POST Player" />
+        <item
+            android:id="@+id/nav_test_match_post_backend"
+            android:icon="@drawable/ic_android_black_24dp"
+            android:title="Test POST Match" />
+        <item
+            android:id="@+id/nav_test_follow_post_backend"
+            android:icon="@drawable/ic_android_black_24dp"
+            android:title="Test POST Follow" />
         <item
             android:id="@+id/nav_sport_selection"
             android:icon="@drawable/ic_android_black_24dp"

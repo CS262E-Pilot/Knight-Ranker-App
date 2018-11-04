@@ -6,11 +6,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.AsyncTaskLoader;
 import android.util.Log;
 
-public class SportLoader extends AsyncTaskLoader<String> {
+public class FollowPOSTLoader extends AsyncTaskLoader<String> {
 
-    private static final String LOG_TAG = SportLoader.class.getSimpleName();
+    private static final String LOG_TAG = FollowPOSTLoader.class.getSimpleName();
 
-    private String mQueryString;
+    private String follow_sport_id;
+    private String follow_player_id;
+    private String follow_rank;
 
     /**
      * Method called when starting the loader.
@@ -28,10 +30,12 @@ public class SportLoader extends AsyncTaskLoader<String> {
      *
      * @param context application context.
      */
-    public SportLoader(@NonNull Context context, String query) {
+    public FollowPOSTLoader(@NonNull Context context, String sportID, String playerID, String rank) {
         super(context);
 
-        this.mQueryString = query;
+        this.follow_sport_id = sportID;
+        this.follow_player_id = playerID;
+        this.follow_rank = rank;
     }
 
 
@@ -44,15 +48,8 @@ public class SportLoader extends AsyncTaskLoader<String> {
     @Override
     public String loadInBackground() {
 
-        // Call method to query specified URI.
-        // Based on whether string is empty or contains a positive integer value.
-        if(mQueryString.length() == 0){
-            Log.e(LOG_TAG, "getSportListInfo called!");
-            return SportNetworkUtils.getSportListInfo(mQueryString);
-        }
-        else {
-            Log.e(LOG_TAG, "getSportIDInfo called!");
-            return SportNetworkUtils.getSportIDInfo(mQueryString);
-        }
+        // Call method to POST to the specified URI.
+        Log.e(LOG_TAG, "postFollowInfo called!");
+        return FollowNetworkUtils.postFollowInfo(follow_sport_id, follow_player_id, follow_rank);
     }
 }

@@ -3,12 +3,18 @@ package edu.calvin.cs262.pilot.knightrank;
 import android.net.Uri;
 import android.util.Log;
 
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Objects;
 
 public class SportNetworkUtils {
 
@@ -17,6 +23,72 @@ public class SportNetworkUtils {
     // Sport URI for Knight-Ranker Database Sport Table.
     private static final String SPORT_LIST_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/sports";
     private static final String SPORT_ID_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/sport/";
+    private static final String SPORT_POST_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/sport";
+
+    /**
+     * Method posts to the specified URI.
+     *
+     * @param name name of the sport
+     * @param type type of the sport
+     * @return String indicating success or failure
+     */
+    static String postSportInfo(String name, String type) {
+
+        HttpURLConnection urlConnection = null;
+        BufferedReader reader = null;
+
+        try {
+            //Build up your query URI.
+            Uri builtURI = Uri.parse(SPORT_POST_URL).buildUpon()
+
+                    .build();
+
+            // Convert URI to URL
+            URL requestURL = new URL(builtURI.toString());
+
+            // Define connection and request.
+            urlConnection = (HttpURLConnection) requestURL.openConnection();
+            urlConnection.setRequestMethod("POST");
+            urlConnection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+
+            // Define the data we wish to send.
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.accumulate("name", name);
+            jsonObject.accumulate("type",  type);
+
+            // Create stream to output the data.
+            OutputStream os = urlConnection.getOutputStream();
+
+            // Create writer to write to the stream to output the data.
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+
+            // Write the data.
+            writer.write(jsonObject.toString());
+
+            // Write to log.e what we're trying to send.
+            Log.e(SportNetworkUtils.class.toString(), jsonObject.toString());
+
+            // Close resources.
+            writer.flush();
+            writer.close();
+            os.close();
+
+            // Initiate the connection and attempt to post.
+            urlConnection.connect();
+
+        } catch (Exception ex) {
+
+            ex.printStackTrace();
+            return "POST failed!";
+        } finally {
+            try {
+                return Objects.requireNonNull(urlConnection).getResponseMessage() + "";
+            } catch(Exception ex){
+                ex.printStackTrace();
+                return "POST failed!";
+            }
+        }
+    }
 
     /**
      * Method queries specified URI.
@@ -84,11 +156,10 @@ public class SportNetworkUtils {
                     e.printStackTrace();
                 }
             }
-            if(sportListJSONString != null) {
+            if (sportListJSONString != null) {
                 Log.e(LOG_TAG, sportListJSONString);
                 return sportListJSONString;
-            }
-            else{
+            } else {
                 return "";
             }
         }
@@ -159,11 +230,10 @@ public class SportNetworkUtils {
                     e.printStackTrace();
                 }
             }
-            if(sportIDJSONString != null) {
+            if (sportIDJSONString != null) {
                 Log.e(LOG_TAG, sportIDJSONString);
                 return sportIDJSONString;
-            }
-            else{
+            } else {
                 return "";
             }
         }

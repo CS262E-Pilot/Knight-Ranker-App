@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/activity_test_follow_post_back_end_root_layout"
+    tools:context="edu.calvin.cs262.pilot.knightrank.TestPOSTFollowBackEnd">
+
+    <TextView
+        android:id="@+id/follow_note"
+        android:layout_width="332dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/post_follow"
+        android:layout_centerHorizontal="true"
+        android:text="Disable foreign costraint enforcement to test" />
+
+    <TextView
+        android:id="@+id/follow_rank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="326dp"
+        android:text="Rank:" />
+
+    <EditText
+        android:id="@+id/input_follow_rank"
+        android:layout_width="361dp"
+        android:layout_height="52dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="359dp"
+        android:autofillHints=""
+        android:hint="Enter a rank (integer):"
+        android:inputType="text"
+        android:textSize="12sp" />
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+    <TextView
+        android:id="@+id/post_follow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="69dp"
+        android:text="POST a Follow" />
+
+    <TextView
+        android:id="@+id/follow_sport_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="114dp"
+        android:text="Sport ID:" />
+
+    <TextView
+        android:id="@+id/follow_player_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="220dp"
+        android:text="Player ID:" />
+
+
+    <EditText
+        android:id="@+id/input_follow_sport_id"
+        android:layout_width="361dp"
+        android:layout_height="52dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="145dp"
+        android:autofillHints=""
+        android:hint="Enter a sport ID (integer):"
+        android:inputType="text"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/input_follow_player_id"
+        android:layout_width="361dp"
+        android:layout_height="52dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="252dp"
+        android:autofillHints=""
+        android:hint="Enter a player ID (integer):"
+        android:inputType="text"
+        android:textSize="12sp" />
+
+    <Button
+        android:id="@+id/send_sport_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/request_status"
+        android:layout_alignBottom="@+id/network_connected"
+        android:onClick="post"
+        android:text="POST" />
+
+    <TextView
+        android:id="@+id/network_connected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="18dp"
+        android:text="Network Connectivity" />
+
+    <TextView
+        android:id="@+id/request_status"
+        android:layout_width="344dp"
+        android:layout_height="57dp"
+        android:layout_alignStart="@+id/network_connected"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="-1dp"
+        android:layout_marginBottom="76dp"
+        android:text="Request Status:" />
+
+</RelativeLayout>

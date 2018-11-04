@@ -21,19 +21,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-        <!--<activity-->
-            <!--android:name=".MainActivity"-->
-            <!--android:label="Main Activity" />-->
+
+        <!-- <activity -->
+        <!-- android:name=".MainActivity" -->
+        <!-- android:label="Main Activity" /> -->
         <activity
             android:name=".SplashScreen"
-            android:label="Splash Screen" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            android:label="Splash Screen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-
         <activity
             android:name=".ActivityRankings"
             android:label="Activity Rankings" />
@@ -70,8 +70,24 @@
             android:parentActivityName=".Login"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
-            android:name=".TestBackEnd"
-            android:label="Test Back End"
+            android:name=".TestGETBackEnd"
+            android:label="Test GET Back End"
+            android:parentActivityName=".ActivityRankings" />
+        <activity
+            android:name=".TestPOSTSportBackEnd"
+            android:label="Test POST Sport Back End"
+            android:parentActivityName=".ActivityRankings" />
+        <activity
+            android:name=".TestPOSTPlayerBackEnd"
+            android:label="Test POST Player Back End"
+            android:parentActivityName=".ActivityRankings" />
+        <activity
+            android:name=".TestPOSTFollowBackEnd"
+            android:label="Test POST Follow Back End"
+            android:parentActivityName=".ActivityRankings" />
+        <activity
+            android:name=".TestPOSTMatchBackEnd"
+            android:label="Test POST Match Back End"
             android:parentActivityName=".ActivityRankings">
 
         </activity>

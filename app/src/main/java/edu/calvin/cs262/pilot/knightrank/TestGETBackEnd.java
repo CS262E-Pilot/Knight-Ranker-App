@@ -18,13 +18,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,15 +33,17 @@ import org.json.JSONObject;
 
 import java.util.Objects;
 
-public class TestBackEnd extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
+public class TestGETBackEnd extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
 
     // Private class members.
-    private static final String LOG_TAG = TestBackEnd.class.getSimpleName();
+    private static final String LOG_TAG = TestGETBackEnd.class.getSimpleName();
 
     private EditText editTextQueryString;
     private TextView textViewSearchResults;
 
-    private String queryString;
+    private String queryString = "";
+
+    private String whichTableIsIt;
 
     // Share preferences file (custom)
     private SharedPreferences mPreferences;
@@ -54,7 +56,7 @@ public class TestBackEnd extends AppCompatActivity implements LoaderManager.Load
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test_back_end);
+        setContentView(R.layout.activity_test_get_back_end);
 
         // my_child_toolbar is defined in the layout file
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
@@ -79,12 +81,12 @@ public class TestBackEnd extends AppCompatActivity implements LoaderManager.Load
         editTextQueryString = findViewById(R.id.search_string);
         textViewSearchResults = findViewById(R.id.search_results);
 
-        // Reconnect to the loader if one exists already, upon device config change.
-        if(getSupportLoaderManager().getLoader(0)!=null){
-            getSupportLoaderManager().initLoader(0,null,this);
-        }
+        textViewSearchResults.setMovementMethod(new ScrollingMovementMethod());
 
-        queryString = "";
+        // Reconnect to the loader if one exists already, upon device config change.
+        if (getSupportLoaderManager().getLoader(0) != null) {
+            getSupportLoaderManager().initLoader(0, null, this);
+        }
 
         // Change the background color to what was selected in color picker.
         // Note: Change color by using findViewById and ID of the UI element you wish to change.
@@ -98,7 +100,7 @@ public class TestBackEnd extends AppCompatActivity implements LoaderManager.Load
         // Change the toolbar color to what was selected in color picker.
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(toolbarColor));
 
-        Log.e(LOG_TAG,"Value of color is: " + value);
+        Log.e(LOG_TAG, "Value of color is: " + value);
     }
 
     /**
@@ -143,7 +145,9 @@ public class TestBackEnd extends AppCompatActivity implements LoaderManager.Load
      *
      * @param view view component
      */
-    public void fetch(View view) {
+    public void fetch_follow(View view) {
+
+        whichTableIsIt = "follow";
 
         // Get the query string.
         queryString = editTextQueryString.getText().toString();
@@ -169,10 +173,154 @@ public class TestBackEnd extends AppCompatActivity implements LoaderManager.Load
         // Check connection is available, we are connected, and query string is not empty.
         if (networkInfo != null && networkInfo.isConnected()) {
 
-            // Refactored to user AsyncTaskLoader via PlayerLoader.java
+            // Refactored to user AsyncTaskLoader via PlayerGETLoader.java
             Bundle queryBundle = new Bundle();
             queryBundle.putString("queryString", queryString);
-            getSupportLoaderManager().restartLoader(0, queryBundle,this);
+            getSupportLoaderManager().restartLoader(0, queryBundle, this);
+
+            // Indicate to user query is in process.
+            textViewSearchResults.setText("");
+            textViewSearchResults.setText(R.string.loading_in_process);
+        } else {
+            // There is no available connection.
+            textViewSearchResults.setText("");
+            textViewSearchResults.setText(R.string.no_connection);
+        }
+    }
+
+    /**
+     * Method begins Google Cloud endpoint query process upon button click.
+     *
+     * @param view view component
+     */
+    public void fetch_match(View view) {
+
+        whichTableIsIt = "match";
+
+        // Get the query string.
+        queryString = editTextQueryString.getText().toString();
+
+        // Close keyboard after hitting search query button.
+        InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputManager != null) {
+            inputManager.hideSoftInputFromWindow(Objects.requireNonNull(getCurrentFocus()).getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+
+        // Initialize network info components.
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo networkInfo = null;
+
+        if (connMgr != null) {
+            networkInfo = connMgr.getActiveNetworkInfo();
+        }
+
+        // Check connection is available, we are connected, and query string is not empty.
+        if (networkInfo != null && networkInfo.isConnected()) {
+
+            // Refactored to user AsyncTaskLoader via PlayerGETLoader.java
+            Bundle queryBundle = new Bundle();
+            queryBundle.putString("queryString", queryString);
+            getSupportLoaderManager().restartLoader(0, queryBundle, this);
+
+            // Indicate to user query is in process.
+            textViewSearchResults.setText("");
+            textViewSearchResults.setText(R.string.loading_in_process);
+        } else {
+            // There is no available connection.
+            textViewSearchResults.setText("");
+            textViewSearchResults.setText(R.string.no_connection);
+        }
+    }
+
+    /**
+     * Method begins Google Cloud endpoint query process upon button click.
+     *
+     * @param view view component
+     */
+    public void fetch_sport(View view) {
+
+        whichTableIsIt = "sport";
+
+        // Get the query string.
+        queryString = editTextQueryString.getText().toString();
+
+        // Close keyboard after hitting search query button.
+        InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputManager != null) {
+            inputManager.hideSoftInputFromWindow(Objects.requireNonNull(getCurrentFocus()).getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+
+        // Initialize network info components.
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo networkInfo = null;
+
+        if (connMgr != null) {
+            networkInfo = connMgr.getActiveNetworkInfo();
+        }
+
+        // Check connection is available, we are connected, and query string is not empty.
+        if (networkInfo != null && networkInfo.isConnected()) {
+
+            // Refactored to user AsyncTaskLoader via PlayerGETLoader.java
+            Bundle queryBundle = new Bundle();
+            queryBundle.putString("queryString", queryString);
+            getSupportLoaderManager().restartLoader(0, queryBundle, this);
+
+            // Indicate to user query is in process.
+            textViewSearchResults.setText("");
+            textViewSearchResults.setText(R.string.loading_in_process);
+        } else {
+            // There is no available connection.
+            textViewSearchResults.setText("");
+            textViewSearchResults.setText(R.string.no_connection);
+        }
+    }
+
+    /**
+     * Method begins Google Cloud endpoint query process upon button click.
+     *
+     * @param view view component
+     */
+    public void fetch_player(View view) {
+
+        whichTableIsIt = "player";
+
+        // Get the query string.
+        queryString = editTextQueryString.getText().toString();
+
+        // Close keyboard after hitting search query button.
+        InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputManager != null) {
+            inputManager.hideSoftInputFromWindow(Objects.requireNonNull(getCurrentFocus()).getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+
+        // Initialize network info components.
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo networkInfo = null;
+
+        if (connMgr != null) {
+            networkInfo = connMgr.getActiveNetworkInfo();
+        }
+
+        // Check connection is available, we are connected, and query string is not empty.
+        if (networkInfo != null && networkInfo.isConnected()) {
+
+            // Refactored to user AsyncTaskLoader via PlayerGETLoader.java
+            Bundle queryBundle = new Bundle();
+            queryBundle.putString("queryString", queryString);
+            getSupportLoaderManager().restartLoader(0, queryBundle, this);
 
             // Indicate to user query is in process.
             textViewSearchResults.setText("");
@@ -186,7 +334,7 @@ public class TestBackEnd extends AppCompatActivity implements LoaderManager.Load
 
     /**
      * Method called when load is instantiated.
-     *
+     * <p>
      * NOTE: change the Loader.java class if we want to obtain different data.
      *
      * @param i
@@ -196,15 +344,28 @@ public class TestBackEnd extends AppCompatActivity implements LoaderManager.Load
     @NonNull
     @Override
     public Loader<String> onCreateLoader(int i, @Nullable Bundle bundle) {
-        //return new PlayerLoader(this, Objects.requireNonNull(bundle).getString("queryString"));
-        //return new SportLoader(this, Objects.requireNonNull(bundle).getString("queryString"));
-        //return new MatchLoader(this, Objects.requireNonNull(bundle).getString("queryString"));
-        return new FollowLoader(this, Objects.requireNonNull(bundle).getString("queryString"));
+
+        if (whichTableIsIt.contains("player")) {
+            return new PlayerGETLoader(this, Objects.requireNonNull(bundle).getString("queryString"));
+        }
+
+        else if (whichTableIsIt.contains("sport")) {
+            return new SportGETLoader(this, Objects.requireNonNull(bundle).getString("queryString"));
+        }
+
+        else if (whichTableIsIt.contains("match")) {
+            return new MatchGETLoader(this, Objects.requireNonNull(bundle).getString("queryString"));
+        }
+
+        else if (whichTableIsIt.contains("follow")) {
+            return new FollowGETLoader(this, Objects.requireNonNull(bundle).getString("queryString"));
+        }
+        return null;
     }
 
     /**
      * Method called when loader task is finished.  Add code to update UI with results.
-     *
+     * <p>
      * NOTE: modify as necessary according to the data we obtained.
      *
      * @param loader loader object.
@@ -214,29 +375,42 @@ public class TestBackEnd extends AppCompatActivity implements LoaderManager.Load
     @Override
     public void onLoadFinished(@NonNull Loader<String> loader, String s) {
 
-        // Method call to test player GET.
-        //TestPlayerGETBackEnd(s);
+        if (whichTableIsIt.contains("player")) {
+            // Method call to test player GET.
+            TestPlayerGETBackEnd(s);
+        }
 
-        // Method call to test sport GET.
-        //TestSportGETBackend(s);
+        else if (whichTableIsIt.contains("sport")) {
+            // Method call to test sport GET.
+            TestSportGETBackend(s);
+        }
 
-        // Method call to test match GET.
-        //TestMatchGETBackend(s);
+        else if (whichTableIsIt.contains("match")) {
+            // Method call to test match GET.
+            TestMatchGETBackend(s);
+        }
 
-        // Method call to test match GET.
-        TestFollowGETBackend(s);
+        else if (whichTableIsIt.contains("follow")) {
+            // Method call to test match GET.
+            TestFollowGETBackend(s);
+        }
     }
 
+    /**
+     * Method to test retrieval of Player Table values.
+     *
+     * @param s string storing JSON result object.
+     */
     private void TestFollowGETBackend(String s) {
 
         // If string s is empty, then connection failed.
-        if (s.contains("Connection failed!")){
+        if (s.contains("Connection failed!")) {
             textViewSearchResults.setText("");
             textViewSearchResults.setText(R.string.connection_failed);
             Toast.makeText(this, R.string.connection_failed, Toast.LENGTH_SHORT).show();
             return;
         }
-        if(s.length() == 0){
+        if (s.length() == 0) {
             textViewSearchResults.setText("");
             textViewSearchResults.setText(R.string.no_results_found);
             Toast.makeText(this, R.string.no_results_found, Toast.LENGTH_SHORT).show();
@@ -249,7 +423,7 @@ public class TestBackEnd extends AppCompatActivity implements LoaderManager.Load
             JSONArray itemsArray;
 
             // Condition to handle getting the player list
-            if(queryString.length() == 0){
+            if (queryString.length() == 0) {
                 itemsArray = jsonObject.getJSONArray("items");
 
                 Log.e(LOG_TAG, "Length of itemsArray: " + itemsArray.length());
@@ -272,18 +446,17 @@ public class TestBackEnd extends AppCompatActivity implements LoaderManager.Load
                     }
 
                     //If information field requested exists, update the TextViews and return
-                    if (id != null || sportID != null || playerID != null || rank != null)  {
+                    if (id != null || sportID != null || playerID != null || rank != null) {
                         textViewSearchResults.append("\n\nid: " + id + "\n" + "sportID: " + sportID + "\n"
                                 + "playerID: " + playerID + "\n" + "rank: " + rank + "\n");
-                    }
-                    else{
+                    } else {
                         textViewSearchResults.append("\n\nFailure to retrieve any information for this particular follow!\n");
                     }
                 }
                 return;
             }
             // Condition to get a specific player in list
-            else{
+            else {
                 String id = "id";
                 String sportID = "sportID";
                 String playerID = "playerID";
@@ -299,7 +472,7 @@ public class TestBackEnd extends AppCompatActivity implements LoaderManager.Load
                 }
 
                 //If information field requested exists, update the TextViews and return
-                if (id != null || sportID != null || playerID != null || rank != null)  {
+                if (id != null || sportID != null || playerID != null || rank != null) {
                     textViewSearchResults.append("\n\nid: " + id + "\n" + "sportID: " + sportID + "\n"
                             + "playerID: " + playerID + "\n" + "rank: " + rank + "\n");
                     return;
@@ -310,15 +483,15 @@ public class TestBackEnd extends AppCompatActivity implements LoaderManager.Load
             textViewSearchResults.setText(R.string.display_failure);
             Toast.makeText(this, R.string.display_failure, Toast.LENGTH_SHORT).show();
 
-        } catch (Exception ex){
+        } catch (Exception ex) {
 
             textViewSearchResults.setText("");
             textViewSearchResults.setText(R.string.json_failure);
             Toast.makeText(this, R.string.json_failure, Toast.LENGTH_SHORT).show();
             ex.printStackTrace();
 
-        } finally{
-            Log.e(LOG_TAG,"Finished query process!");
+        } finally {
+            Log.e(LOG_TAG, "Finished query process!");
         }
     }
 
@@ -330,13 +503,13 @@ public class TestBackEnd extends AppCompatActivity implements LoaderManager.Load
     private void TestMatchGETBackend(String s) {
 
         // If string s is empty, then connection failed.
-        if (s.contains("Connection failed!")){
+        if (s.contains("Connection failed!")) {
             textViewSearchResults.setText("");
             textViewSearchResults.setText(R.string.connection_failed);
             Toast.makeText(this, R.string.connection_failed, Toast.LENGTH_SHORT).show();
             return;
         }
-        if(s.length() == 0){
+        if (s.length() == 0) {
             textViewSearchResults.setText("");
             textViewSearchResults.setText(R.string.no_results_found);
             Toast.makeText(this, R.string.no_results_found, Toast.LENGTH_SHORT).show();
@@ -349,7 +522,7 @@ public class TestBackEnd extends AppCompatActivity implements LoaderManager.Load
             JSONArray itemsArray;
 
             // Condition to handle getting the player list
-            if(queryString.length() == 0){
+            if (queryString.length() == 0) {
                 itemsArray = jsonObject.getJSONArray("items");
 
                 Log.e(LOG_TAG, "Length of itemsArray: " + itemsArray.length());
@@ -384,21 +557,20 @@ public class TestBackEnd extends AppCompatActivity implements LoaderManager.Load
                     //If information field requested exists, update the TextViews and return
                     if (id != null || sportID != null || playerOneID != null || playerTwoID != null
                             || playerOneScore != null || playerTwoScore != null || winner != null
-                            || time != null || verified != null)  {
+                            || time != null || verified != null) {
                         textViewSearchResults.append("\n\nid: " + id + "\n" + "sportID: " + sportID
-                                + "\n" + "playerOneID: " + playerOneID + "\n"+ "playerTwoID: " + playerTwoID + "\n"
+                                + "\n" + "playerOneID: " + playerOneID + "\n" + "playerTwoID: " + playerTwoID + "\n"
                                 + "playerOneScore: " + playerOneScore + "\n" + "playerTwoScore: " + playerTwoScore + "\n"
                                 + "winner: " + winner + "\n" + "time: " + time + "\n"
                                 + "verified: " + verified + "\n");
-                    }
-                    else{
+                    } else {
                         textViewSearchResults.append("\n\nFailure to retrieve any information for this particular match!\n");
                     }
                 }
                 return;
             }
             // Condition to get a specific player in list
-            else{
+            else {
                 String id = "no id found";
                 String sportID = "no sport ID found";
                 String playerOneID = "no player one ID found";
@@ -426,9 +598,9 @@ public class TestBackEnd extends AppCompatActivity implements LoaderManager.Load
                 //If information field requested exists, update the TextViews and return
                 if (id != null || sportID != null || playerOneID != null || playerTwoID != null
                         || playerOneScore != null || playerTwoScore != null || winner != null
-                        || time != null || verified != null)  {
+                        || time != null || verified != null) {
                     textViewSearchResults.append("\n\nid: " + id + "\n" + "sportID: " + sportID
-                            + "\n" + "playerOneID: " + playerOneID + "\n"+ "playerTwoID: " + playerTwoID + "\n"
+                            + "\n" + "playerOneID: " + playerOneID + "\n" + "playerTwoID: " + playerTwoID + "\n"
                             + "playerOneScore: " + playerOneScore + "\n" + "playerTwoScore: " + playerTwoScore + "\n"
                             + "winner: " + winner + "\n" + "time: " + time + "\n"
                             + "verified: " + verified + "\n");
@@ -440,15 +612,15 @@ public class TestBackEnd extends AppCompatActivity implements LoaderManager.Load
             textViewSearchResults.setText(R.string.display_failure);
             Toast.makeText(this, R.string.display_failure, Toast.LENGTH_SHORT).show();
 
-        } catch (Exception ex){
+        } catch (Exception ex) {
 
             textViewSearchResults.setText("");
             textViewSearchResults.setText(R.string.json_failure);
             Toast.makeText(this, R.string.json_failure, Toast.LENGTH_SHORT).show();
             ex.printStackTrace();
 
-        } finally{
-            Log.e(LOG_TAG,"Finished query process!");
+        } finally {
+            Log.e(LOG_TAG, "Finished query process!");
         }
     }
 
@@ -460,13 +632,13 @@ public class TestBackEnd extends AppCompatActivity implements LoaderManager.Load
     private void TestSportGETBackend(String s) {
 
         // If string s is empty, then connection failed.
-        if (s.contains("Connection failed!")){
+        if (s.contains("Connection failed!")) {
             textViewSearchResults.setText("");
             textViewSearchResults.setText(R.string.connection_failed);
             Toast.makeText(this, R.string.connection_failed, Toast.LENGTH_SHORT).show();
             return;
         }
-        if(s.length() == 0){
+        if (s.length() == 0) {
             textViewSearchResults.setText("");
             textViewSearchResults.setText(R.string.no_results_found);
             Toast.makeText(this, R.string.no_results_found, Toast.LENGTH_SHORT).show();
@@ -479,7 +651,7 @@ public class TestBackEnd extends AppCompatActivity implements LoaderManager.Load
             JSONArray itemsArray;
 
             // Condition to handle getting the player list
-            if(queryString.length() == 0){
+            if (queryString.length() == 0) {
                 itemsArray = jsonObject.getJSONArray("items");
 
                 Log.e(LOG_TAG, "Length of itemsArray: " + itemsArray.length());
@@ -500,17 +672,16 @@ public class TestBackEnd extends AppCompatActivity implements LoaderManager.Load
                     }
 
                     //If information field requested exists, update the TextViews and return
-                    if (id != null || name != null || type != null)  {
+                    if (id != null || name != null || type != null) {
                         textViewSearchResults.append("\n\nid: " + id + "\n" + "name: " + name + "\n" + "type: " + type + "\n");
-                    }
-                    else{
+                    } else {
                         textViewSearchResults.append("\n\nFailure to retrieve any information for this particular sport!\n");
                     }
                 }
                 return;
             }
             // Condition to get a specific player in list
-            else{
+            else {
                 String id = "no id found";
                 String name = "no name found";
                 String type = "no type found";
@@ -534,15 +705,15 @@ public class TestBackEnd extends AppCompatActivity implements LoaderManager.Load
             textViewSearchResults.setText(R.string.display_failure);
             Toast.makeText(this, R.string.display_failure, Toast.LENGTH_SHORT).show();
 
-        } catch (Exception ex){
+        } catch (Exception ex) {
 
             textViewSearchResults.setText("");
             textViewSearchResults.setText(R.string.json_failure);
             Toast.makeText(this, R.string.json_failure, Toast.LENGTH_SHORT).show();
             ex.printStackTrace();
 
-        } finally{
-            Log.e(LOG_TAG,"Finished query process!");
+        } finally {
+            Log.e(LOG_TAG, "Finished query process!");
         }
     }
 
@@ -554,13 +725,13 @@ public class TestBackEnd extends AppCompatActivity implements LoaderManager.Load
     private void TestPlayerGETBackEnd(String s) {
 
         // If string s is empty, then connection failed.
-        if (s.contains("Connection failed!")){
+        if (s.contains("Connection failed!")) {
             textViewSearchResults.setText("");
             textViewSearchResults.setText(R.string.connection_failed);
             Toast.makeText(this, R.string.connection_failed, Toast.LENGTH_SHORT).show();
             return;
         }
-        if(s.length() == 0){
+        if (s.length() == 0) {
             textViewSearchResults.setText("");
             textViewSearchResults.setText(R.string.no_results_found);
             Toast.makeText(this, R.string.no_results_found, Toast.LENGTH_SHORT).show();
@@ -573,7 +744,7 @@ public class TestBackEnd extends AppCompatActivity implements LoaderManager.Load
             JSONArray itemsArray;
 
             // Condition to handle getting the player list
-            if(queryString.length() == 0){
+            if (queryString.length() == 0) {
                 itemsArray = jsonObject.getJSONArray("items");
 
                 Log.e(LOG_TAG, "Length of itemsArray: " + itemsArray.length());
@@ -594,17 +765,16 @@ public class TestBackEnd extends AppCompatActivity implements LoaderManager.Load
                     }
 
                     //If information field requested exists, update the TextViews and return
-                    if (id != null || emailAddress != null || accountCreationDate != null)  {
+                    if (id != null || emailAddress != null || accountCreationDate != null) {
                         textViewSearchResults.append("\n\nid: " + id + "\n" + "emailAddress: " + emailAddress + "\n" + "accountCreationDate: " + accountCreationDate + "\n");
-                    }
-                    else{
+                    } else {
                         textViewSearchResults.append("\n\nFailure to retrieve any information for this particular player!\n");
                     }
                 }
                 return;
             }
             // Condition to get a specific player in list
-            else{
+            else {
                 String id = "no id found";
                 String emailAddress = "no email address found";
                 String accountCreationDate = "no account creation date found";
@@ -628,15 +798,15 @@ public class TestBackEnd extends AppCompatActivity implements LoaderManager.Load
             textViewSearchResults.setText(R.string.display_failure);
             Toast.makeText(this, R.string.display_failure, Toast.LENGTH_SHORT).show();
 
-        } catch (Exception ex){
+        } catch (Exception ex) {
 
             textViewSearchResults.setText("");
             textViewSearchResults.setText(R.string.json_failure);
             Toast.makeText(this, R.string.json_failure, Toast.LENGTH_SHORT).show();
             ex.printStackTrace();
 
-        } finally{
-            Log.e(LOG_TAG,"Finished query process!");
+        } finally {
+            Log.e(LOG_TAG, "Finished query process!");
         }
     }
 
