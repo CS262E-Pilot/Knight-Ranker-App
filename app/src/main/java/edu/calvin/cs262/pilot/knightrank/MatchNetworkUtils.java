@@ -270,46 +270,37 @@ public class MatchNetworkUtils {
         try {
             //Build up your query URI.
             Uri builtURI = Uri.parse(MATCH_DELETE_URL).buildUpon()
-
+                    .appendPath(match_data_entry_id)
                     .build();
 
             // Convert URI to URL
             URL requestURL = new URL(builtURI.toString());
 
-            // Define connection and request.
+            // Open connection and make request.
             urlConnection = (HttpURLConnection) requestURL.openConnection();
             urlConnection.setRequestMethod("DELETE");
-            urlConnection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
-
-            // Define the data we wish to send.
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.accumulate("ID", match_data_entry_id);
-
-            // Create stream to output the data.
-            OutputStream os = urlConnection.getOutputStream();
-
-            // Create writer to write to the stream to output the data.
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-
-            // Write the data.
-            writer.write(jsonObject.toString());
-
-            // Write to log.e what we're trying to send.
-            Log.e(SportNetworkUtils.class.toString(), jsonObject.toString());
-
-            // Close resources.
-            writer.flush();
-            writer.close();
-            os.close();
-
-            // Initiate the connection and attempt to post.
             urlConnection.connect();
 
-        } catch (Exception ex) {
+            // Read the response. (don't remove, otherwise DELETE WILL FAIL)
+            // Don't ask me why that is....it just is.....
+            InputStream inputStream = urlConnection.getInputStream();
 
+        } catch (Exception ex) {
             ex.printStackTrace();
-            return "DELETE failed!";
+            return "Connection failed!";
         } finally {
+
+            // Close all connections opened.
+            if (urlConnection != null) {
+                urlConnection.disconnect();
+            }
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             try {
                 return Objects.requireNonNull(urlConnection).getResponseMessage() + "";
             } catch(Exception ex){
