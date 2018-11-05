@@ -423,7 +423,7 @@ public class TestDELETEBackEnd extends AppCompatActivity implements LoaderManage
 
         // POST the response we get to the TextView.
         textViewRequestStatus.setText("Response from RESTful web service\n");
-        textViewRequestStatus.append("OK = success, anything else = BAD\n");
+        textViewRequestStatus.append("No Content = success, anything else = BAD\n");
         textViewRequestStatus.append("Result:");
         textViewRequestStatus.append(s);
     }

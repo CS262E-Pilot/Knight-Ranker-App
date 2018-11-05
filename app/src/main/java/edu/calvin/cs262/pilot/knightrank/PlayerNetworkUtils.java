@@ -261,11 +261,9 @@ public class PlayerNetworkUtils {
 
         try {
             //Build up your query URI.
-            Uri builtURI = Uri.parse(PLAYER_DELETE_URL).buildUpon().appendPath(player_data_entry_id)
-
+            Uri builtURI = Uri.parse(PLAYER_DELETE_URL).buildUpon()
+                    .appendPath(player_data_entry_id)
                     .build();
-
-            Log.e(LOG_TAG, builtURI.toString());
 
             // Convert URI to URL
             URL requestURL = new URL(builtURI.toString());
@@ -273,14 +271,28 @@ public class PlayerNetworkUtils {
             // Open connection and make request.
             urlConnection = (HttpURLConnection) requestURL.openConnection();
             urlConnection.setRequestMethod("DELETE");
-            urlConnection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
             urlConnection.connect();
 
-        } catch (Exception ex) {
+            // Read the response. (don't remove, otherwise DELETE WILL FAIL)
+            // Don't ask me why that is....it just is.....
+            InputStream inputStream = urlConnection.getInputStream();
 
+        } catch (Exception ex) {
             ex.printStackTrace();
-            return "DELETE failed!";
+            return "Connection failed!";
         } finally {
+
+            // Close all connections opened.
+            if (urlConnection != null) {
+                urlConnection.disconnect();
+            }
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             try {
                 return Objects.requireNonNull(urlConnection).getResponseMessage() + "";
             } catch(Exception ex){
