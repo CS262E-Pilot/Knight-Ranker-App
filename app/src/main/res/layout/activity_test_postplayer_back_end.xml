@@ -11,10 +11,12 @@
         android:id="@+id/post_player_note_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="409dp"
-        android:layout_marginEnd="8dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="336dp"
+        android:layout_marginEnd="3dp"
         android:text="Bug: Click into any field first time after loading into activity before hitting post, otherwise activity crashes."
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -110,8 +112,11 @@
         android:layout_width="344dp"
         android:layout_height="57dp"
         android:layout_alignStart="@+id/network_connected"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="176dp"
+        android:layout_marginStart="-1dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="102dp"
         android:text="Request Status:" />
 
     <TextView
