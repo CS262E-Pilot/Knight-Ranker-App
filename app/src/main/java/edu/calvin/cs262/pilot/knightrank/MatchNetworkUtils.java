@@ -25,6 +25,87 @@ public class MatchNetworkUtils {
     private static final String MATCH_ID_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/match/";
     private static final String MATCH_POST_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/match";
     private static final String MATCH_DELETE_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/match/";
+    private static final String MATCH_PUT_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/match/";
+
+
+    /**
+     *  Method puts to the specified URI.
+     *
+     * @param id match id
+     * @param sport_id match sport id
+     * @param player_one_id match player one id
+     * @param player_two_id match player two id
+     * @param player_one_score match player one score
+     * @param player_two_score match player two score
+     * @param winner match winner (player)
+     * @param timestamp match timestamp
+     * @param verified whether match is verified
+     * @return String indicating success or failure
+     */
+    static String putMatchInfo(String id, String sport_id, String player_one_id, String player_two_id,
+                                String player_one_score, String player_two_score, String winner, String timestamp, String verified){
+
+        HttpURLConnection urlConnection = null;
+        BufferedReader reader = null;
+
+        try {
+            //Build up your query URI.
+            Uri builtURI = Uri.parse(MATCH_PUT_URL).buildUpon()
+                    .appendPath(id)
+                    .build();
+
+            // Convert URI to URL
+            URL requestURL = new URL(builtURI.toString());
+
+            // Define connection and request.
+            urlConnection = (HttpURLConnection) requestURL.openConnection();
+            urlConnection.setRequestMethod("PUT");
+            urlConnection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+
+            // Define the data we wish to send.
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.accumulate("sportID", sport_id);
+            jsonObject.accumulate("playerOneID",  player_one_id);
+            jsonObject.accumulate("playerTwoID",  player_two_id);
+            jsonObject.accumulate("playerOneScore",  player_one_score);
+            jsonObject.accumulate("playerTwoScore",  player_two_score);
+            jsonObject.accumulate("winner",  winner);
+            jsonObject.accumulate("time",  timestamp);
+            jsonObject.accumulate("verified",  verified);
+
+            // Create stream to output the data.
+            OutputStream os = urlConnection.getOutputStream();
+
+            // Create writer to write to the stream to output the data.
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+
+            // Write the data.
+            writer.write(jsonObject.toString());
+
+            // Write to log.e what we're trying to send.
+            Log.e(MatchNetworkUtils.class.toString(), jsonObject.toString());
+
+            // Close resources.
+            writer.flush();
+            writer.close();
+            os.close();
+
+            // Initiate the connection and attempt to post.
+            urlConnection.connect();
+
+        } catch (Exception ex) {
+
+            ex.printStackTrace();
+            return "PUT failed!";
+        } finally {
+            try {
+                return Objects.requireNonNull(urlConnection).getResponseMessage() + "";
+            } catch(Exception ex){
+                ex.printStackTrace();
+                return "PUT failed!";
+            }
+        }
+    }
 
     /**
      *  Method posts to the specified URI.

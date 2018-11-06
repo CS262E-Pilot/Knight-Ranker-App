@@ -28,20 +28,24 @@ import android.widget.TextView;
 
 import java.util.Objects;
 
-public class TestPOSTFollowBackEnd extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
+public class TestPOSTPUTFollowBackEnd extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
 
     // Private class members.
-    private static final String LOG_TAG = TestPOSTSportBackEnd.class.getSimpleName();
+    private static final String LOG_TAG = TestPOSTPUTSportBackEnd.class.getSimpleName();
 
+    private EditText editTextViewFollowID;
     private EditText editTextViewFollowSportID;
     private EditText editTextViewFollowPlayerID;
     private EditText editTextViewFollowRank;
     private TextView textViewNetworkStatus;
     private TextView textViewRequestStatus;
 
+    private String followIDString;
     private String followSportIDString;
     private String followPlayerIDString;
     private String followRankString;
+
+    private String whichCRUDIsIt;
 
     // Share preferences file (custom)
     private SharedPreferences mPreferences;
@@ -76,6 +80,7 @@ public class TestPOSTFollowBackEnd extends AppCompatActivity implements LoaderMa
         String syncFreq = mPreferencesDefault.getString(SettingsActivity.KEY_SYNC_FREQUENCY, "-1");
 
         // Find components.
+        editTextViewFollowID = findViewById(R.id.input_follow_put_id);
         editTextViewFollowSportID = findViewById(R.id.input_follow_sport_id);
         editTextViewFollowPlayerID = findViewById(R.id.input_follow_player_id);
         editTextViewFollowRank = findViewById(R.id.input_follow_player_id);
@@ -83,8 +88,8 @@ public class TestPOSTFollowBackEnd extends AppCompatActivity implements LoaderMa
         textViewRequestStatus = findViewById(R.id.request_status);
 
         // Reconnect to the loader if one exists already, upon device config change.
-        if(getSupportLoaderManager().getLoader(0)!=null){
-            getSupportLoaderManager().initLoader(0,null,this);
+        if (getSupportLoaderManager().getLoader(0) != null) {
+            getSupportLoaderManager().initLoader(0, null, this);
         }
 
         // Change the background color to what was selected in color picker.
@@ -99,7 +104,7 @@ public class TestPOSTFollowBackEnd extends AppCompatActivity implements LoaderMa
         // Change the toolbar color to what was selected in color picker.
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(toolbarColor));
 
-        Log.e(LOG_TAG,"Value of color is: " + value);
+        Log.e(LOG_TAG, "Value of color is: " + value);
     }
 
 
@@ -109,27 +114,25 @@ public class TestPOSTFollowBackEnd extends AppCompatActivity implements LoaderMa
      * @param view view component
      */
     public void put(View view) {
-    }
 
-    /**
-     * Method begins Google Cloud endpoint post process upon button click.
-     *
-     * @param view view component
-     */
-    public void post(View view) {
+        whichCRUDIsIt = "put";
 
         // Get the sport input strings.
+        followIDString = editTextViewFollowID.getText().toString();
         followSportIDString = editTextViewFollowSportID.getText().toString();
         followPlayerIDString = editTextViewFollowPlayerID.getText().toString();
         followRankString = editTextViewFollowRank.getText().toString();
 
-        if(followSportIDString.length() == 0){
+        if (followIDString.length() == 0) {
+            followIDString = "1";
+        }
+        if (followSportIDString.length() == 0) {
             followSportIDString = "1";
         }
-        if(followPlayerIDString.length() == 0){
+        if (followPlayerIDString.length() == 0) {
             followPlayerIDString = "1";
         }
-        if(followRankString.length() == 0){
+        if (followRankString.length() == 0) {
             followRankString = "10";
         }
 
@@ -155,7 +158,81 @@ public class TestPOSTFollowBackEnd extends AppCompatActivity implements LoaderMa
         if (networkInfo != null && networkInfo.isConnected()) {
 
             // show "Connected" & type of network "WIFI or MOBILE"
-            textViewNetworkStatus.setText("Connected "+networkInfo.getTypeName());
+            textViewNetworkStatus.setText("Connected " + networkInfo.getTypeName());
+            // change background color to red
+            textViewNetworkStatus.setBackgroundColor(0xFF7CCC26);
+
+            // Refactored to user AsyncTaskLoader via PlayerGETLoader.java
+            Bundle postBundle = new Bundle();
+            postBundle.putString("follow_id", followIDString);
+            postBundle.putString("follow_sport_id", followSportIDString);
+            postBundle.putString("follow_player_id", followPlayerIDString);
+            postBundle.putString("follow_rank", followRankString);
+            getSupportLoaderManager().restartLoader(0, postBundle, this);
+
+            // Indicate to user query is in process.
+            textViewRequestStatus.setText("");
+            textViewRequestStatus.setText("POST in-progress");
+        } else {
+
+            // show "Not Connected"
+            textViewNetworkStatus.setText("Not Connected");
+            // change background color to green
+            textViewNetworkStatus.setBackgroundColor(0xFFFF0000);
+
+            // There is no available connection.
+            textViewRequestStatus.setText("");
+            textViewRequestStatus.setText(R.string.no_connection);
+        }
+    }
+
+    /**
+     * Method begins Google Cloud endpoint post process upon button click.
+     *
+     * @param view view component
+     */
+    public void post(View view) {
+
+        whichCRUDIsIt = "post";
+
+        // Get the sport input strings.
+        followSportIDString = editTextViewFollowSportID.getText().toString();
+        followPlayerIDString = editTextViewFollowPlayerID.getText().toString();
+        followRankString = editTextViewFollowRank.getText().toString();
+
+        if (followSportIDString.length() == 0) {
+            followSportIDString = "1";
+        }
+        if (followPlayerIDString.length() == 0) {
+            followPlayerIDString = "1";
+        }
+        if (followRankString.length() == 0) {
+            followRankString = "10";
+        }
+
+        // Close keyboard after hitting search query button.
+        InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputManager != null) {
+            inputManager.hideSoftInputFromWindow(Objects.requireNonNull(getCurrentFocus()).getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+
+        // Initialize network info components.
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo networkInfo = null;
+
+        if (connMgr != null) {
+            networkInfo = connMgr.getActiveNetworkInfo();
+        }
+
+        // Check connection is available, we are connected.
+        if (networkInfo != null && networkInfo.isConnected()) {
+
+            // show "Connected" & type of network "WIFI or MOBILE"
+            textViewNetworkStatus.setText("Connected " + networkInfo.getTypeName());
             // change background color to red
             textViewNetworkStatus.setBackgroundColor(0xFF7CCC26);
 
@@ -164,7 +241,7 @@ public class TestPOSTFollowBackEnd extends AppCompatActivity implements LoaderMa
             postBundle.putString("follow_sport_id", followSportIDString);
             postBundle.putString("follow_player_id", followPlayerIDString);
             postBundle.putString("follow_rank", followRankString);
-            getSupportLoaderManager().restartLoader(0, postBundle,this);
+            getSupportLoaderManager().restartLoader(0, postBundle, this);
 
             // Indicate to user query is in process.
             textViewRequestStatus.setText("");
@@ -221,7 +298,7 @@ public class TestPOSTFollowBackEnd extends AppCompatActivity implements LoaderMa
 
     /**
      * Method called when load is instantiated.
-     *
+     * <p>
      * NOTE: change the Loader.java class if we want to obtain different data.
      *
      * @param id
@@ -231,12 +308,18 @@ public class TestPOSTFollowBackEnd extends AppCompatActivity implements LoaderMa
     @NonNull
     @Override
     public Loader<String> onCreateLoader(int id, @Nullable Bundle bundle) {
-        return new FollowPOSTLoader(this, bundle.getString("follow_sport_id"), bundle.getString("follow_player_id"), bundle.getString("follow_rank"));
+
+        if (whichCRUDIsIt.contains("put")) {
+            return new FollowPUTLoader(this, bundle.getString("follow_id"), bundle.getString("follow_sport_id"), bundle.getString("follow_player_id"), bundle.getString("follow_rank"));
+        } else if (whichCRUDIsIt.contains("post")) {
+            return new FollowPOSTLoader(this, bundle.getString("follow_sport_id"), bundle.getString("follow_player_id"), bundle.getString("follow_rank"));
+        }
+        return null;
     }
 
     /**
      * Method called when loader task is finished.  Add code to update UI with results.
-     *
+     * <p>
      * NOTE: modify as necessary according to the data we obtained.
      *
      * @param loader loader object.
@@ -246,8 +329,14 @@ public class TestPOSTFollowBackEnd extends AppCompatActivity implements LoaderMa
     @Override
     public void onLoadFinished(@NonNull Loader<String> loader, String s) {
 
-        // Method call to test match GET.
-        TestFollowPOSTBackend(s);
+        if (whichCRUDIsIt.contains("put")) {
+            // Method call to test player PUT.
+            TestFollowPUTBackend(s);
+        }
+        if (whichCRUDIsIt.contains("post")) {
+            // Method call to test match POST.
+            TestFollowPOSTBackend(s);
+        }
     }
 
     /**
@@ -256,6 +345,20 @@ public class TestPOSTFollowBackEnd extends AppCompatActivity implements LoaderMa
      * @param s response message from the RESTful web service.
      */
     private void TestFollowPOSTBackend(String s) {
+
+        // POST the response we get to the TextView.
+        textViewRequestStatus.setText("Response from RESTful web service\n");
+        textViewRequestStatus.append("OK = success, anything else = BAD\n");
+        textViewRequestStatus.append("Result:");
+        textViewRequestStatus.append(s);
+    }
+
+    /**
+     * Method to test whether we can successfully post to the database.
+     *
+     * @param s response message from the RESTful web service.
+     */
+    private void TestFollowPUTBackend(String s) {
 
         // POST the response we get to the TextView.
         textViewRequestStatus.setText("Response from RESTful web service\n");

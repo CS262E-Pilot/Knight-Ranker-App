@@ -265,32 +265,32 @@ public class ActivityRankings extends AppCompatActivity
                 Log.e(LOG_TAG, "Selected the sport selection activity!");
                 Toast.makeText(getApplicationContext(), "Selected", Toast.LENGTH_SHORT).show();
                 return true;
-            case R.id.nav_test_sport_post_backend:
-                fragmentClass = TestPOSTSportBackEnd.class;
-                Intent intent5 = new Intent(getApplicationContext(), TestPOSTSportBackEnd.class);
+            case R.id.nav_test_sport_post_put_backend:
+                fragmentClass = TestPOSTPUTSportBackEnd.class;
+                Intent intent5 = new Intent(getApplicationContext(), TestPOSTPUTSportBackEnd.class);
                 startActivity(intent5);
-                Log.e(LOG_TAG, "Selected the test post sport back end activity!");
+                Log.e(LOG_TAG, "Selected the test post put sport back end activity!");
                 Toast.makeText(getApplicationContext(), "Selected", Toast.LENGTH_SHORT).show();
                 return true;
-            case R.id.nav_test_player_post_backend:
-                fragmentClass = TestPOSTPlayerBackEnd.class;
-                Intent intent6 = new Intent(getApplicationContext(), TestPOSTPlayerBackEnd.class);
+            case R.id.nav_test_player_post_put_backend:
+                fragmentClass = TestPOSTPUTPlayerBackEnd.class;
+                Intent intent6 = new Intent(getApplicationContext(), TestPOSTPUTPlayerBackEnd.class);
                 startActivity(intent6);
-                Log.e(LOG_TAG, "Selected the test post player back end activity!");
+                Log.e(LOG_TAG, "Selected the test post put player back end activity!");
                 Toast.makeText(getApplicationContext(), "Selected", Toast.LENGTH_SHORT).show();
                 return true;
-            case R.id.nav_test_follow_post_backend:
-                fragmentClass = TestPOSTFollowBackEnd.class;
-                Intent intent7 = new Intent(getApplicationContext(), TestPOSTFollowBackEnd.class);
+            case R.id.nav_test_follow_post_put_backend:
+                fragmentClass = TestPOSTPUTFollowBackEnd.class;
+                Intent intent7 = new Intent(getApplicationContext(), TestPOSTPUTFollowBackEnd.class);
                 startActivity(intent7);
-                Log.e(LOG_TAG, "Selected the test post follow back end activity!");
+                Log.e(LOG_TAG, "Selected the test post put follow back end activity!");
                 Toast.makeText(getApplicationContext(), "Selected", Toast.LENGTH_SHORT).show();
                 return true;
-            case R.id.nav_test_match_post_backend:
-                fragmentClass = TestPOSTMatchBackEnd.class;
-                Intent intent8 = new Intent(getApplicationContext(), TestPOSTMatchBackEnd.class);
+            case R.id.nav_test_match_post_put_backend:
+                fragmentClass = TestPOSTPUTMatchBackEnd.class;
+                Intent intent8 = new Intent(getApplicationContext(), TestPOSTPUTMatchBackEnd.class);
                 startActivity(intent8);
-                Log.e(LOG_TAG, "Selected the test post match back end activity!");
+                Log.e(LOG_TAG, "Selected the test post put match back end activity!");
                 Toast.makeText(getApplicationContext(), "Selected", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.nav_test_delete_backend:

@@ -25,6 +25,76 @@ public class FollowNetworkUtils
     private static final String FOLLOW_ID_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/follow/";
     private static final String FOLLOW_POST_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/follow";
     private static final String FOLLOW_DELETE_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/follow/";
+    private static final String FOLLOW_PUT_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/follow/";
+
+
+    /**
+     * Method puts to the specified URI.
+     *
+     * @param id  follow id
+     * @param sportID sport id of the follow
+     * @param playerID player id of the follow
+     * @param rank rank of the follow
+     * @return String indicating success or failure
+     */
+    static String putFollowInfo(String id, String sportID, String playerID, String rank) {
+
+        HttpURLConnection urlConnection = null;
+        BufferedReader reader = null;
+
+        try {
+            //Build up your query URI.
+            Uri builtURI = Uri.parse(FOLLOW_PUT_URL).buildUpon()
+                    .appendPath(id)
+                    .build();
+
+            // Convert URI to URL
+            URL requestURL = new URL(builtURI.toString());
+
+            // Define connection and request.
+            urlConnection = (HttpURLConnection) requestURL.openConnection();
+            urlConnection.setRequestMethod("PUT");
+            urlConnection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+
+            // Define the data we wish to send.
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.accumulate("sportID", sportID);
+            jsonObject.accumulate("playerID",  playerID);
+            jsonObject.accumulate("rank",  rank);
+
+            // Create stream to output the data.
+            OutputStream os = urlConnection.getOutputStream();
+
+            // Create writer to write to the stream to output the data.
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+
+            // Write the data.
+            writer.write(jsonObject.toString());
+
+            // Write to log.e what we're trying to send.
+            Log.e(FollowNetworkUtils.class.toString(), jsonObject.toString());
+
+            // Close resources.
+            writer.flush();
+            writer.close();
+            os.close();
+
+            // Initiate the connection and attempt to post.
+            urlConnection.connect();
+
+        } catch (Exception ex) {
+
+            ex.printStackTrace();
+            return "PUT failed!";
+        } finally {
+            try {
+                return Objects.requireNonNull(urlConnection).getResponseMessage() + "";
+            } catch(Exception ex){
+                ex.printStackTrace();
+                return "PUT failed!";
+            }
+        }
+    }
 
     /**
      * Method posts to the specified URI.

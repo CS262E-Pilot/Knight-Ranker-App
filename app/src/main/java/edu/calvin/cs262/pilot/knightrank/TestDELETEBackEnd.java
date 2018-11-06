@@ -31,7 +31,7 @@ import java.util.Objects;
 public class TestDELETEBackEnd extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
 
     // Private class members.
-    private static final String LOG_TAG = TestPOSTSportBackEnd.class.getSimpleName();
+    private static final String LOG_TAG = TestPOSTPUTSportBackEnd.class.getSimpleName();
 
     private EditText editTextViewDataEntryID;
     private TextView textViewNetworkStatus;

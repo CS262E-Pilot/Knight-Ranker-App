@@ -74,19 +74,19 @@
             android:label="Test GET Back End"
             android:parentActivityName=".ActivityRankings" />
         <activity
-            android:name=".TestPOSTSportBackEnd"
+            android:name=".TestPOSTPUTSportBackEnd"
             android:label="Test POST Sport Back End"
             android:parentActivityName=".ActivityRankings" />
         <activity
-            android:name=".TestPOSTPlayerBackEnd"
+            android:name=".TestPOSTPUTPlayerBackEnd"
             android:label="Test POST Player Back End"
             android:parentActivityName=".ActivityRankings" />
         <activity
-            android:name=".TestPOSTFollowBackEnd"
+            android:name=".TestPOSTPUTFollowBackEnd"
             android:label="Test POST Follow Back End"
             android:parentActivityName=".ActivityRankings" />
         <activity
-            android:name=".TestPOSTMatchBackEnd"
+            android:name=".TestPOSTPUTMatchBackEnd"
             android:label="Test POST Match Back End"
             android:parentActivityName=".ActivityRankings">
         </activity>

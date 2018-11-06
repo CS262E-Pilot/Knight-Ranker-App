@@ -28,18 +28,22 @@ import android.widget.TextView;
 
 import java.util.Objects;
 
-public class TestPOSTSportBackEnd extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
+public class TestPOSTPUTSportBackEnd extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
 
     // Private class members.
-    private static final String LOG_TAG = TestPOSTSportBackEnd.class.getSimpleName();
+    private static final String LOG_TAG = TestPOSTPUTSportBackEnd.class.getSimpleName();
 
+    private EditText editTextViewSportID;
     private EditText editTextViewSportName;
     private EditText editTextViewSportType;
     private TextView textViewNetworkStatus;
     private TextView textViewRequestStatus;
 
+    private String sportIDString;
     private String sportNameString;
     private String sportTypeString;
+
+    private String whichCRUDIsIt;
 
     // Share preferences file (custom)
     private SharedPreferences mPreferences;
@@ -74,6 +78,7 @@ public class TestPOSTSportBackEnd extends AppCompatActivity implements LoaderMan
         String syncFreq = mPreferencesDefault.getString(SettingsActivity.KEY_SYNC_FREQUENCY, "-1");
 
         // Find components.
+        editTextViewSportID = findViewById(R.id.input_sport_put_id);
         editTextViewSportName = findViewById(R.id.input_sport_name);
         editTextViewSportType = findViewById(R.id.input_sport_type);
         textViewNetworkStatus = findViewById(R.id.network_connected);
@@ -105,6 +110,71 @@ public class TestPOSTSportBackEnd extends AppCompatActivity implements LoaderMan
      * @param view view component
      */
     public void put(View view) {
+
+        whichCRUDIsIt = "put";
+
+        // Get the sport input strings.
+        sportIDString = editTextViewSportID.getText().toString();
+        sportNameString = editTextViewSportName.getText().toString();
+        sportTypeString = editTextViewSportType.getText().toString();
+
+        if (sportNameString.length() == 0) {
+            sportIDString = "1";
+        }
+        if (sportNameString.length() == 0) {
+            sportNameString = "default sport name";
+        }
+        if (sportTypeString.length() == 0) {
+            sportTypeString = "default sport type";
+        }
+
+        // Close keyboard after hitting search query button.
+        InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputManager != null) {
+            inputManager.hideSoftInputFromWindow(Objects.requireNonNull(getCurrentFocus()).getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+
+        // Initialize network info components.
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo networkInfo = null;
+
+        if (connMgr != null) {
+            networkInfo = connMgr.getActiveNetworkInfo();
+        }
+
+        // Check connection is available, we are connected.
+        if (networkInfo != null && networkInfo.isConnected()) {
+
+            // show "Connected" & type of network "WIFI or MOBILE"
+            textViewNetworkStatus.setText("Connected " + networkInfo.getTypeName());
+            // change background color to red
+            textViewNetworkStatus.setBackgroundColor(0xFF7CCC26);
+
+            // Refactored to user AsyncTaskLoader via PlayerGETLoader.java
+            Bundle postBundle = new Bundle();
+            postBundle.putString("sport_id", sportIDString);
+            postBundle.putString("sport_name", sportNameString);
+            postBundle.putString("sport_type", sportTypeString);
+            getSupportLoaderManager().restartLoader(0, postBundle, this);
+
+            // Indicate to user query is in process.
+            textViewRequestStatus.setText("");
+            textViewRequestStatus.setText("POST in-progress");
+        } else {
+
+            // show "Not Connected"
+            textViewNetworkStatus.setText("Not Connected");
+            // change background color to green
+            textViewNetworkStatus.setBackgroundColor(0xFFFF0000);
+
+            // There is no available connection.
+            textViewRequestStatus.setText("");
+            textViewRequestStatus.setText(R.string.no_connection);
+        }
     }
 
     /**
@@ -113,6 +183,8 @@ public class TestPOSTSportBackEnd extends AppCompatActivity implements LoaderMan
      * @param view view component
      */
     public void post(View view) {
+
+        whichCRUDIsIt = "post";
 
         // Get the sport input strings.
         sportNameString = editTextViewSportName.getText().toString();
@@ -222,7 +294,14 @@ public class TestPOSTSportBackEnd extends AppCompatActivity implements LoaderMan
     @NonNull
     @Override
     public Loader<String> onCreateLoader(int id, @Nullable Bundle bundle) {
-        return new SportPOSTLoader(this, bundle.getString("sport_name"), bundle.getString("sport_type"));
+
+        if (whichCRUDIsIt.contains("put")) {
+            return new SportPUTLoader(this, bundle.getString("sport_id") ,bundle.getString("sport_name"), bundle.getString("sport_type"));
+        }
+        else if (whichCRUDIsIt.contains("post")) {
+            return new SportPOSTLoader(this, bundle.getString("sport_name"), bundle.getString("sport_type"));
+        }
+        return null;
     }
 
     /**
@@ -237,8 +316,14 @@ public class TestPOSTSportBackEnd extends AppCompatActivity implements LoaderMan
     @Override
     public void onLoadFinished(@NonNull Loader<String> loader, String s) {
 
-        // Method call to test match GET.
-        TestSportPOSTBackend(s);
+        if (whichCRUDIsIt.contains("put")) {
+            // Method call to test player PUT.
+            TestSportPUTBackend(s);
+        }
+        if (whichCRUDIsIt.contains("post")) {
+            // Method call to test match POST.
+            TestSportPOSTBackend(s);
+        }
     }
 
     /**
@@ -254,6 +339,21 @@ public class TestPOSTSportBackEnd extends AppCompatActivity implements LoaderMan
         textViewRequestStatus.append("Result:");
         textViewRequestStatus.append(s);
     }
+
+    /**
+     * Method to test whether we can successfully post to the database.
+     *
+     * @param s response message from the RESTful web service.
+     */
+    private void TestSportPUTBackend(String s) {
+
+        // POST the response we get to the TextView.
+        textViewRequestStatus.setText("Response from RESTful web service\n");
+        textViewRequestStatus.append("OK = success, anything else = BAD\n");
+        textViewRequestStatus.append("Result:");
+        textViewRequestStatus.append(s);
+    }
+
 
     /**
      * Method called to clean up any remaining resources.

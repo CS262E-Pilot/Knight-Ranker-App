@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/activity_test_match_post_back_end_root_layout"
-    tools:context="edu.calvin.cs262.pilot.knightrank.TestPOSTMatchBackEnd">
+    tools:context="edu.calvin.cs262.pilot.knightrank.TestPOSTPUTMatchBackEnd">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
@@ -30,6 +30,12 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/post_put_match"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="POST or PUT a Match" />
+
+            <TextView
                 android:id="@+id/post_match_note_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -46,6 +52,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Note: Scroll up/down to see all fields." />
+
+            <TextView
+                android:id="@+id/match_put_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Match ID:" />
+
+            <EditText
+                android:id="@+id/input_match_put_id"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:autofillHints=""
+                android:hint="Enter a id (integer):"
+                android:inputType="text"
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/match_sport_id"
@@ -178,7 +199,18 @@
         android:text="Request Status:" />
 
     <Button
-        android:id="@+id/send_sport_post"
+        android:id="@+id/send_match_put"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="94dp"
+        android:layout_marginBottom="0dp"
+        android:onClick="put"
+        android:text="PUT" />
+
+    <Button
+        android:id="@+id/send_match_post"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
