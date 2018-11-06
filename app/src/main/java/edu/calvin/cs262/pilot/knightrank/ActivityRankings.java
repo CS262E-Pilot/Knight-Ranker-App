@@ -79,7 +79,7 @@ public class ActivityRankings extends AppCompatActivity
 
 
         // my_child_toolbar is defined in the layout file
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
         // Get a support ActionBar corresponding to this toolbar
