@@ -47,10 +47,10 @@ public class SportNetworkUtils {
     private static final String SPORT_PUT_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/sport/";
 
     private static final String SPORT_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/sports";
+
     /**
-     * Gets all the sports
-     *
-     * @return a list of sports
+     * GETS all the sports in JSON format, creates new Sport objects (Sport.java), adds to ArrayList<Sport>,
+     * and adds to Volley request queue.
      */
     void getSports(final Context context, final GetSportsResponse res) {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, SPORT_URL, null,
@@ -97,7 +97,7 @@ public class SportNetworkUtils {
 
         try {
             //Build up your query URI.
-            Uri builtURI = Uri.parse(SPORT_POST_URL).buildUpon()
+            Uri builtURI = Uri.parse(SPORT_PUT_URL).buildUpon()
                     .appendPath(id)
                     .build();
 
