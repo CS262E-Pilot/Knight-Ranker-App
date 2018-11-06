@@ -28,18 +28,20 @@ import android.widget.TextView;
 
 import java.util.Objects;
 
-public class TestPOSTSportBackEnd extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
+public class TestPOSTFollowBackEnd extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
 
     // Private class members.
     private static final String LOG_TAG = TestPOSTSportBackEnd.class.getSimpleName();
 
-    private EditText editTextViewSportName;
-    private EditText editTextViewSportType;
+    private EditText editTextViewFollowSportID;
+    private EditText editTextViewFollowPlayerID;
+    private EditText editTextViewFollowRank;
     private TextView textViewNetworkStatus;
     private TextView textViewRequestStatus;
 
-    private String sportNameString;
-    private String sportTypeString;
+    private String followSportIDString;
+    private String followPlayerIDString;
+    private String followRankString;
 
     // Share preferences file (custom)
     private SharedPreferences mPreferences;
@@ -52,7 +54,7 @@ public class TestPOSTSportBackEnd extends AppCompatActivity implements LoaderMan
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test_postsport_back_end);
+        setContentView(R.layout.activity_test_postfollow_back_end);
 
         // my_child_toolbar is defined in the layout file
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
@@ -74,8 +76,9 @@ public class TestPOSTSportBackEnd extends AppCompatActivity implements LoaderMan
         String syncFreq = mPreferencesDefault.getString(SettingsActivity.KEY_SYNC_FREQUENCY, "-1");
 
         // Find components.
-        editTextViewSportName = findViewById(R.id.input_sport_name);
-        editTextViewSportType = findViewById(R.id.input_sport_type);
+        editTextViewFollowSportID = findViewById(R.id.input_follow_sport_id);
+        editTextViewFollowPlayerID = findViewById(R.id.input_follow_player_id);
+        editTextViewFollowRank = findViewById(R.id.input_follow_player_id);
         textViewNetworkStatus = findViewById(R.id.network_connected);
         textViewRequestStatus = findViewById(R.id.request_status);
 
@@ -86,7 +89,7 @@ public class TestPOSTSportBackEnd extends AppCompatActivity implements LoaderMan
 
         // Change the background color to what was selected in color picker.
         // Note: Change color by using findViewById and ID of the UI element you wish to change.
-        RelativeLayout thisLayout = findViewById(R.id.activity_test_sport_post_back_end_root_layout);
+        RelativeLayout thisLayout = findViewById(R.id.activity_test_follow_post_back_end_root_layout);
         thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.YELLOW));
 
         int value = mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.BLACK);
@@ -99,6 +102,15 @@ public class TestPOSTSportBackEnd extends AppCompatActivity implements LoaderMan
         Log.e(LOG_TAG,"Value of color is: " + value);
     }
 
+
+    /**
+     * Method begins Google Cloud endpoint put process upon button click.
+     *
+     * @param view view component
+     */
+    public void put(View view) {
+    }
+
     /**
      * Method begins Google Cloud endpoint post process upon button click.
      *
@@ -107,14 +119,18 @@ public class TestPOSTSportBackEnd extends AppCompatActivity implements LoaderMan
     public void post(View view) {
 
         // Get the sport input strings.
-        sportNameString = editTextViewSportName.getText().toString();
-        sportTypeString = editTextViewSportType.getText().toString();
+        followSportIDString = editTextViewFollowSportID.getText().toString();
+        followPlayerIDString = editTextViewFollowPlayerID.getText().toString();
+        followRankString = editTextViewFollowRank.getText().toString();
 
-        if(sportNameString.length() == 0){
-            sportNameString = "default sport name";
+        if(followSportIDString.length() == 0){
+            followSportIDString = "1";
         }
-        if(sportTypeString.length() == 0){
-            sportTypeString = "default sport type";
+        if(followPlayerIDString.length() == 0){
+            followPlayerIDString = "1";
+        }
+        if(followRankString.length() == 0){
+            followRankString = "10";
         }
 
         // Close keyboard after hitting search query button.
@@ -145,8 +161,9 @@ public class TestPOSTSportBackEnd extends AppCompatActivity implements LoaderMan
 
             // Refactored to user AsyncTaskLoader via PlayerGETLoader.java
             Bundle postBundle = new Bundle();
-            postBundle.putString("sport_name", sportNameString);
-            postBundle.putString("sport_type", sportTypeString);
+            postBundle.putString("follow_sport_id", followSportIDString);
+            postBundle.putString("follow_player_id", followPlayerIDString);
+            postBundle.putString("follow_rank", followRankString);
             getSupportLoaderManager().restartLoader(0, postBundle,this);
 
             // Indicate to user query is in process.
@@ -214,7 +231,7 @@ public class TestPOSTSportBackEnd extends AppCompatActivity implements LoaderMan
     @NonNull
     @Override
     public Loader<String> onCreateLoader(int id, @Nullable Bundle bundle) {
-        return new SportPOSTLoader(this, bundle.getString("sport_name"), bundle.getString("sport_type"));
+        return new FollowPOSTLoader(this, bundle.getString("follow_sport_id"), bundle.getString("follow_player_id"), bundle.getString("follow_rank"));
     }
 
     /**
@@ -230,7 +247,7 @@ public class TestPOSTSportBackEnd extends AppCompatActivity implements LoaderMan
     public void onLoadFinished(@NonNull Loader<String> loader, String s) {
 
         // Method call to test match GET.
-        TestSportPOSTBackend(s);
+        TestFollowPOSTBackend(s);
     }
 
     /**
@@ -238,7 +255,7 @@ public class TestPOSTSportBackEnd extends AppCompatActivity implements LoaderMan
      *
      * @param s response message from the RESTful web service.
      */
-    private void TestSportPOSTBackend(String s) {
+    private void TestFollowPOSTBackend(String s) {
 
         // POST the response we get to the TextView.
         textViewRequestStatus.setText("Response from RESTful web service\n");

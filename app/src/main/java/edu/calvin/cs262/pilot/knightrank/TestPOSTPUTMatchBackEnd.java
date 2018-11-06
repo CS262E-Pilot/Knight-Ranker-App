@@ -28,18 +28,30 @@ import android.widget.TextView;
 
 import java.util.Objects;
 
-public class TestPOSTPlayerBackEnd extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
+public class TestPOSTMatchBackEnd extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String>{
 
     // Private class members.
-    private static final String LOG_TAG = TestPOSTSportBackEnd.class.getSimpleName();
+    private static final String LOG_TAG = TestPOSTMatchBackEnd.class.getSimpleName();
 
-    private EditText editTextViewPlayerEmail;
-    private EditText editTextViewPlayerAccountCreationDate;
+    private EditText editTextViewMatchSportID;
+    private EditText editTextViewMatchPlayerOneID;
+    private EditText editTextViewMatchPlayerTwoID;
+    private EditText editTextViewMatchPlayerOneScore;
+    private EditText editTextViewMatchPlayerTwoScore;
+    private EditText editTextViewMatchWinner;
+    private EditText editTextViewMatchTimeStamp;
+    private EditText editTextViewMatchVerification;
     private TextView textViewNetworkStatus;
     private TextView textViewRequestStatus;
 
-    private String playerEmailString;
-    private String playerAccountCreationDateString;
+    private String matchSportIDString;
+    private String matchPlayerOneIDString;
+    private String matchPlayerTwoIDString;
+    private String matchPlayerOneScoreString;
+    private String matchPlayerTwoScoreString;
+    private String matchWinnerString;
+    private String matchTimeStampString;
+    private String matchVerificationString;
 
     // Share preferences file (custom)
     private SharedPreferences mPreferences;
@@ -52,7 +64,7 @@ public class TestPOSTPlayerBackEnd extends AppCompatActivity implements LoaderMa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test_postplayer_back_end);
+        setContentView(R.layout.activity_test_postmatch_back_end);
 
         // my_child_toolbar is defined in the layout file
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
@@ -74,8 +86,14 @@ public class TestPOSTPlayerBackEnd extends AppCompatActivity implements LoaderMa
         String syncFreq = mPreferencesDefault.getString(SettingsActivity.KEY_SYNC_FREQUENCY, "-1");
 
         // Find components.
-        editTextViewPlayerEmail = findViewById(R.id.input_player_email);
-        editTextViewPlayerAccountCreationDate = findViewById(R.id.input_player_account_creation_date);
+        editTextViewMatchSportID = findViewById(R.id.input_match_sport_id);
+        editTextViewMatchPlayerOneID = findViewById(R.id.input_match_player_one_id);
+        editTextViewMatchPlayerTwoID = findViewById(R.id.input_match_player_two_id);
+        editTextViewMatchPlayerOneScore = findViewById(R.id.input_match_player_one_score);
+        editTextViewMatchPlayerTwoScore = findViewById(R.id.input_match_player_two_score);
+        editTextViewMatchWinner = findViewById(R.id.input_match_winner);
+        editTextViewMatchTimeStamp = findViewById(R.id.input_match_time);
+        editTextViewMatchVerification = findViewById(R.id.input_match_verified);
         textViewNetworkStatus = findViewById(R.id.network_connected);
         textViewRequestStatus = findViewById(R.id.request_status);
 
@@ -86,7 +104,7 @@ public class TestPOSTPlayerBackEnd extends AppCompatActivity implements LoaderMa
 
         // Change the background color to what was selected in color picker.
         // Note: Change color by using findViewById and ID of the UI element you wish to change.
-        RelativeLayout thisLayout = findViewById(R.id.activity_test_player_post_back_end_root_layout);
+        RelativeLayout thisLayout = findViewById(R.id.activity_test_match_post_back_end_root_layout);
         thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.YELLOW));
 
         int value = mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.BLACK);
@@ -99,6 +117,15 @@ public class TestPOSTPlayerBackEnd extends AppCompatActivity implements LoaderMa
         Log.e(LOG_TAG,"Value of color is: " + value);
     }
 
+
+    /**
+     * Method begins Google Cloud endpoint put process upon button click.
+     *
+     * @param view view component
+     */
+    public void put(View view) {
+    }
+
     /**
      * Method begins Google Cloud endpoint post process upon button click.
      *
@@ -107,14 +134,38 @@ public class TestPOSTPlayerBackEnd extends AppCompatActivity implements LoaderMa
     public void post(View view) {
 
         // Get the sport input strings.
-        playerEmailString = editTextViewPlayerEmail.getText().toString();
-        playerAccountCreationDateString = editTextViewPlayerAccountCreationDate.getText().toString();
+        matchSportIDString = editTextViewMatchSportID.getText().toString();
+        matchPlayerOneIDString = editTextViewMatchPlayerOneID.getText().toString();
+        matchPlayerTwoIDString = editTextViewMatchPlayerTwoID.getText().toString();
+        matchPlayerOneScoreString = editTextViewMatchPlayerOneScore.getText().toString();
+        matchPlayerTwoScoreString = editTextViewMatchPlayerTwoScore.getText().toString();
+        matchWinnerString = editTextViewMatchWinner.getText().toString();
+        matchTimeStampString = editTextViewMatchTimeStamp.getText().toString();
+        matchVerificationString = editTextViewMatchVerification.getText().toString();
 
-        if(playerEmailString.length() == 0){
-            playerEmailString = "default player email";
+        if(matchSportIDString.length() == 0){
+            matchSportIDString = "1";
         }
-        if(playerAccountCreationDateString.length() == 0){
-            playerAccountCreationDateString = "2018-11-03 00:53:57.048546";
+        if(matchPlayerOneIDString.length() == 0){
+            matchPlayerOneIDString = "1";
+        }
+        if(matchPlayerTwoIDString.length() == 0){
+            matchPlayerTwoIDString = "2";
+        }
+        if(matchPlayerOneScoreString.length() == 0){
+            matchPlayerOneScoreString = "10";
+        }
+        if(matchPlayerTwoScoreString.length() == 0){
+            matchPlayerTwoScoreString = "20";
+        }
+        if(matchWinnerString.length() == 0){
+            matchWinnerString = "2";
+        }
+        if(matchTimeStampString.length() == 0){
+            matchTimeStampString = "2018-11-03 00:53:57.048546";
+        }
+        if(matchVerificationString.length() == 0){
+            matchVerificationString = "false";
         }
 
         // Close keyboard after hitting search query button.
@@ -145,8 +196,14 @@ public class TestPOSTPlayerBackEnd extends AppCompatActivity implements LoaderMa
 
             // Refactored to user AsyncTaskLoader via PlayerGETLoader.java
             Bundle postBundle = new Bundle();
-            postBundle.putString("player_email", playerEmailString);
-            postBundle.putString("player_account_creation_date", playerAccountCreationDateString);
+            postBundle.putString("match_sport_id", matchSportIDString);
+            postBundle.putString("match_player_one_id", matchPlayerOneIDString);
+            postBundle.putString("match_player_two_id", matchPlayerTwoIDString);
+            postBundle.putString("match_player_one_score", matchPlayerOneScoreString);
+            postBundle.putString("match_player_two_score", matchPlayerTwoScoreString);
+            postBundle.putString("match_winner", matchWinnerString);
+            postBundle.putString("match_timestamp", matchTimeStampString);
+            postBundle.putString("match_verified", matchVerificationString);
             getSupportLoaderManager().restartLoader(0, postBundle,this);
 
             // Indicate to user query is in process.
@@ -214,7 +271,14 @@ public class TestPOSTPlayerBackEnd extends AppCompatActivity implements LoaderMa
     @NonNull
     @Override
     public Loader<String> onCreateLoader(int id, @Nullable Bundle bundle) {
-        return new PlayerPOSTLoader(this, bundle.getString("player_email"), bundle.getString("player_account_creation_date"));
+        return new MatchPOSTLoader(this, bundle.getString("match_sport_id"),
+                bundle.getString("match_player_one_id"),
+                bundle.getString("match_player_two_id"),
+                bundle.getString("match_player_one_score"),
+                bundle.getString("match_player_two_score"),
+                bundle.getString("match_winner"),
+                bundle.getString("match_timestamp"),
+                bundle.getString("match_verified"));
     }
 
     /**
@@ -230,7 +294,7 @@ public class TestPOSTPlayerBackEnd extends AppCompatActivity implements LoaderMa
     public void onLoadFinished(@NonNull Loader<String> loader, String s) {
 
         // Method call to test match GET.
-        TestPlayerPOSTBackend(s);
+        TestMatchPOSTBackend(s);
     }
 
     /**
@@ -238,7 +302,7 @@ public class TestPOSTPlayerBackEnd extends AppCompatActivity implements LoaderMa
      *
      * @param s response message from the RESTful web service.
      */
-    private void TestPlayerPOSTBackend(String s) {
+    private void TestMatchPOSTBackend(String s) {
 
         // POST the response we get to the TextView.
         textViewRequestStatus.setText("Response from RESTful web service\n");
