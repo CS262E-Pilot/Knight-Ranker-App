@@ -28,18 +28,22 @@ import android.widget.TextView;
 
 import java.util.Objects;
 
-public class TestPOSTPlayerBackEnd extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
+public class TestPOSTPUTPlayerBackEnd extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
 
     // Private class members.
-    private static final String LOG_TAG = TestPOSTSportBackEnd.class.getSimpleName();
+    private static final String LOG_TAG = TestPOSTPUTSportBackEnd.class.getSimpleName();
 
+    private EditText editTextViewPlayerID;
     private EditText editTextViewPlayerEmail;
     private EditText editTextViewPlayerAccountCreationDate;
     private TextView textViewNetworkStatus;
     private TextView textViewRequestStatus;
 
+    private String playerIDString;
     private String playerEmailString;
     private String playerAccountCreationDateString;
+
+    private String whichCRUDIsIt;
 
     // Share preferences file (custom)
     private SharedPreferences mPreferences;
@@ -74,6 +78,7 @@ public class TestPOSTPlayerBackEnd extends AppCompatActivity implements LoaderMa
         String syncFreq = mPreferencesDefault.getString(SettingsActivity.KEY_SYNC_FREQUENCY, "-1");
 
         // Find components.
+        editTextViewPlayerID = findViewById(R.id.input_player_put_id);
         editTextViewPlayerEmail = findViewById(R.id.input_player_email);
         editTextViewPlayerAccountCreationDate = findViewById(R.id.input_player_account_creation_date);
         textViewNetworkStatus = findViewById(R.id.network_connected);
@@ -105,6 +110,71 @@ public class TestPOSTPlayerBackEnd extends AppCompatActivity implements LoaderMa
      * @param view view component
      */
     public void put(View view) {
+
+        whichCRUDIsIt = "put";
+
+        // Get the sport input strings.
+        playerIDString = editTextViewPlayerID.getText().toString();
+        playerEmailString = editTextViewPlayerEmail.getText().toString();
+        playerAccountCreationDateString = editTextViewPlayerAccountCreationDate.getText().toString();
+
+        if(playerIDString.length() == 0){
+            playerIDString = "1";
+        }
+        if(playerEmailString.length() == 0){
+            playerEmailString = "default player email";
+        }
+        if(playerAccountCreationDateString.length() == 0){
+            playerAccountCreationDateString = "2018-11-03 00:53:57.048546";
+        }
+
+        // Close keyboard after hitting search query button.
+        InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputManager != null) {
+            inputManager.hideSoftInputFromWindow(Objects.requireNonNull(getCurrentFocus()).getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+
+        // Initialize network info components.
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo networkInfo = null;
+
+        if (connMgr != null) {
+            networkInfo = connMgr.getActiveNetworkInfo();
+        }
+
+        // Check connection is available, we are connected.
+        if (networkInfo != null && networkInfo.isConnected()) {
+
+            // show "Connected" & type of network "WIFI or MOBILE"
+            textViewNetworkStatus.setText("Connected "+networkInfo.getTypeName());
+            // change background color to red
+            textViewNetworkStatus.setBackgroundColor(0xFF7CCC26);
+
+            // Refactored to user AsyncTaskLoader via PlayerGETLoader.java
+            Bundle postBundle = new Bundle();
+            postBundle.putString("player_id", playerIDString);
+            postBundle.putString("player_email", playerEmailString);
+            postBundle.putString("player_account_creation_date", playerAccountCreationDateString);
+            getSupportLoaderManager().restartLoader(0, postBundle,this);
+
+            // Indicate to user query is in process.
+            textViewRequestStatus.setText("");
+            textViewRequestStatus.setText("PUT in-progress");
+        } else {
+
+            // show "Not Connected"
+            textViewNetworkStatus.setText("Not Connected");
+            // change background color to green
+            textViewNetworkStatus.setBackgroundColor(0xFFFF0000);
+
+            // There is no available connection.
+            textViewRequestStatus.setText("");
+            textViewRequestStatus.setText(R.string.no_connection);
+        }
     }
 
     /**
@@ -113,6 +183,8 @@ public class TestPOSTPlayerBackEnd extends AppCompatActivity implements LoaderMa
      * @param view view component
      */
     public void post(View view) {
+
+        whichCRUDIsIt = "post";
 
         // Get the sport input strings.
         playerEmailString = editTextViewPlayerEmail.getText().toString();
@@ -222,7 +294,14 @@ public class TestPOSTPlayerBackEnd extends AppCompatActivity implements LoaderMa
     @NonNull
     @Override
     public Loader<String> onCreateLoader(int id, @Nullable Bundle bundle) {
-        return new PlayerPOSTLoader(this, bundle.getString("player_email"), bundle.getString("player_account_creation_date"));
+
+        if (whichCRUDIsIt.contains("put")) {
+            return new PlayerPUTLoader(this, bundle.getString("player_id"),bundle.getString("player_email"), bundle.getString("player_account_creation_date"));
+        }
+        else if (whichCRUDIsIt.contains("post")) {
+            return new PlayerPOSTLoader(this, bundle.getString("player_email"), bundle.getString("player_account_creation_date"));
+        }
+        return null;
     }
 
     /**
@@ -237,8 +316,28 @@ public class TestPOSTPlayerBackEnd extends AppCompatActivity implements LoaderMa
     @Override
     public void onLoadFinished(@NonNull Loader<String> loader, String s) {
 
-        // Method call to test match GET.
-        TestPlayerPOSTBackend(s);
+        if (whichCRUDIsIt.contains("put")) {
+            // Method call to test player PUT.
+            TestPlayerPUTBackend(s);
+        }
+        if (whichCRUDIsIt.contains("post")) {
+            // Method call to test match POST.
+            TestPlayerPOSTBackend(s);
+        }
+    }
+
+    /**
+     * Method to test whether we can successfully post to the database.
+     *
+     * @param s response message from the RESTful web service.
+     */
+    private void TestPlayerPUTBackend(String s) {
+
+        // POST the response we get to the TextView.
+        textViewRequestStatus.setText("Response from RESTful web service\n");
+        textViewRequestStatus.append("OK = success, anything else = BAD\n");
+        textViewRequestStatus.append("Result:");
+        textViewRequestStatus.append(s);
     }
 
     /**

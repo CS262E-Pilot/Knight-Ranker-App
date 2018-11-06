@@ -30,6 +30,74 @@ public class PlayerNetworkUtils {
     private static final String PLAYER_ID_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/player/";
     private static final String PLAYER_POST_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/player";
     private static final String PLAYER_DELETE_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/player/";
+    private static final String PLAYER_PUT_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/player/";
+
+    /**
+     * Method puts to the specified URI.
+     *
+     * @param id player id
+     * @param email player email address
+     * @param account_creation_date player account creation date
+     * @return
+     */
+
+    public static String putPlayerInfo(String id, String email, String account_creation_date) {
+
+        HttpURLConnection urlConnection = null;
+        BufferedReader reader = null;
+
+        try {
+            //Build up your query URI.
+            Uri builtURI = Uri.parse(PLAYER_PUT_URL).buildUpon()
+                    .appendPath(id)
+                    .build();
+
+            // Convert URI to URL
+            URL requestURL = new URL(builtURI.toString());
+
+            // Define connection and request.
+            urlConnection = (HttpURLConnection) requestURL.openConnection();
+            urlConnection.setRequestMethod("PUT");
+            urlConnection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+
+            // Define the data we wish to send.
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.accumulate("emailAddress", email);
+            jsonObject.accumulate("accountCreationDate",  account_creation_date);
+
+            // Create stream to output the data.
+            OutputStream os = urlConnection.getOutputStream();
+
+            // Create writer to write to the stream to output the data.
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+
+            // Write the data.
+            writer.write(jsonObject.toString());
+
+            // Write to log.e what we're trying to send.
+            Log.e(PlayerNetworkUtils.class.toString(), jsonObject.toString());
+
+            // Close resources.
+            writer.flush();
+            writer.close();
+            os.close();
+
+            // Initiate the connection and attempt to post.
+            urlConnection.connect();
+
+        } catch (Exception ex) {
+
+            ex.printStackTrace();
+            return "PUT failed!";
+        } finally {
+            try {
+                return Objects.requireNonNull(urlConnection).getResponseMessage() + "";
+            } catch(Exception ex){
+                ex.printStackTrace();
+                return "PUT failed!";
+            }
+        }
+    }
 
     /**
      * Method posts to the specified URI.

@@ -28,11 +28,12 @@ import android.widget.TextView;
 
 import java.util.Objects;
 
-public class TestPOSTMatchBackEnd extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String>{
+public class TestPOSTPUTMatchBackEnd extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String>{
 
     // Private class members.
-    private static final String LOG_TAG = TestPOSTMatchBackEnd.class.getSimpleName();
+    private static final String LOG_TAG = TestPOSTPUTMatchBackEnd.class.getSimpleName();
 
+    private EditText editTextViewMatchID;
     private EditText editTextViewMatchSportID;
     private EditText editTextViewMatchPlayerOneID;
     private EditText editTextViewMatchPlayerTwoID;
@@ -44,6 +45,7 @@ public class TestPOSTMatchBackEnd extends AppCompatActivity implements LoaderMan
     private TextView textViewNetworkStatus;
     private TextView textViewRequestStatus;
 
+    private String matchIDString;
     private String matchSportIDString;
     private String matchPlayerOneIDString;
     private String matchPlayerTwoIDString;
@@ -52,6 +54,8 @@ public class TestPOSTMatchBackEnd extends AppCompatActivity implements LoaderMan
     private String matchWinnerString;
     private String matchTimeStampString;
     private String matchVerificationString;
+
+    private String whichCRUDIsIt;
 
     // Share preferences file (custom)
     private SharedPreferences mPreferences;
@@ -86,6 +90,7 @@ public class TestPOSTMatchBackEnd extends AppCompatActivity implements LoaderMan
         String syncFreq = mPreferencesDefault.getString(SettingsActivity.KEY_SYNC_FREQUENCY, "-1");
 
         // Find components.
+        editTextViewMatchID = findViewById(R.id.input_match_put_id);
         editTextViewMatchSportID = findViewById(R.id.input_match_sport_id);
         editTextViewMatchPlayerOneID = findViewById(R.id.input_match_player_one_id);
         editTextViewMatchPlayerTwoID = findViewById(R.id.input_match_player_two_id);
@@ -124,6 +129,101 @@ public class TestPOSTMatchBackEnd extends AppCompatActivity implements LoaderMan
      * @param view view component
      */
     public void put(View view) {
+
+        whichCRUDIsIt = "put";
+
+        // Get the sport input strings.
+        matchIDString = editTextViewMatchID.getText().toString();
+        matchSportIDString = editTextViewMatchSportID.getText().toString();
+        matchPlayerOneIDString = editTextViewMatchPlayerOneID.getText().toString();
+        matchPlayerTwoIDString = editTextViewMatchPlayerTwoID.getText().toString();
+        matchPlayerOneScoreString = editTextViewMatchPlayerOneScore.getText().toString();
+        matchPlayerTwoScoreString = editTextViewMatchPlayerTwoScore.getText().toString();
+        matchWinnerString = editTextViewMatchWinner.getText().toString();
+        matchTimeStampString = editTextViewMatchTimeStamp.getText().toString();
+        matchVerificationString = editTextViewMatchVerification.getText().toString();
+
+        if(matchIDString.length() == 0){
+            matchIDString = "1";
+        }
+        if(matchSportIDString.length() == 0){
+            matchSportIDString = "1";
+        }
+        if(matchPlayerOneIDString.length() == 0){
+            matchPlayerOneIDString = "1";
+        }
+        if(matchPlayerTwoIDString.length() == 0){
+            matchPlayerTwoIDString = "2";
+        }
+        if(matchPlayerOneScoreString.length() == 0){
+            matchPlayerOneScoreString = "10";
+        }
+        if(matchPlayerTwoScoreString.length() == 0){
+            matchPlayerTwoScoreString = "20";
+        }
+        if(matchWinnerString.length() == 0){
+            matchWinnerString = "2";
+        }
+        if(matchTimeStampString.length() == 0){
+            matchTimeStampString = "2018-11-03 00:53:57.048546";
+        }
+        if(matchVerificationString.length() == 0){
+            matchVerificationString = "false";
+        }
+
+        // Close keyboard after hitting search query button.
+        InputMethodManager inputManager = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (inputManager != null) {
+            inputManager.hideSoftInputFromWindow(Objects.requireNonNull(getCurrentFocus()).getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+
+        // Initialize network info components.
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo networkInfo = null;
+
+        if (connMgr != null) {
+            networkInfo = connMgr.getActiveNetworkInfo();
+        }
+
+        // Check connection is available, we are connected.
+        if (networkInfo != null && networkInfo.isConnected()) {
+
+            // show "Connected" & type of network "WIFI or MOBILE"
+            textViewNetworkStatus.setText("Connected "+networkInfo.getTypeName());
+            // change background color to red
+            textViewNetworkStatus.setBackgroundColor(0xFF7CCC26);
+
+            // Refactored to user AsyncTaskLoader via PlayerGETLoader.java
+            Bundle postBundle = new Bundle();
+            postBundle.putString("match_id", matchIDString);
+            postBundle.putString("match_sport_id", matchSportIDString);
+            postBundle.putString("match_player_one_id", matchPlayerOneIDString);
+            postBundle.putString("match_player_two_id", matchPlayerTwoIDString);
+            postBundle.putString("match_player_one_score", matchPlayerOneScoreString);
+            postBundle.putString("match_player_two_score", matchPlayerTwoScoreString);
+            postBundle.putString("match_winner", matchWinnerString);
+            postBundle.putString("match_timestamp", matchTimeStampString);
+            postBundle.putString("match_verified", matchVerificationString);
+            getSupportLoaderManager().restartLoader(0, postBundle,this);
+
+            // Indicate to user query is in process.
+            textViewRequestStatus.setText("");
+            textViewRequestStatus.setText("POST in-progress");
+        } else {
+
+            // show "Not Connected"
+            textViewNetworkStatus.setText("Not Connected");
+            // change background color to green
+            textViewNetworkStatus.setBackgroundColor(0xFFFF0000);
+
+            // There is no available connection.
+            textViewRequestStatus.setText("");
+            textViewRequestStatus.setText(R.string.no_connection);
+        }
     }
 
     /**
@@ -132,6 +232,8 @@ public class TestPOSTMatchBackEnd extends AppCompatActivity implements LoaderMan
      * @param view view component
      */
     public void post(View view) {
+
+        whichCRUDIsIt = "post";
 
         // Get the sport input strings.
         matchSportIDString = editTextViewMatchSportID.getText().toString();
@@ -271,15 +373,30 @@ public class TestPOSTMatchBackEnd extends AppCompatActivity implements LoaderMan
     @NonNull
     @Override
     public Loader<String> onCreateLoader(int id, @Nullable Bundle bundle) {
-        return new MatchPOSTLoader(this, bundle.getString("match_sport_id"),
-                bundle.getString("match_player_one_id"),
-                bundle.getString("match_player_two_id"),
-                bundle.getString("match_player_one_score"),
-                bundle.getString("match_player_two_score"),
-                bundle.getString("match_winner"),
-                bundle.getString("match_timestamp"),
-                bundle.getString("match_verified"));
-    }
+
+        if (whichCRUDIsIt.contains("put")) {
+            return new MatchPUTLoader(this, bundle.getString("match_id"),
+                    bundle.getString("match_sport_id"),
+                    bundle.getString("match_player_one_id"),
+                    bundle.getString("match_player_two_id"),
+                    bundle.getString("match_player_one_score"),
+                    bundle.getString("match_player_two_score"),
+                    bundle.getString("match_winner"),
+                    bundle.getString("match_timestamp"),
+                    bundle.getString("match_verified"));
+        }
+        else if (whichCRUDIsIt.contains("post")) {
+            return new MatchPOSTLoader(this, bundle.getString("match_sport_id"),
+                    bundle.getString("match_player_one_id"),
+                    bundle.getString("match_player_two_id"),
+                    bundle.getString("match_player_one_score"),
+                    bundle.getString("match_player_two_score"),
+                    bundle.getString("match_winner"),
+                    bundle.getString("match_timestamp"),
+                    bundle.getString("match_verified"));
+        }
+        return null;
+     }
 
     /**
      * Method called when loader task is finished.  Add code to update UI with results.
@@ -293,8 +410,14 @@ public class TestPOSTMatchBackEnd extends AppCompatActivity implements LoaderMan
     @Override
     public void onLoadFinished(@NonNull Loader<String> loader, String s) {
 
-        // Method call to test match GET.
-        TestMatchPOSTBackend(s);
+        if (whichCRUDIsIt.contains("put")) {
+            // Method call to test player PUT.
+            TestMatchPUTBackend(s);
+        }
+        if (whichCRUDIsIt.contains("post")) {
+            // Method call to test match POST.
+            TestMatchPOSTBackend(s);
+        }
     }
 
     /**
@@ -303,6 +426,20 @@ public class TestPOSTMatchBackEnd extends AppCompatActivity implements LoaderMan
      * @param s response message from the RESTful web service.
      */
     private void TestMatchPOSTBackend(String s) {
+
+        // POST the response we get to the TextView.
+        textViewRequestStatus.setText("Response from RESTful web service\n");
+        textViewRequestStatus.append("OK = success, anything else = BAD\n");
+        textViewRequestStatus.append("Result:");
+        textViewRequestStatus.append(s);
+    }
+
+    /**
+     * Method to test whether we can successfully post to the database.
+     *
+     * @param s response message from the RESTful web service.
+     */
+    private void TestMatchPUTBackend(String s) {
 
         // POST the response we get to the TextView.
         textViewRequestStatus.setText("Response from RESTful web service\n");

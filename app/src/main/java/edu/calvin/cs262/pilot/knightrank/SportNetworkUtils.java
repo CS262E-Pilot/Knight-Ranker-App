@@ -25,6 +25,74 @@ public class SportNetworkUtils {
     private static final String SPORT_ID_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/sport/";
     private static final String SPORT_POST_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/sport";
     private static final String SPORT_DELETE_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/sport/";
+    private static final String SPORT_PUT_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/sport/";
+
+
+    /**
+     * Method puts to the specified URI.
+     *
+     * @param id sport id
+     * @param name sport name
+     * @param type sport type
+     * @return
+     */
+    public static String putSportInfo(String id, String name, String type) {
+
+        HttpURLConnection urlConnection = null;
+        BufferedReader reader = null;
+
+        try {
+            //Build up your query URI.
+            Uri builtURI = Uri.parse(SPORT_POST_URL).buildUpon()
+                    .appendPath(id)
+                    .build();
+
+            // Convert URI to URL
+            URL requestURL = new URL(builtURI.toString());
+
+            // Define connection and request.
+            urlConnection = (HttpURLConnection) requestURL.openConnection();
+            urlConnection.setRequestMethod("PUT");
+            urlConnection.setRequestProperty("Content-Type", "application/json; charset=utf-8");
+
+            // Define the data we wish to send.
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.accumulate("name", name);
+            jsonObject.accumulate("type",  type);
+
+            // Create stream to output the data.
+            OutputStream os = urlConnection.getOutputStream();
+
+            // Create writer to write to the stream to output the data.
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+
+            // Write the data.
+            writer.write(jsonObject.toString());
+
+            // Write to log.e what we're trying to send.
+            Log.e(SportNetworkUtils.class.toString(), jsonObject.toString());
+
+            // Close resources.
+            writer.flush();
+            writer.close();
+            os.close();
+
+            // Initiate the connection and attempt to post.
+            urlConnection.connect();
+
+        } catch (Exception ex) {
+
+            ex.printStackTrace();
+            return "PUT failed!";
+        } finally {
+            try {
+                return Objects.requireNonNull(urlConnection).getResponseMessage() + "";
+            } catch(Exception ex){
+                ex.printStackTrace();
+                return "PUT failed!";
+            }
+        }
+    }
 
     /**
      * Method posts to the specified URI.

@@ -5,7 +5,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/activity_test_follow_post_back_end_root_layout"
-    tools:context="edu.calvin.cs262.pilot.knightrank.TestPOSTFollowBackEnd">
+    tools:context="edu.calvin.cs262.pilot.knightrank.TestPOSTPUTFollowBackEnd">
+
+    <Button
+        android:id="@+id/send_follow_put"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/request_status"
+        android:layout_alignBottom="@+id/network_connected"
+        android:layout_marginEnd="74dp"
+        android:layout_marginBottom="-17dp"
+        android:onClick="put"
+        android:text="PUT" />
+
+    <EditText
+        android:id="@+id/input_follow_put_id"
+        android:layout_width="361dp"
+        android:layout_height="52dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="136dp"
+        android:autofillHints=""
+        android:hint="Enter a id (integer):"
+        android:inputType="text"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/follow_put_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="114dp"
+        android:text="Follow ID:" />
 
     <TextView
         android:id="@+id/post_follow_note_2"
@@ -24,8 +58,10 @@
         android:id="@+id/follow_note"
         android:layout_width="332dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/post_follow"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="-7dp"
+        android:layout_marginTop="87dp"
+        android:layout_toEndOf="@+id/follow_rank"
         android:text="Note: Disable foreign constraint enforcement to test" />
 
     <TextView
@@ -35,7 +71,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="326dp"
+        android:layout_marginTop="338dp"
         android:text="Rank:" />
 
     <EditText
@@ -61,13 +97,13 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
     <TextView
-        android:id="@+id/post_follow"
+        android:id="@+id/post_put_follow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="69dp"
-        android:text="POST a Follow" />
+        android:layout_marginTop="61dp"
+        android:text="POST or PUT a Follow" />
 
     <TextView
         android:id="@+id/follow_sport_id"
@@ -75,7 +111,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="114dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="188dp"
         android:text="Sport ID:" />
 
     <TextView
@@ -84,8 +121,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="220dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="262dp"
         android:text="Player ID:" />
 
 
@@ -96,7 +133,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="145dp"
+        android:layout_marginTop="208dp"
         android:autofillHints=""
         android:hint="Enter a sport ID (integer):"
         android:inputType="text"
@@ -109,18 +146,20 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="252dp"
+        android:layout_marginTop="284dp"
         android:autofillHints=""
         android:hint="Enter a player ID (integer):"
         android:inputType="text"
         android:textSize="12sp" />
 
     <Button
-        android:id="@+id/send_sport_post"
+        android:id="@+id/send_follow_post"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/request_status"
         android:layout_alignBottom="@+id/network_connected"
+        android:layout_marginEnd="-30dp"
+        android:layout_marginBottom="-17dp"
         android:onClick="post"
         android:text="POST" />
 
