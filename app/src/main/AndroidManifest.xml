@@ -21,10 +21,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
-
-        <!-- <activity -->
-        <!-- android:name=".MainActivity" -->
-        <!-- android:label="Main Activity" /> -->
         <activity
             android:name=".SplashScreen"
             android:label="Splash Screen">
@@ -41,10 +37,6 @@
             android:name=".ActivitySelection"
             android:label="Activity Selection"
             android:parentActivityName=".ActivityRankings" />
-        <activity
-            android:name=".AccountCreation"
-            android:label="Account Creation"
-            android:parentActivityName=".MainActivity" />
         <activity android:name=".Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -54,11 +46,7 @@
         </activity>
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="edu.calvin.cs262.pilot.knightrank.MainActivity" />
+            android:label="@string/title_activity_settings">
         </activity>
         <activity
             android:name=".ColorPicker"

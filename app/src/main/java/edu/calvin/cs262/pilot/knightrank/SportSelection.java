@@ -23,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -45,11 +46,9 @@ public class SportSelection extends AppCompatActivity implements AdapterView.OnI
     private ListView mSportListView;
     private FloatingActionButton mFab;
 
-    private String[] testData = new String[] {
-            "Math",
-            "Tennis",
-            "Super Smash Bros. Melee"
-    };
+    private String[] sports = new String[]{};
+    private ArrayAdapter<String> sportAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +71,7 @@ public class SportSelection extends AppCompatActivity implements AdapterView.OnI
         mPreferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
         mPreferencesDefault = PreferenceManager.getDefaultSharedPreferences(this);
 
+
         // Placeholder code as example of how to get values from the default SharedPrefs file.
         String syncFreq = mPreferencesDefault.getString(SettingsActivity.KEY_SYNC_FREQUENCY, "-1");
 
@@ -87,10 +87,7 @@ public class SportSelection extends AppCompatActivity implements AdapterView.OnI
         });
 
         mSportListView = findViewById(R.id.sport_list);
-        // Some test data
-        mSportListView.setAdapter(new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, testData));
-        mSportListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        mSportListView.setOnItemClickListener(this);
+        loadSports();
 
         // Change the background color to what was selected in color picker.
         // Note: Change color by using findViewById and ID of the UI element you wish to change.
@@ -107,6 +104,27 @@ public class SportSelection extends AppCompatActivity implements AdapterView.OnI
         Log.e(LOG_TAG,"Value of color is: " + value);
     }
 
+    private void loadSports() {
+        new SportNetworkUtils().getSports(this, new SportNetworkUtils.GetSportsResponse() {
+            @Override
+            public void onResponse(ArrayList<Sport> result) {
+                setSports(result);
+            }
+        });
+    }
+
+    private void setSports(ArrayList<Sport> result) {
+        ArrayList<String> sportNamesList = new ArrayList<>();
+        for(Sport sport : result) {
+            sportNamesList.add(sport.getName());
+        }
+        sports = sportNamesList.toArray(new String[0]);
+        sportAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, sports);
+        mSportListView.setAdapter(sportAdapter);
+        mSportListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        mSportListView.setOnItemClickListener(this);
+    }
+
     /**
      * Method starts the ActivityRankings.java activity upon user button click.
      *
@@ -120,7 +138,7 @@ public class SportSelection extends AppCompatActivity implements AdapterView.OnI
         for (int i = 0; i < mSportListView.getAdapter().getCount(); i++) {
             // If we have a check, show the button and stop looping
             if (checked.get(i)) {
-                selectedSports.add(testData[i]);
+                selectedSports.add(sports[i]);
             }
         }
         editor.putStringSet(getString(R.string.selected_sports), selectedSports).apply();

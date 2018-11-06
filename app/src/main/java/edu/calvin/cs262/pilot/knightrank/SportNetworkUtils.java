@@ -1,8 +1,19 @@
 package edu.calvin.cs262.pilot.knightrank;
 
+import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -12,11 +23,19 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class SportNetworkUtils {
+
+    /** Callback interface for delivering sports request. */
+    public interface GetSportsResponse {
+        void onResponse(ArrayList<Sport> sports);
+    }
 
     private static final String LOG_TAG = SportNetworkUtils.class.getSimpleName();
 
@@ -27,7 +46,42 @@ public class SportNetworkUtils {
     private static final String SPORT_DELETE_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/sport/";
     private static final String SPORT_PUT_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/sport/";
 
+    private static final String SPORT_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/sports";
+    /**
+     * Gets all the sports
+     *
+     * @return a list of sports
+     */
+    void getSports(final Context context, final GetSportsResponse res) {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, SPORT_URL, null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            // Parse the results
+                            ArrayList<Sport> sports = new ArrayList<>();
+                            JSONArray sportsJSONArray = response.getJSONArray("items");
+                            // Create an ArrayList of sports
+                            for (int i = 0; i < sportsJSONArray.length(); i++) {
+                                JSONObject sportJSON = (JSONObject) sportsJSONArray.get(i);
+                                sports.add(new Sport(sportJSON.getInt("id"), sportJSON.getString("name"), sportJSON.getString("type")));
+                            }
+                            // Return the resulting sport array list
+                            res.onResponse(sports);
+                        } catch (JSONException e) {
+                            Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, "Failed to load Sports", Toast.LENGTH_LONG).show();
+            }
+        });
 
+        // Add the request to the RequestQueue.
+        Volley.newRequestQueue(context).add(jsonObjectRequest);
+    }
     /**
      * Method puts to the specified URI.
      *
