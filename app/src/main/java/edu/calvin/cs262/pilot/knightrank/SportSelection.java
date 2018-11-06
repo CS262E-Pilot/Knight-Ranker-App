@@ -86,6 +86,7 @@ public class SportSelection extends AppCompatActivity implements AdapterView.OnI
             }
         });
 
+        // Loads Sport Relation entries from the Knight Ranker Database.
         mSportListView = findViewById(R.id.sport_list);
         loadSports();
 
@@ -101,9 +102,12 @@ public class SportSelection extends AppCompatActivity implements AdapterView.OnI
         // Change the toolbar color to what was selected in color picker.
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(toolbarColor));
 
-        Log.e(LOG_TAG,"Value of color is: " + value);
+        Log.e(LOG_TAG, "Value of color is: " + value);
     }
 
+    /**
+     * Method obtains list of sports from the database.
+     */
     private void loadSports() {
         new SportNetworkUtils().getSports(this, new SportNetworkUtils.GetSportsResponse() {
             @Override
@@ -113,9 +117,14 @@ public class SportSelection extends AppCompatActivity implements AdapterView.OnI
         });
     }
 
+    /**
+     * Method populates the sport selection list with sport activities.
+     *
+     * @param result list of all sport activities.
+     */
     private void setSports(ArrayList<Sport> result) {
         ArrayList<String> sportNamesList = new ArrayList<>();
-        for(Sport sport : result) {
+        for (Sport sport : result) {
             sportNamesList.add(sport.getName());
         }
         sports = sportNamesList.toArray(new String[0]);
@@ -152,13 +161,12 @@ public class SportSelection extends AppCompatActivity implements AdapterView.OnI
      * Method controls events once user selects a sport.
      *
      * @param adapter AdapterView object
-     * @param arg1 View object
-     * @param arg2 integer value
-     * @param arg3 long value.
+     * @param arg1    View object
+     * @param arg2    integer value
+     * @param arg3    long value.
      */
     @Override
-    public void onItemClick(AdapterView<?> adapter, View arg1, int arg2, long arg3)
-    {
+    public void onItemClick(AdapterView<?> adapter, View arg1, int arg2, long arg3) {
         // Loop over the checked array and show the continue button if we have at least one check
         SparseBooleanArray checked = mSportListView.getCheckedItemPositions();
         for (int i = 0; i < mSportListView.getAdapter().getCount(); i++) {
