@@ -233,15 +233,6 @@ public class ActivityRankings extends AppCompatActivity
 
         // To handle selection of menu items.
         switch (menuItem.getItemId()) {
-            /*
-            case R.id.nav_main_activity:
-                fragmentClass = MainActivity.class;
-                Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent1);
-                Log.e(LOG_TAG, "Selected the main activity!");
-                Toast.makeText(getApplicationContext(), "Selected", Toast.LENGTH_SHORT).show();
-                return true;
-                */
             //break;
             case R.id.nav_activity_selection:
                 fragmentClass = ActivitySelection.class;
