@@ -1,5 +1,6 @@
 package edu.calvin.cs262.pilot.knightrank;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -12,9 +13,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 /**
@@ -32,8 +40,7 @@ public class NewChallenges extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     //Class variables.
-    private static final String LOG_TAG =
-            NewChallenges.class.getSimpleName();
+    private static final String LOG_TAG = NewChallenges.class.getSimpleName();
 
     // For use with shared preferences.
     private static final String PLACEHOLDER3 = "";
@@ -50,6 +57,8 @@ public class NewChallenges extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private Spinner mSpinner;
 
     private OnFragmentInteractionListener mListener;
 
@@ -85,7 +94,7 @@ public class NewChallenges extends Fragment {
 
         // Set shared preferences component.
         // Note: modified from the one in activities as this is a fragment.
-        mPreferences = Objects.requireNonNull(this.getActivity()).getSharedPreferences(sharedPrefFile, Context.MODE_PRIVATE);
+        mPreferences = Objects.requireNonNull(this.getActivity()).getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
         mPreferencesDefault = android.support.v7.preference.PreferenceManager.getDefaultSharedPreferences(this.getActivity());
 
         // Placeholder code as example of how to get values from the default SharedPrefs file.
@@ -100,7 +109,9 @@ public class NewChallenges extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_new_challenge, container, false);
+        View view = inflater.inflate(R.layout.fragment_new_challenge, container, false);
+        mSpinner = view.findViewById(R.id.sport_spinner);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -139,6 +150,24 @@ public class NewChallenges extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        // Context will be defined because of lifecycle
+        Context context = getContext();
+        // Return early if context is null to make type checking happy
+        if (context == null) {
+            return;
+        }
+        // Setup the sport spinner
+        // Specify the layout to use when the list of choices appears
+        Set<String> sports = context.getSharedPreferences(getString(R.string.shared_preferences), MODE_PRIVATE).getStringSet(getString(R.string.selected_sports), new HashSet<String>());
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, sports.toArray(new String[0]));
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        mSpinner.setAdapter(adapter);
     }
 
     @Override

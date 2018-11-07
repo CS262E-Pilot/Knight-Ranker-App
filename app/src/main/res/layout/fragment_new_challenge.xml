@@ -7,102 +7,23 @@
     android:background="@color/colorBackground"
     tools:context=".NewChallenges">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <!--
-    <TextView
-        android:id="@+id/new_challenge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="11dp"
-        android:text="@string/title_new_challenge"
-        android:textColor="@color/colorAuxiliary"
-        android:textSize="36sp" />
-        -->
-
-    <TextView
-        android:id="@+id/activity_of_challenge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:layout_marginStart="5dp"
-        android:text="@string/activity_of_challenge"
-        android:textSize="25sp"
-        android:textColor="@color/colorAuxiliary"/>
-
-        <!--
-        android:layout_below="@+id/new_challenge"
-        -->
-
-    <EditText
-        android:id="@+id/activity_of_challenge_edittext"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_below="@+id/activity_of_challenge"
-        android:textSize="18sp"
-        android:inputType="textPersonName"/>
-
-    <TextView
-        android:id="@+id/team_challenged"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_below="@+id/activity_of_challenge_edittext"
-        android:text="@string/team_challenged"
-        android:textSize="25sp"
-        android:textColor="@color/colorAuxiliary"/>
-
-    <EditText
-        android:id="@+id/team_challenged_edittext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_below="@+id/team_challenged"
-        android:textSize="18sp"
-        android:inputType="textPersonName"/>
-
-    <TextView
-        android:id="@+id/location_of_challenge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_below="@+id/team_challenged_edittext"
-        android:text="@string/location_of_challenge"
-        android:textSize="25sp"
-        android:textColor="@color/colorAuxiliary"/>
-
-    <EditText
-        android:id="@+id/location_of_challenge_edittext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_below="@+id/location_of_challenge"
-        android:textSize="18sp"
-        android:inputType="textPersonName"/>
-
-
-    <TextView
-        android:id="@+id/date_of_challenge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_below="@+id/location_of_challenge_edittext"
-        android:text="@string/date_of_challenge"
-        android:textSize="25sp"
-        android:textColor="@color/colorAuxiliary"/>
-
-    <EditText
-        android:id="@+id/date_of_challenge_edittext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_below="@+id/date_of_challenge"
-        android:textSize="18sp"
-        android:inputType="textPersonName"/>
-
-
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <Spinner
+            android:id="@+id/sport_spinner"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select Player"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enter Scores"/>
+    </LinearLayout>
 
     <Button
         android:id="@+id/button_challenge"
