@@ -23,6 +23,8 @@ import android.widget.RelativeLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/* TODO: Delete this class, as it has been phased out */
 public class ActivitySelection extends AppCompatActivity {
 
     //Class variables.

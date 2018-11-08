@@ -12,20 +12,27 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link NewChallenges.OnFragmentInteractionListener} interface
+ * {@link NewChallenge.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link NewChallenges#newInstance} factory method to
+ * Use the {@link NewChallenge#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NewChallenges extends Fragment {
+public class NewChallenge extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -33,7 +40,7 @@ public class NewChallenges extends Fragment {
 
     //Class variables.
     private static final String LOG_TAG =
-            NewChallenges.class.getSimpleName();
+            NewChallenge.class.getSimpleName();
 
     // For use with shared preferences.
     private static final String PLACEHOLDER3 = "";
@@ -50,10 +57,11 @@ public class NewChallenges extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private Spinner mActivitySpinner;
 
     private OnFragmentInteractionListener mListener;
 
-    public NewChallenges() {
+    public NewChallenge() {
         // Required empty public constructor
     }
 
@@ -63,11 +71,11 @@ public class NewChallenges extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment NewChallenges.
+     * @return A new instance of fragment NewChallenge.
      */
     // TODO: Rename and change types and number of parameters
-    public static NewChallenges newInstance(String param1, String param2) {
-        NewChallenges fragment = new NewChallenges();
+    public static NewChallenge newInstance(String param1, String param2) {
+        NewChallenge fragment = new NewChallenge();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -85,7 +93,7 @@ public class NewChallenges extends Fragment {
 
         // Set shared preferences component.
         // Note: modified from the one in activities as this is a fragment.
-        mPreferences = Objects.requireNonNull(this.getActivity()).getSharedPreferences(sharedPrefFile, Context.MODE_PRIVATE);
+        mPreferences = Objects.requireNonNull(this.getActivity()).getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
         mPreferencesDefault = android.support.v7.preference.PreferenceManager.getDefaultSharedPreferences(this.getActivity());
 
         // Placeholder code as example of how to get values from the default SharedPrefs file.
@@ -128,6 +136,17 @@ public class NewChallenges extends Fragment {
         int value = mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.BLACK);
 
         Log.e(LOG_TAG,"Value of color is: " + value);
+
+        Set<String> selectedSports = getActivity().getSharedPreferences(getString(R.string.shared_preferences), MODE_PRIVATE).getStringSet("SelectedSports", null);
+        mActivitySpinner = (Spinner) getView().findViewById(R.id.activity_of_challenge_spinner);
+        if(selectedSports != null) {
+            List<String> selected_sports_arraylist = new ArrayList<String>(selectedSports);
+            ArrayAdapter<String> arrayAdapterActivities = new ArrayAdapter<String>(
+                    getActivity(),
+                    android.R.layout.simple_list_item_1,
+                    selected_sports_arraylist);
+            mActivitySpinner.setAdapter(arrayAdapterActivities);
+        }
     }
 
     @Override
