@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
-    tools:context=".NewChallenges">
+    tools:context=".NewChallenge">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -35,21 +35,19 @@
         android:layout_below="@+id/new_challenge"
         -->
 
-    <EditText
-        android:id="@+id/activity_of_challenge_edittext"
+    <Spinner
+        android:id="@+id/activity_of_challenge_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:layout_below="@+id/activity_of_challenge"
-        android:textSize="18sp"
-        android:inputType="textPersonName"/>
+        android:layout_below="@+id/activity_of_challenge" />
 
     <TextView
         android:id="@+id/team_challenged"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:layout_below="@+id/activity_of_challenge_edittext"
+        android:layout_below="@+id/activity_of_challenge_spinner"
         android:text="@string/team_challenged"
         android:textSize="25sp"
         android:textColor="@color/colorAuxiliary"/>
@@ -81,7 +79,6 @@
         android:layout_below="@+id/location_of_challenge"
         android:textSize="18sp"
         android:inputType="textPersonName"/>
-
 
     <TextView
         android:id="@+id/date_of_challenge"

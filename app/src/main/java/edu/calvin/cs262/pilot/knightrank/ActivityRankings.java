@@ -23,14 +23,15 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class ActivityRankings extends AppCompatActivity
-        implements NewChallenges.OnFragmentInteractionListener, UpcomingChallenges.OnFragmentInteractionListener {
+        implements NewChallenge.OnFragmentInteractionListener, UpcomingChallenges.OnFragmentInteractionListener {
 
     //Class variables.
     private static final String LOG_TAG =
@@ -49,7 +50,7 @@ public class ActivityRankings extends AppCompatActivity
     // Name of the custom shared preferences file.
     private static final String sharedPrefFile = "pilot.cs262.calvin.edu.knightrank";
 
-    private TextView mActivityName;
+    private Spinner mActivitySpinner;
     private ListView mActivityRankings;
 
     @Override
@@ -58,8 +59,17 @@ public class ActivityRankings extends AppCompatActivity
         setContentView(R.layout.activity_rankings);
 
 
-        mActivityName = (TextView) findViewById(R.id.activity_name);
-        mActivityName.setText(getIntent().getStringExtra("activityName"));
+        Set<String> selectedSports = getSharedPreferences(getString(R.string.shared_preferences), MODE_PRIVATE).getStringSet("SelectedSports", null);
+        mActivitySpinner = (Spinner) findViewById(R.id.activity_name);
+        if(selectedSports != null) {
+            List<String> selected_sports_arraylist = new ArrayList<String>(selectedSports);
+            ArrayAdapter<String> arrayAdapterActivities = new ArrayAdapter<String>(
+                    this,
+                    android.R.layout.simple_list_item_1,
+                    selected_sports_arraylist);
+            mActivitySpinner.setAdapter(arrayAdapterActivities);
+        }
+
 
         mActivityRankings = (ListView) findViewById(R.id.activity_rankings_listview);
 
@@ -68,13 +78,13 @@ public class ActivityRankings extends AppCompatActivity
         /*TODO: Implement creation of rankings based on database backend*/
         mActivityRankingsArrayList.add("1. mrsillydog");
 
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+        final ArrayAdapter<String> arrayAdapterRankings = new ArrayAdapter<String>(
                 this,
                 android.R.layout.simple_list_item_1,
                 mActivityRankingsArrayList);
 
 
-        mActivityRankings.setAdapter(arrayAdapter);
+        mActivityRankings.setAdapter(arrayAdapterRankings);
 
 
 
@@ -215,6 +225,7 @@ public class ActivityRankings extends AppCompatActivity
                         Log.e(LOG_TAG, "Reaches onNavigationItemSelected?");
                         selectDrawerItem(menuItem, savedInstanceState);
                         return true;
+
                     }
                 });
     }
@@ -235,10 +246,10 @@ public class ActivityRankings extends AppCompatActivity
         switch (menuItem.getItemId()) {
             //break;
             case R.id.nav_activity_selection:
-                fragmentClass = ActivitySelection.class;
-                Intent intent2 = new Intent(getApplicationContext(), ActivitySelection.class);
+                fragmentClass = ActivityRankings.class;
+                Intent intent2 = new Intent(getApplicationContext(), ActivityRankings.class);
                 startActivity(intent2);
-                Log.e(LOG_TAG, "Selected the activity selection activity!");
+                Log.e(LOG_TAG, "Selected the activity rankings activity!");
                 Toast.makeText(getApplicationContext(), "Selected", Toast.LENGTH_SHORT).show();
                 return true;
                 //break;
@@ -292,7 +303,7 @@ public class ActivityRankings extends AppCompatActivity
                 Toast.makeText(getApplicationContext(), "Selected", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.nav_new_challenges:
-                fragmentClass = NewChallenges.class;
+                fragmentClass = NewChallenge.class;
                 Log.e(LOG_TAG, "Selected the new challenges fragment!");
                 break;
             case R.id.nav_recent_challenges:
