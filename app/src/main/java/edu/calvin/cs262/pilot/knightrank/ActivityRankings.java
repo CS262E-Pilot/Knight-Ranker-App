@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -20,7 +21,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -31,7 +34,9 @@ import java.util.List;
 import java.util.Set;
 
 public class ActivityRankings extends AppCompatActivity
-        implements NewChallenge.OnFragmentInteractionListener, UpcomingChallenges.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        NewChallenge.OnFragmentInteractionListener,
+        UpcomingChallenges.OnFragmentInteractionListener {
 
     //Class variables.
     private static final String LOG_TAG =
@@ -57,36 +62,9 @@ public class ActivityRankings extends AppCompatActivity
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rankings);
-
-
-        Set<String> selectedSports = getSharedPreferences(getString(R.string.shared_preferences), MODE_PRIVATE).getStringSet("SelectedSports", null);
-        mActivitySpinner = (Spinner) findViewById(R.id.activity_name);
-        if(selectedSports != null) {
-            List<String> selected_sports_arraylist = new ArrayList<String>(selectedSports);
-            ArrayAdapter<String> arrayAdapterActivities = new ArrayAdapter<String>(
-                    this,
-                    android.R.layout.simple_list_item_1,
-                    selected_sports_arraylist);
-            mActivitySpinner.setAdapter(arrayAdapterActivities);
-        }
-
-
-        mActivityRankings = (ListView) findViewById(R.id.activity_rankings_listview);
-
-        List<String> mActivityRankingsArrayList = new ArrayList<String>();
-
-        /*TODO: Implement creation of rankings based on database backend*/
-        mActivityRankingsArrayList.add("1. mrsillydog");
-
-        final ArrayAdapter<String> arrayAdapterRankings = new ArrayAdapter<String>(
-                this,
-                android.R.layout.simple_list_item_1,
-                mActivityRankingsArrayList);
-
-
-        mActivityRankings.setAdapter(arrayAdapterRankings);
-
-
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_content, new Leaderboard());
+        ft.commit();
 
         // my_child_toolbar is defined in the layout file
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
@@ -110,10 +88,7 @@ public class ActivityRankings extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
 
         // Method call to setup drawer view.
-        setupDrawerContent(navigationView, savedInstanceState);
-
-        // Method call to manipulate drawer states.
-        navDrawerStates();
+        navigationView.setNavigationItemSelectedListener(this);
 
         // Set shared preferences component.
         mPreferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
@@ -128,7 +103,7 @@ public class ActivityRankings extends AppCompatActivity
 
         // Change the background color to what was selected in color picker.
         // Note: Change color by using findViewById and ID of the UI element you wish to change.
-        LinearLayout thisLayout = findViewById(R.id.container_layout);
+        FrameLayout thisLayout = findViewById(R.id.fragment_content);
         thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.YELLOW));
 
         int value = mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.BLACK);
@@ -142,35 +117,7 @@ public class ActivityRankings extends AppCompatActivity
         Log.e(LOG_TAG,"Value of color is: " + value);
     }
 
-    /**
-     * Method to execute functions according to navigation drawer states.
-     * Note: Placeholder - can be removed if we don't want to do anything in the future.
-     */
-    private void navDrawerStates() {
-        mDrawerLayout.addDrawerListener(
-                new DrawerLayout.DrawerListener() {
-                    @Override
-                    public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
-                        // Respond when the drawer's position changes
-                    }
 
-                    @Override
-                    public void onDrawerOpened(@NonNull View drawerView) {
-                        // Respond when the drawer is opened
-                    }
-
-                    @Override
-                    public void onDrawerClosed(@NonNull View drawerView) {
-                        // Respond when the drawer is closed
-                    }
-
-                    @Override
-                    public void onDrawerStateChanged(int newState) {
-                        // Respond when the drawer motion state changes
-                    }
-                }
-        );
-    }
 
     /**
      * Method adds an options menu to the toolbar.
@@ -220,14 +167,72 @@ public class ActivityRankings extends AppCompatActivity
     private void setupDrawerContent(NavigationView navigationView, final Bundle savedInstanceState) {
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
-                    @Override
                     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                        Log.e(LOG_TAG, "Reaches onNavigationItemSelected?");
                         selectDrawerItem(menuItem, savedInstanceState);
                         return true;
-
                     }
                 });
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        Fragment fragment = null;
+
+        switch (menuItem.getItemId()) {
+            case R.id.nav_activity_selection:
+                fragment = new Leaderboard();
+                break;
+            case R.id.nav_new_challenges:
+                fragment = new NewChallenge();
+                break;
+            case R.id.nav_test_get_backend:
+                Intent intent3 = new Intent(getApplicationContext(), TestGETBackEnd.class);
+                startActivity(intent3);
+                return true;
+            case R.id.nav_sport_selection:
+                Intent intent4 = new Intent(getApplicationContext(), SportSelection.class);
+                startActivity(intent4);
+                return true;
+            case R.id.nav_test_sport_post_put_backend:
+                Intent intent5 = new Intent(getApplicationContext(), TestPOSTPUTSportBackEnd.class);
+                startActivity(intent5);
+                return true;
+            case R.id.nav_test_player_post_put_backend:
+                Intent intent6 = new Intent(getApplicationContext(), TestPOSTPUTPlayerBackEnd.class);
+                startActivity(intent6);
+                return true;
+            case R.id.nav_test_follow_post_put_backend:
+                Intent intent7 = new Intent(getApplicationContext(), TestPOSTPUTFollowBackEnd.class);
+                startActivity(intent7);
+                return true;
+            case R.id.nav_test_match_post_put_backend:
+                Intent intent8 = new Intent(getApplicationContext(), TestPOSTPUTMatchBackEnd.class);
+                startActivity(intent8);
+                return true;
+            case R.id.nav_test_delete_backend:
+                Intent intent9 = new Intent(getApplicationContext(), TestDELETEBackEnd.class);
+                startActivity(intent9);
+                return true;
+            case R.id.nav_recent_challenges:
+                fragment = new UpcomingChallenges();
+                break;
+            case R.id.nav_my_rankings:
+                fragment = new MyStats();
+                break;
+            case R.id.nav_challenge_results:
+                fragment = new ChallengeResults();
+                break;
+            default:
+                fragment = new Leaderboard();
+        }
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_content, fragment);
+        ft.commit();
+
+        setTitle(menuItem.getTitle());
+        mDrawerLayout.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     /**
@@ -244,11 +249,9 @@ public class ActivityRankings extends AppCompatActivity
 
         // To handle selection of menu items.
         switch (menuItem.getItemId()) {
-            //break;
             case R.id.nav_activity_selection:
-                fragmentClass = ActivityRankings.class;
-                Intent intent2 = new Intent(getApplicationContext(), ActivityRankings.class);
-                startActivity(intent2);
+                fragmentClass = Leaderboard.class;
+                startActivity(new Intent(getApplicationContext(), Leaderboard.class));
                 Log.e(LOG_TAG, "Selected the activity rankings activity!");
                 Toast.makeText(getApplicationContext(), "Selected", Toast.LENGTH_SHORT).show();
                 return true;
@@ -362,8 +365,6 @@ public class ActivityRankings extends AppCompatActivity
         setTitle(menuItem.getTitle());
         // Close the navigation drawer
         mDrawerLayout.closeDrawers();
-
-        Log.e(LOG_TAG, "Reaches end of selectDrawerItem?");
         return true;
     }
 
