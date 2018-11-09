@@ -109,7 +109,7 @@ public class SportSelection extends AppCompatActivity implements AdapterView.OnI
      * Method obtains list of sports from the database.
      */
     private void loadSports() {
-        new SportNetworkUtils().getSports(this, new SportNetworkUtils.GetSportsResponse() {
+        new SportNetworkUtils().getSports(this, new SportNetworkUtils.GETSportsResponse() {
             @Override
             public void onResponse(ArrayList<Sport> result) {
                 setSports(result);
