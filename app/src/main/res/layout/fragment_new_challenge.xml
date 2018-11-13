@@ -7,107 +7,97 @@
     android:background="@color/colorBackground"
     tools:context=".NewChallenge">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <!--
     <TextView
-        android:id="@+id/new_challenge"
+        android:id="@+id/activity_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="11dp"
-        android:text="@string/title_new_challenge"
-        android:textColor="@color/colorAuxiliary"
-        android:textSize="36sp" />
-        -->
-
-    <TextView
-        android:id="@+id/activity_of_challenge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:padding="10dp"
         android:text="@string/activity_of_challenge"
-        android:textSize="25sp"
-        android:textColor="@color/colorAuxiliary"/>
-
-        <!--
-        android:layout_below="@+id/new_challenge"
-        -->
+        android:textSize="20sp"/>
 
     <Spinner
-        android:id="@+id/activity_of_challenge_spinner"
+        android:id="@+id/activity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_below="@+id/activity_of_challenge" />
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_below="@+id/activity_header"
+        android:padding="10dp"/>
 
     <TextView
-        android:id="@+id/team_challenged"
+        android:id="@+id/search_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_below="@+id/activity_of_challenge_spinner"
-        android:text="@string/team_challenged"
-        android:textSize="25sp"
-        android:textColor="@color/colorAuxiliary"/>
+        android:layout_below="@+id/activity"
+        android:text="Select an opponent:"
+        android:layout_marginStart="10dp"
+        android:padding="10dp"/>
 
-    <EditText
-        android:id="@+id/team_challenged_edittext"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_below="@+id/team_challenged"
-        android:textSize="18sp"
-        android:inputType="textPersonName"/>
+        android:layout_marginStart="10dp"
+        android:layout_below="@+id/search_header"
+        android:padding="10dp">
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Search for a player" />
+    </android.support.design.widget.TextInputLayout>
 
     <TextView
-        android:id="@+id/location_of_challenge"
+        android:id="@+id/score1_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_below="@+id/team_challenged_edittext"
-        android:text="@string/location_of_challenge"
-        android:textSize="25sp"
-        android:textColor="@color/colorAuxiliary"/>
-
-    <EditText
-        android:id="@+id/location_of_challenge_edittext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_below="@+id/location_of_challenge"
-        android:textSize="18sp"
-        android:inputType="textPersonName"/>
+        android:layout_below="@id/search_bar"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:text="Team 1's Score:"
+        android:padding="10dp"/>
 
     <TextView
-        android:id="@+id/date_of_challenge"
-        android:layout_width="wrap_content"
+        android:id="@+id/score2_header"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_below="@+id/location_of_challenge_edittext"
-        android:text="@string/date_of_challenge"
-        android:textSize="25sp"
-        android:textColor="@color/colorAuxiliary"/>
+        android:layout_below="@+id/search_bar"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="120dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toEndOf="@id/score1_header"
+        android:padding="10dp"
+        android:text="Team 2's Score:" />
 
-    <EditText
-        android:id="@+id/date_of_challenge_edittext"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_below="@+id/date_of_challenge"
-        android:textSize="18sp"
-        android:inputType="textPersonName"/>
+    <NumberPicker
+        android:id="@+id/score1"
+        android:layout_width="100dp"
+        android:layout_height="45dp"
+        android:layout_below="@+id/score1_header"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp"
+        android:padding="10dp">
+    </NumberPicker>
 
-
+    <NumberPicker
+        android:id="@+id/score2"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/score1_header"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="150dp"
+        android:layout_marginEnd="10dp"
+        android:layout_toEndOf="@id/score1"
+        android:padding="10dp"></NumberPicker>
 
     <Button
-        android:id="@+id/button_challenge"
+        android:id="@+id/submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp"
-        android:text="@string/challenge" />
+        android:text="Submit"
+        android:padding="10dp"/>
 </RelativeLayout>
