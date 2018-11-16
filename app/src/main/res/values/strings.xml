@@ -3,8 +3,8 @@
     <string name="title_activity_team_rankings">Team Rankings</string>
     <string name="title_activity_selection">Activity Selection</string>
     <string name="title_my_stats">My Stats</string>
-    <string name="title_challenge_results">Challenge Results</string>
-    <string name="title_new_challenge">Issue New Challenge</string>
+    <string name="title_challenge_results">Matches</string>
+    <string name="title_new_challenge">New Challenge</string>
     <string name="splash">splash</string>
     <string name="click_me">Click Me</string>
     <string name="title_screen">Knight Ranker</string>

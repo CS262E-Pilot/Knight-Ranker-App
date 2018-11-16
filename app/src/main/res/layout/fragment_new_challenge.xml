@@ -7,30 +7,19 @@
     android:background="@color/colorBackground"
     tools:context=".NewChallenge">
 
-    <TextView
-        android:id="@+id/activity_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="10dp"
-        android:padding="10dp"
-        android:text="@string/activity_of_challenge"
-        android:textSize="20sp"/>
-
     <Spinner
-        android:id="@+id/activity"
+        android:id="@+id/activity_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_below="@+id/activity_header"
         android:padding="10dp"/>
 
     <TextView
         android:id="@+id/search_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/activity"
+        android:layout_below="@+id/activity_spinner"
         android:text="Select an opponent:"
         android:layout_marginStart="10dp"
         android:padding="10dp"/>

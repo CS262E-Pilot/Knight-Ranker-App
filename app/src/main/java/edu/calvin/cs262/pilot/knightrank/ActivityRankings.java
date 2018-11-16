@@ -185,40 +185,10 @@ public class ActivityRankings extends AppCompatActivity
             case R.id.nav_new_challenges:
                 fragment = new NewChallenge();
                 break;
-            case R.id.nav_test_get_backend:
-                Intent intent3 = new Intent(getApplicationContext(), TestGETBackEnd.class);
-                startActivity(intent3);
-                return true;
             case R.id.nav_sport_selection:
                 Intent intent4 = new Intent(getApplicationContext(), SportSelection.class);
                 startActivity(intent4);
                 return true;
-            case R.id.nav_test_sport_post_put_backend:
-                Intent intent5 = new Intent(getApplicationContext(), TestPOSTPUTSportBackEnd.class);
-                startActivity(intent5);
-                return true;
-            case R.id.nav_test_player_post_put_backend:
-                Intent intent6 = new Intent(getApplicationContext(), TestPOSTPUTPlayerBackEnd.class);
-                startActivity(intent6);
-                return true;
-            case R.id.nav_test_follow_post_put_backend:
-                Intent intent7 = new Intent(getApplicationContext(), TestPOSTPUTFollowBackEnd.class);
-                startActivity(intent7);
-                return true;
-            case R.id.nav_test_match_post_put_backend:
-                Intent intent8 = new Intent(getApplicationContext(), TestPOSTPUTMatchBackEnd.class);
-                startActivity(intent8);
-                return true;
-            case R.id.nav_test_delete_backend:
-                Intent intent9 = new Intent(getApplicationContext(), TestDELETEBackEnd.class);
-                startActivity(intent9);
-                return true;
-            case R.id.nav_recent_challenges:
-                fragment = new UpcomingChallenges();
-                break;
-            case R.id.nav_my_rankings:
-                fragment = new MyStats();
-                break;
             case R.id.nav_challenge_results:
                 fragment = new ChallengeResults();
                 break;
@@ -251,18 +221,7 @@ public class ActivityRankings extends AppCompatActivity
         switch (menuItem.getItemId()) {
             case R.id.nav_activity_selection:
                 fragmentClass = Leaderboard.class;
-                startActivity(new Intent(getApplicationContext(), Leaderboard.class));
-                Log.e(LOG_TAG, "Selected the activity rankings activity!");
-                Toast.makeText(getApplicationContext(), "Selected", Toast.LENGTH_SHORT).show();
-                return true;
-                //break;
-            case R.id.nav_test_get_backend:
-                fragmentClass = TestGETBackEnd.class;
-                Intent intent3 = new Intent(getApplicationContext(), TestGETBackEnd.class);
-                startActivity(intent3);
-                Log.e(LOG_TAG, "Selected the test back end activity!");
-                Toast.makeText(getApplicationContext(), "Selected", Toast.LENGTH_SHORT).show();
-                return true;
+                break;
             case R.id.nav_sport_selection:
                 fragmentClass = SportSelection.class;
                 Intent intent4 = new Intent(getApplicationContext(), SportSelection.class);
@@ -270,56 +229,11 @@ public class ActivityRankings extends AppCompatActivity
                 Log.e(LOG_TAG, "Selected the sport selection activity!");
                 Toast.makeText(getApplicationContext(), "Selected", Toast.LENGTH_SHORT).show();
                 return true;
-            case R.id.nav_test_sport_post_put_backend:
-                fragmentClass = TestPOSTPUTSportBackEnd.class;
-                Intent intent5 = new Intent(getApplicationContext(), TestPOSTPUTSportBackEnd.class);
-                startActivity(intent5);
-                Log.e(LOG_TAG, "Selected the test post put sport back end activity!");
-                Toast.makeText(getApplicationContext(), "Selected", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.nav_test_player_post_put_backend:
-                fragmentClass = TestPOSTPUTPlayerBackEnd.class;
-                Intent intent6 = new Intent(getApplicationContext(), TestPOSTPUTPlayerBackEnd.class);
-                startActivity(intent6);
-                Log.e(LOG_TAG, "Selected the test post put player back end activity!");
-                Toast.makeText(getApplicationContext(), "Selected", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.nav_test_follow_post_put_backend:
-                fragmentClass = TestPOSTPUTFollowBackEnd.class;
-                Intent intent7 = new Intent(getApplicationContext(), TestPOSTPUTFollowBackEnd.class);
-                startActivity(intent7);
-                Log.e(LOG_TAG, "Selected the test post put follow back end activity!");
-                Toast.makeText(getApplicationContext(), "Selected", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.nav_test_match_post_put_backend:
-                fragmentClass = TestPOSTPUTMatchBackEnd.class;
-                Intent intent8 = new Intent(getApplicationContext(), TestPOSTPUTMatchBackEnd.class);
-                startActivity(intent8);
-                Log.e(LOG_TAG, "Selected the test post put match back end activity!");
-                Toast.makeText(getApplicationContext(), "Selected", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.nav_test_delete_backend:
-                fragmentClass = TestDELETEBackEnd.class;
-                Intent intent9 = new Intent(getApplicationContext(), TestDELETEBackEnd.class);
-                startActivity(intent9);
-                Log.e(LOG_TAG, "Selected the test delete back end activity!");
-                Toast.makeText(getApplicationContext(), "Selected", Toast.LENGTH_SHORT).show();
-                return true;
             case R.id.nav_new_challenges:
                 fragmentClass = NewChallenge.class;
-                Log.e(LOG_TAG, "Selected the new challenges fragment!");
-                break;
-            case R.id.nav_recent_challenges:
-                fragmentClass = UpcomingChallenges.class;
-                Log.e(LOG_TAG, "Selected the recent challenges fragment!");
-                break;
-            case R.id.nav_my_rankings:
-                fragmentClass = MyStats.class;
-                Log.e(LOG_TAG, "Selected the my rankings fragment!");
                 break;
             case R.id.nav_challenge_results:
                 fragmentClass = ChallengeResults.class;
-                Log.e(LOG_TAG, "Selected the challenge results fragment!");
                 break;
             default:
                 fragmentClass = ActivitySelection.class;

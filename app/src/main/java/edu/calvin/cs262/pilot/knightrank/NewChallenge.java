@@ -137,8 +137,8 @@ public class NewChallenge extends Fragment {
 
         Log.e(LOG_TAG,"Value of color is: " + value);
 
-        Set<String> selectedSports = getActivity().getSharedPreferences(getString(R.string.shared_preferences), MODE_PRIVATE).getStringSet("SelectedSports", null);
-        mActivitySpinner = (Spinner) getView().findViewById(R.id.activity_of_challenge_spinner);
+        Set<String> selectedSports = getActivity().getSharedPreferences(getString(R.string.shared_preferences), MODE_PRIVATE).getStringSet(getString(R.string.selected_sports), null);
+        mActivitySpinner = (Spinner) getView().findViewById(R.id.activity_spinner);
         if(selectedSports != null) {
             List<String> selected_sports_arraylist = new ArrayList<String>(selectedSports);
             ArrayAdapter<String> arrayAdapterActivities = new ArrayAdapter<String>(

@@ -13,8 +13,6 @@
         android:layout_height="wrap_content"
         android:text="@string/title_screen"
         android:textSize="30sp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="@color/golden_yellow"
-        android:background="#800000"/>
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
 </LinearLayout>
