@@ -23,8 +23,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.util.ArrayUtils;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import edu.calvin.cs262.pilot.knightrank.R;
@@ -62,8 +66,9 @@ public class SportSelection extends AppCompatActivity implements AdapterView.OnI
         // Get a support ActionBar corresponding to this toolbar
         ActionBar ab = getSupportActionBar();
 
-        // Enable the Up button
+        // We are hiding the action bar since it isn't relevant at this stage
         if (ab != null) {
+            ab.hide();
             ab.setDisplayHomeAsUpEnabled(true);
         }
 
@@ -132,6 +137,15 @@ public class SportSelection extends AppCompatActivity implements AdapterView.OnI
         mSportListView.setAdapter(sportAdapter);
         mSportListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         mSportListView.setOnItemClickListener(this);
+        // Check any sports we have already selected from our preferences
+        Set<String> selectedSportsSet = getSharedPreferences(getString(R.string.shared_preferences), MODE_PRIVATE).getStringSet(getString(R.string.selected_sports), null);
+        if (selectedSportsSet != null) {
+            mFab.setVisibility(View.VISIBLE);
+            List<String> selectedSports = new ArrayList<>(selectedSportsSet);
+            for (String sport : selectedSports) {
+                mSportListView.setItemChecked(Arrays.asList(sports).indexOf(sport), true);
+            }
+        }
     }
 
     /**

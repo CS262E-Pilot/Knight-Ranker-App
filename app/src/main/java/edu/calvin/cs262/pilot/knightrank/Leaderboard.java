@@ -74,7 +74,7 @@ public class Leaderboard extends Fragment implements AdapterView.OnItemSelectedL
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Set<String> selectedSports = getActivity().getSharedPreferences(getString(R.string.shared_preferences), MODE_PRIVATE).getStringSet("SelectedSports", null);
+        Set<String> selectedSports = getActivity().getSharedPreferences(getString(R.string.shared_preferences), MODE_PRIVATE).getStringSet(getString(R.string.selected_sports), null);
         mActivitySpinner = getView().findViewById(R.id.leaderboard_sport_spinner);
         if(selectedSports != null) {
             List<String> selected_sports_arraylist = new ArrayList<String>(selectedSports);

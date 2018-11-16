@@ -66,10 +66,10 @@ public class Login extends AppCompatActivity {
         // Get a support ActionBar corresponding to this toolbar
         ActionBar ab = getSupportActionBar();
 
-        // Enable the Up button
-//        if (ab != null) {
-//            ab.setDisplayHomeAsUpEnabled(true);
-//        }
+        // We are hiding the action bar since it isn't relevant at this stage
+        if (ab != null) {
+            ab.hide();
+        }
 
         // Set shared preferences component.
         mPreferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE);

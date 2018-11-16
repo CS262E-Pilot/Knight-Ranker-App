@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
@@ -55,8 +56,6 @@ public class NewChallenge extends Fragment {
 
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
     private Spinner mActivitySpinner;
 
     private OnFragmentInteractionListener mListener;
@@ -77,8 +76,6 @@ public class NewChallenge extends Fragment {
     public static NewChallenge newInstance(String param1, String param2) {
         NewChallenge fragment = new NewChallenge();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -86,10 +83,6 @@ public class NewChallenge extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
 
         // Set shared preferences component.
         // Note: modified from the one in activities as this is a fragment.
@@ -101,7 +94,7 @@ public class NewChallenge extends Fragment {
 
         // Placeholder code as example of how to restore values to UI components from shared preferences.
         //username_main.setText(mPreferences.getString(USER_NAME, ""));
-        //password_main.setText(mPreferences.getString(USER_PASSWORD, ""));
+        //password_main.setText(mPreferences.getString(USER_PASSWORD, ""))
     }
 
     @Override
@@ -135,10 +128,21 @@ public class NewChallenge extends Fragment {
 
         int value = mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.BLACK);
 
+        // Set the min and max values of the number pickers
+        NumberPicker np1 = getView().findViewById(R.id.score1);
+        np1.setMaxValue(100);
+        np1.setMinValue(0);
+        np1.setWrapSelectorWheel(false);
+        // Set the min and max values of the number pickers
+        NumberPicker np2 = getView().findViewById(R.id.score2);
+        np2.setMaxValue(100);
+        np2.setMinValue(0);
+        np2.setWrapSelectorWheel(false);
+
         Log.e(LOG_TAG,"Value of color is: " + value);
 
-        Set<String> selectedSports = getActivity().getSharedPreferences(getString(R.string.shared_preferences), MODE_PRIVATE).getStringSet("SelectedSports", null);
-        mActivitySpinner = (Spinner) getView().findViewById(R.id.activity_of_challenge_spinner);
+        Set<String> selectedSports = getActivity().getSharedPreferences(getString(R.string.shared_preferences), MODE_PRIVATE).getStringSet(getString(R.string.selected_sports), null);
+        mActivitySpinner = (Spinner) getView().findViewById(R.id.activity_spinner);
         if(selectedSports != null) {
             List<String> selected_sports_arraylist = new ArrayList<String>(selectedSports);
             ArrayAdapter<String> arrayAdapterActivities = new ArrayAdapter<String>(

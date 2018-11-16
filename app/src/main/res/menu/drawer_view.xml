@@ -16,41 +16,9 @@
             android:icon="@drawable/ic_android_black_24dp"
             android:title="@string/title_new_challenge" />
         <item
-            android:id="@+id/nav_recent_challenges"
-            android:icon="@drawable/ic_android_black_24dp"
-            android:title="@string/title_upcoming_challenges" />
-        <item
             android:id="@+id/nav_challenge_results"
             android:icon="@drawable/ic_android_black_24dp"
             android:title="@string/title_challenge_results" />
-        <item
-            android:id="@+id/nav_my_rankings"
-            android:icon="@drawable/ic_android_black_24dp"
-            android:title="@string/title_my_stats" />
-        <item
-            android:id="@+id/nav_test_get_backend"
-            android:icon="@drawable/ic_android_black_24dp"
-            android:title="@string/test_get_backend" />
-        <item
-            android:id="@+id/nav_test_delete_backend"
-            android:icon="@drawable/ic_android_black_24dp"
-            android:title="Test DELETE Backend" />
-        <item
-            android:id="@+id/nav_test_sport_post_put_backend"
-            android:icon="@drawable/ic_android_black_24dp"
-            android:title="Test POST PUT Sport" />
-        <item
-            android:id="@+id/nav_test_player_post_put_backend"
-            android:icon="@drawable/ic_android_black_24dp"
-            android:title="Test POST PUT Player" />
-        <item
-            android:id="@+id/nav_test_match_post_put_backend"
-            android:icon="@drawable/ic_android_black_24dp"
-            android:title="Test POST PUT Match" />
-        <item
-            android:id="@+id/nav_test_follow_post_put_backend"
-            android:icon="@drawable/ic_android_black_24dp"
-            android:title="Test POST PUT Follow" />
         <item
             android:id="@+id/nav_sport_selection"
             android:icon="@drawable/ic_android_black_24dp"
