@@ -45,7 +45,7 @@
         android:layout_below="@id/search_bar"
         android:layout_alignParentStart="true"
         android:layout_marginStart="10dp"
-        android:text="Team 1's Score:"
+        android:text="Your Score:"
         android:padding="10dp"/>
 
     <TextView
@@ -58,7 +58,7 @@
         android:layout_marginEnd="10dp"
         android:layout_toEndOf="@id/score1_header"
         android:padding="10dp"
-        android:text="Team 2's Score:" />
+        android:text="Opponents Score:" />
 
     <NumberPicker
         android:id="@+id/score1"
@@ -79,7 +79,8 @@
         android:layout_marginStart="150dp"
         android:layout_marginEnd="10dp"
         android:layout_toEndOf="@id/score1"
-        android:padding="10dp"></NumberPicker>
+        android:padding="10dp">
+    </NumberPicker>
 
     <Button
         android:id="@+id/submit"
@@ -89,4 +90,5 @@
         android:layout_alignParentBottom="true"
         android:text="Submit"
         android:padding="10dp"/>
+
 </RelativeLayout>

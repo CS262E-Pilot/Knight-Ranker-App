@@ -66,8 +66,9 @@ public class SportSelection extends AppCompatActivity implements AdapterView.OnI
         // Get a support ActionBar corresponding to this toolbar
         ActionBar ab = getSupportActionBar();
 
-        // Enable the Up button
+        // We are hiding the action bar since it isn't relevant at this stage
         if (ab != null) {
+            ab.hide();
             ab.setDisplayHomeAsUpEnabled(true);
         }
 
