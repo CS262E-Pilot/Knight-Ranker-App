@@ -40,6 +40,9 @@ public class Leaderboard extends Fragment implements AdapterView.OnItemSelectedL
     private ListView mListViewLeaderboard;
     private Spinner mActivitySpinner;
 
+    private ArrayList<PlayerRank> playerRankItems = new ArrayList<>();
+    private PlayerRankAdapter playerRankAdapter;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -85,21 +88,10 @@ public class Leaderboard extends Fragment implements AdapterView.OnItemSelectedL
             mActivitySpinner.setAdapter(arrayAdapterActivities);
         }
 
+        // Set the player rankings adapter
         mListViewLeaderboard = getView().findViewById(R.id.leaderboard_listview);
-
-        List<String> mActivityRankingsArrayList = new ArrayList<String>();
-
-        /*TODO: Implement creation of rankings based on database backend*/
-        mActivityRankingsArrayList.add("1. mrsillydog");
-        mActivityRankingsArrayList.add("2. mwissink");
-        mActivityRankingsArrayList.add("3. Joe");
-
-        final ArrayAdapter<String> arrayAdapterRankings = new ArrayAdapter<String>(
-                getContext(),
-                android.R.layout.simple_list_item_1,
-                mActivityRankingsArrayList);
-
-        mListViewLeaderboard.setAdapter(arrayAdapterRankings);
+        playerRankAdapter = new PlayerRankAdapter(getActivity(), playerRankItems);
+        mListViewLeaderboard.setAdapter(playerRankAdapter);
     }
 
     /**
@@ -122,13 +114,13 @@ public class Leaderboard extends Fragment implements AdapterView.OnItemSelectedL
     private void loadLeaderboard(String sport) {
         new LeaderboardNetworkUtil().getLeaderboard(getContext(), sport, new LeaderboardNetworkUtil.GETLeaderboardResponse() {
             @Override
-            public void onResponse(ArrayList<Player> result) {
+            public void onResponse(ArrayList<PlayerRank> result) {
                 setLeaderboard(result);
             }
         });
     }
 
-    private void setLeaderboard(ArrayList<Player> players) {
-
+    private void setLeaderboard(ArrayList<PlayerRank> playerRanks) {
+        playerRankItems.addAll(playerRanks);
     }
 }
