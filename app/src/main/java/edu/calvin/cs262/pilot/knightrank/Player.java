@@ -1,17 +1,24 @@
 package edu.calvin.cs262.pilot.knightrank;
 
-/**
- * Sport class that models a sport
- */
 public class Player {
     private int id;
     private String name;
-    private int rank;
+    private String emailAddress;
 
-    public Player(int id, String name, int rank) {
+    public Player() {}
+
+    public Player(int id, String name, String emailAddress) {
         this.id = id;
         this.name = name;
-        this.rank = rank;
+        this.emailAddress = emailAddress;
+    }
+
+    public void setEmailAddress(String email) {
+        emailAddress = email;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
     }
 
     public int getId() {
@@ -20,9 +27,5 @@ public class Player {
 
     public String getName() {
         return name;
-    }
-
-    public int getRank() {
-        return rank;
     }
 }
