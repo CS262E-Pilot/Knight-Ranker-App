@@ -1,13 +1,13 @@
 package edu.calvin.cs262.pilot.knightrank;
 
 public class PlayerRank {
-    private int rank;
+    private int eloRank;
     private String emailAddress;
 
     public PlayerRank() {}
 
-    public PlayerRank(int rank, String emailAddress) {
-        this.rank = rank;
+    public PlayerRank(int eloRank, String emailAddress) {
+        this.eloRank = eloRank;
         this.emailAddress = emailAddress;
     }
 
@@ -19,11 +19,11 @@ public class PlayerRank {
         return emailAddress;
     }
 
-    public int getRank() {
-        return rank;
+    public int getEloRank() {
+        return eloRank;
     }
 
-    public void setRank(int rank) {
-        this.rank = rank;
+    public void setEloRank(int eloRank) {
+        this.eloRank = eloRank;
     }
 }

@@ -31,6 +31,10 @@ public class PlayerRankAdapter extends ArrayAdapter<PlayerRank> {
         }
 
         if (playerItem != null) {
+            // Set player elo rank
+            TextView playerEloRank = (convertView.findViewById(R.id.player_rank_elo));
+            playerEloRank.setText(playerItem.getEloRank());
+            // Set player email
             TextView playerText = (convertView.findViewById(R.id.player_rank_email));
             playerText.setText(playerItem.getEmailAddress());
         }
