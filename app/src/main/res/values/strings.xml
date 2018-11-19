@@ -1,4 +1,5 @@
 <resources>
+    <string name="server_client_id">192654854744-u69k627oqgsl18jfho5a8o3435umuevk.apps.googleusercontent.com</string>
     <string name="app_name">Prototype</string>
     <string name="title_activity_team_rankings">Team Rankings</string>
     <string name="title_activity_selection">Activity Selection</string>
