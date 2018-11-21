@@ -15,6 +15,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 public class LeaderboardNetworkUtil {
@@ -34,7 +36,15 @@ public class LeaderboardNetworkUtil {
      * @param res
      */
     void getLeaderboard(final Context context, String sport, final GETLeaderboardResponse res) {
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, LEADERBOARD_URL, null,
+        StringBuilder query = new StringBuilder();
+        query.append(LEADERBOARD_URL);
+        query.append("/?sport=");
+        try {
+            query.append(URLEncoder.encode(sport, "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            Toast.makeText(context, "Can't parse sport name", Toast.LENGTH_LONG).show();
+        }
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, query.toString(), null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -45,7 +55,7 @@ public class LeaderboardNetworkUtil {
                             // Create an ArrayList of sports
                             for (int i = 0; i < playerRankJSONArray.length(); i++) {
                                 JSONObject playerRankJSON = (JSONObject) playerRankJSONArray.get(i);
-                                playerRanks.add(new PlayerRank(playerRankJSON.getInt("rank"), playerRankJSON.getString("emailAddress")));
+                                playerRanks.add(new PlayerRank(playerRankJSON.getInt("eloRank"), playerRankJSON.getString("name")));
                             }
                             // Return the resulting sport array list
                             res.onResponse(playerRanks);

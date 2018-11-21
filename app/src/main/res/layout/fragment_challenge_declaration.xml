@@ -7,24 +7,10 @@
     android:background="@color/colorBackground"
     tools:context=".NewChallenge">
 
-    <TextView
-        android:id="@+id/activity_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="10dp"
-        android:padding="10dp"
-        android:text="Select an activity:"/>
-
     <Spinner
         android:id="@+id/activity_spinner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_below="@+id/activity_label"
-        android:padding="10dp"/>
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/search_label"

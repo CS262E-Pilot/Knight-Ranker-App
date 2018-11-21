@@ -82,7 +82,7 @@ public class ChallengeResults extends Fragment {
         thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.YELLOW));
 
 
-        mChallengeResults = (ListView) getView().findViewById(R.id.challenge_results_listview);
+//        mChallengeResults = (ListView) getView().findViewById(R.id.challenge_results_listview);
         List<String> challenge_results_arraylist = new ArrayList<String>();
         /*
         Theoretical entries, as we don't have a backend #FIXME
@@ -93,7 +93,7 @@ public class ChallengeResults extends Fragment {
                 getActivity(),
                 android.R.layout.simple_list_item_1,
                 challenge_results_arraylist);
-        mChallengeResults.setAdapter(arrayAdapter);
+//        mChallengeResults.setAdapter(arrayAdapter);
 
 
         int value = mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.BLACK);
