@@ -20,23 +20,15 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
 public class ActivityRankings extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         NewChallenge.OnFragmentInteractionListener,
-        UpcomingChallenges.OnFragmentInteractionListener {
+        PastChallenges.OnFragmentInteractionListener {
 
     //Class variables.
     private static final String LOG_TAG =
@@ -182,15 +174,18 @@ public class ActivityRankings extends AppCompatActivity
             case R.id.nav_activity_selection:
                 fragment = new Leaderboard();
                 break;
-            case R.id.nav_new_challenges:
+            case R.id.nav_new_challenge:
                 fragment = new NewChallenge();
                 break;
             case R.id.nav_sport_selection:
                 Intent intent4 = new Intent(getApplicationContext(), SportSelection.class);
                 startActivity(intent4);
                 return true;
-            case R.id.nav_challenge_results:
-                fragment = new ChallengeResults();
+            case R.id.nav_challenge_confirmation:
+                fragment = new ChallengeConfirmation();
+                break;
+            case R.id.nav_past_challenges:
+                fragment = new PastChallenges();
                 break;
             default:
                 fragment = new Leaderboard();
@@ -229,11 +224,14 @@ public class ActivityRankings extends AppCompatActivity
                 Log.e(LOG_TAG, "Selected the sport selection activity!");
                 Toast.makeText(getApplicationContext(), "Selected", Toast.LENGTH_SHORT).show();
                 return true;
-            case R.id.nav_new_challenges:
+            case R.id.nav_new_challenge:
                 fragmentClass = NewChallenge.class;
                 break;
-            case R.id.nav_challenge_results:
-                fragmentClass = ChallengeResults.class;
+            case R.id.nav_challenge_confirmation:
+                fragmentClass = ChallengeConfirmation.class;
+                break;
+            case R.id.nav_past_challenges:
+                fragmentClass = PastChallenges.class;
                 break;
             default:
                 fragmentClass = ActivitySelection.class;

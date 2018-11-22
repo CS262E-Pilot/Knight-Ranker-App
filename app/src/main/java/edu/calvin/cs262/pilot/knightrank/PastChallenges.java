@@ -24,12 +24,12 @@ import java.util.Objects;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link UpcomingChallenges.OnFragmentInteractionListener} interface
+ * {@link PastChallenges.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link UpcomingChallenges#newInstance} factory method to
+ * Use the {@link PastChallenges#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class UpcomingChallenges extends Fragment {
+public class PastChallenges extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -37,7 +37,7 @@ public class UpcomingChallenges extends Fragment {
 
     //Class variables.
     private static final String LOG_TAG =
-            UpcomingChallenges.class.getSimpleName();
+            PastChallenges.class.getSimpleName();
 
     // For use with shared preferences.
     private static String PLACEHOLDER4 = "";
@@ -58,7 +58,7 @@ public class UpcomingChallenges extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public UpcomingChallenges() {
+    public PastChallenges() {
         // Required empty public constructor
     }
 
@@ -68,11 +68,11 @@ public class UpcomingChallenges extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment UpcomingChallenges.
+     * @return A new instance of fragment PastChallenges.
      */
     // TODO: Rename and change types and number of parameters
-    public static UpcomingChallenges newInstance(String param1, String param2) {
-        UpcomingChallenges fragment = new UpcomingChallenges();
+    public static PastChallenges newInstance(String param1, String param2) {
+        PastChallenges fragment = new PastChallenges();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -105,7 +105,7 @@ public class UpcomingChallenges extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_upcoming_challenges, container, false);
+        return inflater.inflate(R.layout.fragment_past_challenges, container, false);
     }
 
     /**
