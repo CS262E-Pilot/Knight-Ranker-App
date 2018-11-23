@@ -7,8 +7,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
-    tools:context=".ChallengeResults">
+    tools:context=".ChallengeConfirmation">
 
+    <TextView
+        android:id="@+id/challenge_confirmation_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/unresolved_matches"
+        android:textSize="24sp"
+        android:padding="5dp"/>
+
+    <ListView
+        android:id="@+id/challenge_confirmation_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/challenge_confirmation_textview">
+    </ListView>
+
+    <!--
     <TextView
         android:id="@+id/score_label"
         android:layout_width="wrap_content"
@@ -42,6 +58,6 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:text="Confirm"
-        android:padding="10dp"/>
+        android:padding="10dp"/> -->
 
 </RelativeLayout>

@@ -19,11 +19,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ChallengeResults extends Fragment {
+public class ChallengeConfirmation extends Fragment {
 
     //Class variables.
     private static final String LOG_TAG =
-            ChallengeResults.class.getSimpleName();
+            ChallengeConfirmation.class.getSimpleName();
 
     // For use with shared preferences.
     private static String PLACEHOLDER2 = "";
@@ -82,18 +82,18 @@ public class ChallengeResults extends Fragment {
         thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.YELLOW));
 
 
-//        mChallengeResults = (ListView) getView().findViewById(R.id.challenge_results_listview);
+        mChallengeResults = (ListView) getView().findViewById(R.id.challenge_confirmation_listview);
         List<String> challenge_results_arraylist = new ArrayList<String>();
         /*
         Theoretical entries, as we don't have a backend #FIXME
         */
-        challenge_results_arraylist.add("Bob vs. Tommy, Smash 4: 3-0");
-        challenge_results_arraylist.add("Jimbo vs. Samantha, Tekken 7: 1-3");
+        challenge_results_arraylist.add("vs. Tommy, Smash 4");
+        challenge_results_arraylist.add("vs. Samantha, Tekken 7");
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
                 getActivity(),
                 android.R.layout.simple_list_item_1,
                 challenge_results_arraylist);
-//        mChallengeResults.setAdapter(arrayAdapter);
+        mChallengeResults.setAdapter(arrayAdapter);
 
 
         int value = mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.BLACK);
