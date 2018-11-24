@@ -3,4 +3,5 @@
     <!-- Reference the shared preference file and it's keys -->
     <string name="shared_preferences">SharedPreferences</string>
     <string name="selected_sports">SelectedSports</string>
+    <string name="token">Token</string>
 </resources>

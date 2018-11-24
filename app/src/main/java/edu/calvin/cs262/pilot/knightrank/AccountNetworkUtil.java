@@ -1,6 +1,7 @@
 package edu.calvin.cs262.pilot.knightrank;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -20,7 +21,7 @@ public class AccountNetworkUtil {
 
     /** Callback interface for delivering sports request. */
     public interface POSTTokenResponse {
-        void onResponse(Player player);
+        void onResponse(String token);
     }
 
     private static final String LOG_TAG = AccountNetworkUtil.class.getSimpleName();
@@ -42,8 +43,11 @@ public class AccountNetworkUtil {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d(LOG_TAG, response.toString());
-                        Toast.makeText(context, response.toString(), Toast.LENGTH_LONG).show();
+                        try {
+                            res.onResponse(response.getString("token"));
+                        } catch (JSONException e) {
+                            Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG).show();
+                        }
                     }
                 }, new Response.ErrorListener() {
             @Override

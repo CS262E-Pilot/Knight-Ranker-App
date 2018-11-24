@@ -29,6 +29,8 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
+import java.util.Set;
+
 /**
  * Login class provides Google OAuth functionality.
  *
@@ -123,7 +125,10 @@ public class Login extends AppCompatActivity {
         // Check for existing Google Sign In account, if the user is already signed in
         // the GoogleSignInAccount will be non-null.
 //        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-//        updateUI(account);
+        String token = getSharedPreferences(getString(R.string.shared_preferences), MODE_PRIVATE).getString(getString(R.string.token), null);
+        if (token != null) {
+            startNextActivity(null);
+        }
     }
 
     @Override
@@ -138,15 +143,20 @@ public class Login extends AppCompatActivity {
         }
     }
 
+    /**
+     * Starts the next activity based on whether we have selected sports or not
+     * If a player has already set a sport preference we don't want to bother them setting it again
+     */
     public void startNextActivity(View view) {
-        Intent intent = new Intent(this, SportSelection.class);
-        startActivity(intent);
-    }
+        Set<String> selectedSports = getSharedPreferences(getString(R.string.shared_preferences), MODE_PRIVATE).getStringSet(getString(R.string.selected_sports),null);
 
-    private void updateUI(GoogleSignInAccount account) {
-        if (account != null) {
-            startNextActivity(null);
+        Intent intent;
+        if (selectedSports == null) {
+            intent = new Intent(this, SportSelection.class);
+        } else {
+            intent = new Intent(this, ActivityRankings.class);
         }
+        startActivity(intent);
     }
 
     public void signIn() {
@@ -161,15 +171,16 @@ public class Login extends AppCompatActivity {
 
             new AccountNetworkUtil().postToken(this, account.getIdToken(), new AccountNetworkUtil.POSTTokenResponse() {
                 @Override
-                public void onResponse(Player player) {
-                    updateUI(account);
+                public void onResponse(String token) {
+                    SharedPreferences.Editor editor = getSharedPreferences(getString(R.string.shared_preferences), MODE_PRIVATE).edit();
+                    editor.putString(getString(R.string.token), token).apply();
+                    startNextActivity(null);
                 }
             });
         } catch (ApiException | NullPointerException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.w("Error", "signInResult failed");
-            updateUI(null);
         }
     }
 
