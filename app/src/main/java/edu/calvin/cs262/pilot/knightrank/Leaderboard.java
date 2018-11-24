@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +39,10 @@ public class Leaderboard extends Fragment implements AdapterView.OnItemSelectedL
     private static final String sharedPrefFile = "pilot.cs262.calvin.edu.knightrank";
 
     private ListView mListViewLeaderboard;
-    private Spinner mActivitySpinner;
+    private Spinner mSportSpinner;
+
+    private ArrayList<PlayerRank> playerRankItems = new ArrayList<>();
+    private PlayerRankAdapter playerRankAdapter;
 
 
     @Override
@@ -74,32 +78,23 @@ public class Leaderboard extends Fragment implements AdapterView.OnItemSelectedL
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        // Set our adapter
+        playerRankAdapter = new PlayerRankAdapter(getActivity(), playerRankItems);
+        // Setup the sport spinner
         Set<String> selectedSports = getActivity().getSharedPreferences(getString(R.string.shared_preferences), MODE_PRIVATE).getStringSet(getString(R.string.selected_sports), null);
-        mActivitySpinner = getView().findViewById(R.id.leaderboard_sport_spinner);
+        mSportSpinner = getView().findViewById(R.id.leaderboard_sport_spinner);
         if(selectedSports != null) {
             List<String> selected_sports_arraylist = new ArrayList<String>(selectedSports);
             ArrayAdapter<String> arrayAdapterActivities = new ArrayAdapter<String>(
                     getActivity(),
                     android.R.layout.simple_list_item_1,
                     selected_sports_arraylist);
-            mActivitySpinner.setAdapter(arrayAdapterActivities);
+            mSportSpinner.setAdapter(arrayAdapterActivities);
         }
 
         mListViewLeaderboard = getView().findViewById(R.id.leaderboard_listview);
-
-        List<String> mActivityRankingsArrayList = new ArrayList<String>();
-
-        /*TODO: Implement creation of rankings based on database backend*/
-        mActivityRankingsArrayList.add("1. mrsillydog");
-        mActivityRankingsArrayList.add("2. mwissink");
-        mActivityRankingsArrayList.add("3. Joe");
-
-        final ArrayAdapter<String> arrayAdapterRankings = new ArrayAdapter<String>(
-                getContext(),
-                android.R.layout.simple_list_item_1,
-                mActivityRankingsArrayList);
-
-        mListViewLeaderboard.setAdapter(arrayAdapterRankings);
+        mListViewLeaderboard.setAdapter(playerRankAdapter);
+        mSportSpinner.setOnItemSelectedListener(this);
     }
 
     /**
@@ -111,7 +106,6 @@ public class Leaderboard extends Fragment implements AdapterView.OnItemSelectedL
     }
 
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-        // An item was selected. You can retrieve the selected item using
         loadLeaderboard(parent.getItemAtPosition(pos).toString());
     }
 
@@ -122,13 +116,16 @@ public class Leaderboard extends Fragment implements AdapterView.OnItemSelectedL
     private void loadLeaderboard(String sport) {
         new LeaderboardNetworkUtil().getLeaderboard(getContext(), sport, new LeaderboardNetworkUtil.GETLeaderboardResponse() {
             @Override
-            public void onResponse(ArrayList<Player> result) {
+            public void onResponse(ArrayList<PlayerRank> result) {
                 setLeaderboard(result);
             }
         });
     }
 
-    private void setLeaderboard(ArrayList<Player> players) {
-
+    private void setLeaderboard(ArrayList<PlayerRank> playerRanks) {
+        Log.d(LOG_TAG, "PlayerRanks: " + playerRanks.toString());
+        playerRankItems.clear();
+        playerRankItems.addAll(playerRanks);
+        playerRankAdapter.notifyDataSetChanged();
     }
 }

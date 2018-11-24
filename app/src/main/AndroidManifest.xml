@@ -31,6 +31,7 @@
             </intent-filter>
         </activity>
         <activity
+            android:windowSoftInputMode="adjustResize"
             android:name=".ActivityRankings"
             android:label="Activity Rankings" />
         <activity

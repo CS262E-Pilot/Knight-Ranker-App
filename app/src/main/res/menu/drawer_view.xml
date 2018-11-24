@@ -12,13 +12,17 @@
             android:icon="@drawable/ic_android_black_24dp"
             android:title="@string/title_view_rankings" />
         <item
-            android:id="@+id/nav_new_challenges"
+            android:id="@+id/nav_new_challenge"
             android:icon="@drawable/ic_android_black_24dp"
             android:title="@string/title_new_challenge" />
         <item
-            android:id="@+id/nav_challenge_results"
+            android:id="@+id/nav_challenge_confirmation"
             android:icon="@drawable/ic_android_black_24dp"
             android:title="@string/title_challenge_results" />
+        <item
+            android:id="@+id/nav_past_challenges"
+            android:icon="@drawable/ic_android_black_24dp"
+            android:title="@string/title_past_challenges" />
         <item
             android:id="@+id/nav_sport_selection"
             android:icon="@drawable/ic_android_black_24dp"

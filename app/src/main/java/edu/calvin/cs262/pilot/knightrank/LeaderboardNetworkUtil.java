@@ -15,48 +15,50 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class LeaderboardNetworkUtil {
 
     /** Callback interface for delivering sports request. */
     public interface GETLeaderboardResponse {
-        void onResponse(ArrayList<Player> players);
+        void onResponse(ArrayList<PlayerRank> playerRanks);
     }
 
     private static final String LOG_TAG = LeaderboardNetworkUtil.class.getSimpleName();
-    private static final String SPORT_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/rankings";
+    private static final String LEADERBOARD_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/leaderboard";
 
     /**
-     * GETS all the sports in JSON format, creates new Sport objects (Sport.java), adds to ArrayList<Sport>,
-     * and adds to Volley request queue.
+     * GETs the leaderboard for a given sport
+     * @param context
+     * @param sport
+     * @param res
      */
     void getLeaderboard(final Context context, String sport, final GETLeaderboardResponse res) {
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, SPORT_URL, null,
+        StringBuilder query = new StringBuilder();
+        query.append(LEADERBOARD_URL);
+        query.append("/?sport=");
+        try {
+            query.append(URLEncoder.encode(sport, "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            Toast.makeText(context, "Can't parse sport name", Toast.LENGTH_LONG).show();
+        }
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, query.toString(), null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
                             // Parse the results
-                            ArrayList<Player> players = new ArrayList<>();
-                            JSONArray sportsJSONArray = response.getJSONArray("items");
+                            ArrayList<PlayerRank> playerRanks = new ArrayList<>();
+                            JSONArray playerRankJSONArray = response.getJSONArray("items");
                             // Create an ArrayList of sports
-                            for (int i = 0; i < sportsJSONArray.length(); i++) {
-                                JSONObject sportJSON = (JSONObject) sportsJSONArray.get(i);
-                                players.add(new Player(sportJSON.getInt("id"), sportJSON.getString("name"), sportJSON.getInt("rank")));
+                            for (int i = 0; i < playerRankJSONArray.length(); i++) {
+                                JSONObject playerRankJSON = (JSONObject) playerRankJSONArray.get(i);
+                                playerRanks.add(new PlayerRank(playerRankJSON.getInt("eloRank"), playerRankJSON.getString("name")));
                             }
                             // Return the resulting sport array list
-                            res.onResponse(players);
+                            res.onResponse(playerRanks);
                         } catch (JSONException e) {
                             Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG).show();
                         }
