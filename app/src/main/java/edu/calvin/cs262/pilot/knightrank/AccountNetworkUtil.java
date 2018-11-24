@@ -38,7 +38,6 @@ public class AccountNetworkUtil {
         } catch (JSONException e) {
             Log.d(LOG_TAG, "Failed to add token to request");
         }
-        Log.d(LOG_TAG, data.toString());
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, LOGIN_URL, data,
                 new Response.Listener<JSONObject>() {
                     @Override
@@ -50,7 +49,7 @@ public class AccountNetworkUtil {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d(LOG_TAG, error.toString());
-                Toast.makeText(context, error.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "Failed to login", Toast.LENGTH_LONG).show();
             }
         });
 

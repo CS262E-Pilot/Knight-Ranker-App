@@ -158,6 +158,7 @@ public class Login extends AppCompatActivity {
         try {
             final GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             // Signed in successfully, show authenticated UI.
+
             new AccountNetworkUtil().postToken(this, account.getIdToken(), new AccountNetworkUtil.POSTTokenResponse() {
                 @Override
                 public void onResponse(Player player) {
