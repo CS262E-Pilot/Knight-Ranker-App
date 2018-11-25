@@ -23,7 +23,7 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".SplashScreen"
-            android:label="Splash Screen">
+            android:label="Knight-Ranker">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -55,7 +55,7 @@
         <activity
             android:name=".SportSelection"
             android:label="@string/title_activity_sport_selection"
-            android:parentActivityName=".ActivityRankings"
+            android:parentActivityName=".Login"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".TestGETBackEnd"
