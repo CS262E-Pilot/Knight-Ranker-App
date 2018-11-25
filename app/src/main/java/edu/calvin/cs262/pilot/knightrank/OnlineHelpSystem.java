@@ -1,38 +1,38 @@
 package edu.calvin.cs262.pilot.knightrank;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.preference.PreferenceManager;
+import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
-/* TODO: Delete this class, as it has been phased out */
-public class ActivitySelection extends AppCompatActivity {
+public class OnlineHelpSystem extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
+        AccountCreationInstructions.OnFragmentInteractionListener, AccountLoginInstructions.OnFragmentInteractionListener {
 
     //Class variables.
     private static final String LOG_TAG =
-            ActivitySelection.class.getSimpleName();
+            OnlineHelpSystem.class.getSimpleName();
 
     // For use with shared preferences.
-    private static String PLACEHOLDER5 = "";
+    private static final String PLACEHOLDERHHHELP = "placeholder_help";
 
     // Share preferences file (custom)
     private SharedPreferences mPreferences;
@@ -42,13 +42,12 @@ public class ActivitySelection extends AppCompatActivity {
     // Name of the custom shared preferences file.
     private static final String sharedPrefFile = "pilot.cs262.calvin.edu.knightrank";
 
-    private ListView mActivitiesListView;
-
+    private DrawerLayout mDrawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_selection);
+        setContentView(R.layout.activity_online_help_system);
 
         // my_child_toolbar is defined in the layout file
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
@@ -69,7 +68,7 @@ public class ActivitySelection extends AppCompatActivity {
 
         // Set shared preferences component.
         mPreferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
-        mPreferencesDefault = android.support.v7.preference.PreferenceManager.getDefaultSharedPreferences(this);
+        mPreferencesDefault = PreferenceManager.getDefaultSharedPreferences(this);
 
         // Placeholder code as example of how to get values from the default SharedPrefs file.
         String syncFreq = mPreferencesDefault.getString(SettingsActivity.KEY_SYNC_FREQUENCY, "-1");
@@ -80,52 +79,23 @@ public class ActivitySelection extends AppCompatActivity {
 
         // Change the background color to what was selected in color picker.
         // Note: Change color by using findViewById and ID of the UI element you wish to change.
-        RelativeLayout thisLayout = findViewById(R.id.activity_selection_root_layout);
+        LinearLayout thisLayout = findViewById(R.id.activity_online_help_system_root_layout);
         thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.WHITE));
-
-        int value = mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.BLACK);
 
         int toolbarColor = mPreferences.getInt(ColorPicker.APP_TOOLBAR_COLOR_ARGB, Color.RED);
 
         // Change the toolbar color to what was selected in color picker.
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(toolbarColor));
 
-        mActivitiesListView = (ListView) findViewById(R.id.activity_selection_listview);
+        // Find drawer components.
+        mDrawerLayout = findViewById(R.id.help_drawer_layout);
+        NavigationView navigationView = findViewById(R.id.help_nav_view);
 
-        List<String> myActivitiesArrayList = new ArrayList<String>();
+        // Method call to setup drawer view.
+        navigationView.setNavigationItemSelectedListener(this);
 
-        myActivitiesArrayList.add("Super Smash Bros. Melee");
-        myActivitiesArrayList.add("Chess");
-        myActivitiesArrayList.add("Tekken 7");
-        myActivitiesArrayList.add("Tennis");
-        myActivitiesArrayList.add("Super Smash Bros. 4");
-        myActivitiesArrayList.add("Street Fighter V");
-        myActivitiesArrayList.add("Injustice 2");
-        myActivitiesArrayList.add("FIFA");
-        myActivitiesArrayList.add("Frisbee Golf");
-        myActivitiesArrayList.add("Golf");
-        myActivitiesArrayList.add("World of Warcraft Arena");
-
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                this,
-                android.R.layout.simple_list_item_1,
-                myActivitiesArrayList);
-
-
-        mActivitiesListView.setAdapter(arrayAdapter);
-
-        mActivitiesListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String item = arrayAdapter.getItem(position);
-
-                Intent intent = new Intent(ActivitySelection.this, ActivityRankings.class);
-                //based on item add info to intent
-                intent.putExtra("activityName", item);
-                startActivity(intent);
-            }
-        });
-
+        // Test that we can retrieve color value from Color picker.
+        int value = mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.BLACK);
         Log.e(LOG_TAG,"Value of color is: " + value);
     }
 
@@ -152,6 +122,9 @@ public class ActivitySelection extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // The action bar home/up action should open or close the drawer.
         switch (item.getItemId()) {
+            case android.R.id.home:
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                return true;
             case R.id.settings:
                 Intent intent1 = new Intent(this, SettingsActivity.class);
                 startActivity(intent1);
@@ -160,10 +133,6 @@ public class ActivitySelection extends AppCompatActivity {
                 Intent intent2 = new Intent(this, ColorPicker.class);
                 startActivity(intent2);
                 return true;
-            case R.id.online_help_system:
-                Intent intent3 = new Intent(this, OnlineHelpSystem.class);
-                startActivity(intent3);
-                return true;
             default:
                 // Do nothing
         }
@@ -171,30 +140,57 @@ public class ActivitySelection extends AppCompatActivity {
     }
 
     /**
-     * Method for button click that launches the activity.
+     * Method that controls what happens when we select a navigation drawer item.
      *
-     * @param view as stated
+     * @param menuItem the item selected
      */
-    public void launchActivity(View view) {
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        Fragment fragment = null;
 
-        Intent intent = new Intent(this, ActivityRankings.class);
+        switch (menuItem.getItemId()) {
+            case R.id.nav_account_creation_instructions:
+                fragment = new AccountCreationInstructions();
+                break;
+            case R.id.nav_account_login_instructions:
+                fragment = new AccountLoginInstructions();
+                break;
+            default:
+                fragment = new AccountCreationInstructions();
+        }
 
-        startActivity(intent);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.help_fragment_content, fragment);
+        ft.commit();
 
-        Log.d(LOG_TAG, "Button clicked!");
+        setTitle(menuItem.getTitle());
+        mDrawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    /**
+     * Method for default Host Activity - Fragment communication
+     * Note: Can be removed as long as we remove the corresponding OnFragmentInteractionListener
+     * method in the specific fragment itself.
+     *
+     * @param uri the data you want sent/received
+     */
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 
     /**
      * Method currently called to store values to shared preferences file.
      */
     @Override
-    public void onPause() {
+    protected void onPause() {
         super.onPause();
 
-        SharedPreferences.Editor preferencesEditor7 = mPreferences.edit();
+        SharedPreferences.Editor preferencesEditor = mPreferences.edit();
 
-        preferencesEditor7.putString(PLACEHOLDER5, "Placeholder text 5");
+        preferencesEditor.putString(PLACEHOLDERHHHELP, "Placeholder help text");
 
-        preferencesEditor7.apply();
+        preferencesEditor.apply();
     }
 }

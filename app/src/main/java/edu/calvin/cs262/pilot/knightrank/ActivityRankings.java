@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -54,6 +55,7 @@ public class ActivityRankings extends AppCompatActivity
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rankings);
+
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.fragment_content, new Leaderboard());
         ft.commit();
@@ -95,16 +97,15 @@ public class ActivityRankings extends AppCompatActivity
 
         // Change the background color to what was selected in color picker.
         // Note: Change color by using findViewById and ID of the UI element you wish to change.
-        FrameLayout thisLayout = findViewById(R.id.fragment_content);
-        thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.YELLOW));
+        LinearLayout thisLayout = findViewById(R.id.fragment_activity_rankings_root_layout);
+        thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.WHITE));
 
         int value = mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.BLACK);
 
-        int toolbarColor = mPreferences.getInt(ColorPicker.APP_TOOLBAR_COLOR_ARGB, Color.YELLOW);
+        int toolbarColor = mPreferences.getInt(ColorPicker.APP_TOOLBAR_COLOR_ARGB, Color.RED);
 
         // Change the toolbar color to what was selected in color picker.
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(toolbarColor));
-
 
         Log.e(LOG_TAG,"Value of color is: " + value);
     }
@@ -144,6 +145,10 @@ public class ActivityRankings extends AppCompatActivity
             case R.id.color_picker:
                 Intent intent2 = new Intent(this, ColorPicker.class);
                 startActivity(intent2);
+                return true;
+            case R.id.online_help_system:
+                Intent intent3 = new Intent(this, OnlineHelpSystem.class);
+                startActivity(intent3);
                 return true;
             default:
                 // Do nothing

@@ -107,11 +107,11 @@ public class Login extends AppCompatActivity {
         // Change the background color to what was selected in color picker.
         // Note: Change color by using findViewById and ID of the UI element you wish to change.
         RelativeLayout thisLayout = findViewById(R.id.activity_login_root_layout);
-        thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.YELLOW));
+        thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.WHITE));
 
         int value = mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.BLACK);
 
-        int toolbarColor = mPreferences.getInt(ColorPicker.APP_TOOLBAR_COLOR_ARGB, Color.YELLOW);
+        int toolbarColor = mPreferences.getInt(ColorPicker.APP_TOOLBAR_COLOR_ARGB, Color.RED);
 
         // Change the toolbar color to what was selected in color picker.
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(toolbarColor));
@@ -214,6 +214,10 @@ public class Login extends AppCompatActivity {
             case R.id.color_picker:
                 Intent intent2 = new Intent(this, ColorPicker.class);
                 startActivity(intent2);
+                return true;
+            case R.id.online_help_system:
+                Intent intent3 = new Intent(this, OnlineHelpSystem.class);
+                startActivity(intent3);
                 return true;
             default:
                 // Do nothing

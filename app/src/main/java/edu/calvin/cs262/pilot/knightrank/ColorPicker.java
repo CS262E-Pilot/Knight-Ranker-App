@@ -136,6 +136,10 @@ public class ColorPicker extends AppCompatActivity implements SeekBar.OnSeekBarC
                 Intent intent1 = new Intent(this, SettingsActivity.class);
                 startActivity(intent1);
                 return true;
+            case R.id.online_help_system:
+                Intent intent3 = new Intent(this, OnlineHelpSystem.class);
+                startActivity(intent3);
+                return true;
             default:
                 // Do nothing
         }
