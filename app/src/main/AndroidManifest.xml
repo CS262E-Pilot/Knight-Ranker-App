@@ -31,9 +31,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:windowSoftInputMode="adjustResize"
             android:name=".ActivityRankings"
-            android:label="Activity Rankings" />
+            android:label="Activity Rankings"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ActivitySelection"
             android:label="Activity Selection"
@@ -47,8 +47,7 @@
         </activity>
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings">
-        </activity>
+            android:label="@string/title_activity_settings"></activity>
         <activity
             android:name=".ColorPicker"
             android:label="Color Picker"
@@ -56,7 +55,7 @@
         <activity
             android:name=".SportSelection"
             android:label="@string/title_activity_sport_selection"
-            android:parentActivityName=".Login"
+            android:parentActivityName=".ActivityRankings"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".TestGETBackEnd"
@@ -77,14 +76,15 @@
         <activity
             android:name=".TestPOSTPUTMatchBackEnd"
             android:label="Test POST PUT Match Back End"
-            android:parentActivityName=".ActivityRankings">
-        </activity>
+            android:parentActivityName=".ActivityRankings"></activity>
         <activity
             android:name=".TestDELETEBackEnd"
             android:label="Test DELETE Back End"
-            android:parentActivityName=".ActivityRankings">
-
-        </activity>
+            android:parentActivityName=".ActivityRankings"></activity>
+        <activity
+            android:name=".OnlineHelpSystem"
+            android:label="Online Help System"
+            android:parentActivityName=".ActivityRankings"></activity>
     </application>
 
 </manifest>

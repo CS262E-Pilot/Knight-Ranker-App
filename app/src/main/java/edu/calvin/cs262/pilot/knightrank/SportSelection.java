@@ -9,6 +9,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.PreferenceManager;
@@ -66,10 +67,14 @@ public class SportSelection extends AppCompatActivity implements AdapterView.OnI
         // Get a support ActionBar corresponding to this toolbar
         ActionBar ab = getSupportActionBar();
 
-        // We are hiding the action bar since it isn't relevant at this stage
+        // Enable the Up button
         if (ab != null) {
-            ab.hide();
             ab.setDisplayHomeAsUpEnabled(true);
+        }
+
+        // Custom icon for the Up button
+        if (ab != null) {
+            ab.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
         }
 
         // Set shared preferences component.
@@ -98,11 +103,11 @@ public class SportSelection extends AppCompatActivity implements AdapterView.OnI
         // Change the background color to what was selected in color picker.
         // Note: Change color by using findViewById and ID of the UI element you wish to change.
         CoordinatorLayout thisLayout = findViewById(R.id.activity_sport_selection_root_layout);
-        thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.YELLOW));
+        thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.WHITE));
 
         int value = mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.BLACK);
 
-        int toolbarColor = mPreferences.getInt(ColorPicker.APP_TOOLBAR_COLOR_ARGB, Color.YELLOW);
+        int toolbarColor = mPreferences.getInt(ColorPicker.APP_TOOLBAR_COLOR_ARGB, Color.RED);
 
         // Change the toolbar color to what was selected in color picker.
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(toolbarColor));
@@ -225,10 +230,13 @@ public class SportSelection extends AppCompatActivity implements AdapterView.OnI
                 Intent intent2 = new Intent(this, ColorPicker.class);
                 startActivity(intent2);
                 return true;
+            case R.id.online_help_system:
+                Intent intent3 = new Intent(this, OnlineHelpSystem.class);
+                startActivity(intent3);
+                return true;
             default:
                 // Do nothing
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

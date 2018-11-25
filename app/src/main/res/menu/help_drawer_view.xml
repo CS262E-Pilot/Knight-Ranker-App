@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_account_creation_instructions"
+            android:icon="@drawable/ic_android_black_24dp"
+            android:title="Account Creation" />
+        <item
+            android:id="@+id/nav_account_login_instructions"
+            android:icon="@drawable/ic_android_black_24dp"
+            android:title="Account Login" />
+    </group>
+</menu>

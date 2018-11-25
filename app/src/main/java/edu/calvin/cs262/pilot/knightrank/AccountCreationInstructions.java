@@ -13,27 +13,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.NumberPicker;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
-
-import static android.content.Context.MODE_PRIVATE;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link NewChallenge.OnFragmentInteractionListener} interface
+ * {@link AccountCreationInstructions.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link NewChallenge#newInstance} factory method to
+ * Use the {@link AccountCreationInstructions#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NewChallenge extends Fragment {
+public class AccountCreationInstructions extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -41,10 +37,10 @@ public class NewChallenge extends Fragment {
 
     //Class variables.
     private static final String LOG_TAG =
-            NewChallenge.class.getSimpleName();
+            AccountCreationInstructions.class.getSimpleName();
 
     // For use with shared preferences.
-    private static final String PLACEHOLDER3 = "";
+    private static String PLACEHOLDER6 = "";
 
     // Share preferences file (custom)
     private SharedPreferences mPreferences;
@@ -54,13 +50,13 @@ public class NewChallenge extends Fragment {
     // Name of the custom shared preferences file.
     private static final String sharedPrefFile = "pilot.cs262.calvin.edu.knightrank";
 
-
     // TODO: Rename and change types of parameters
-    private Spinner mActivitySpinner;
+    private String mParam1;
+    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
-    public NewChallenge() {
+    public AccountCreationInstructions() {
         // Required empty public constructor
     }
 
@@ -70,12 +66,14 @@ public class NewChallenge extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment NewChallenge.
+     * @return A new instance of fragment AccountCreationInstructions.
      */
     // TODO: Rename and change types and number of parameters
-    public static NewChallenge newInstance(String param1, String param2) {
-        NewChallenge fragment = new NewChallenge();
+    public static AccountCreationInstructions newInstance(String param1, String param2) {
+        AccountCreationInstructions fragment = new AccountCreationInstructions();
         Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -83,10 +81,14 @@ public class NewChallenge extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
 
         // Set shared preferences component.
         // Note: modified from the one in activities as this is a fragment.
-        mPreferences = Objects.requireNonNull(this.getActivity()).getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
+        mPreferences = Objects.requireNonNull(this.getActivity()).getSharedPreferences(sharedPrefFile, Context.MODE_PRIVATE);
         mPreferencesDefault = android.support.v7.preference.PreferenceManager.getDefaultSharedPreferences(this.getActivity());
 
         // Placeholder code as example of how to get values from the default SharedPrefs file.
@@ -94,14 +96,14 @@ public class NewChallenge extends Fragment {
 
         // Placeholder code as example of how to restore values to UI components from shared preferences.
         //username_main.setText(mPreferences.getString(USER_NAME, ""));
-        //password_main.setText(mPreferences.getString(USER_PASSWORD, ""))
+        //password_main.setText(mPreferences.getString(USER_PASSWORD, ""));
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_challenge_declaration, container, false);
+        return inflater.inflate(R.layout.fragment_account_creation_instructions, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -123,34 +125,12 @@ public class NewChallenge extends Fragment {
 
         // Change the background color to what was selected in color picker.
         // Note: Change color by using findViewById and ID of the UI element you wish to change.
-        RelativeLayout thisLayout = Objects.requireNonNull(getView()).findViewById(R.id.fragment_new_challenges_root_layout);
+        RelativeLayout thisLayout = Objects.requireNonNull(getView()).findViewById(R.id.fragment_account_creation_instructions_root_layout);
         thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.WHITE));
 
         int value = mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.BLACK);
 
-        // Set the min and max values of the number pickers
-        NumberPicker np1 = getView().findViewById(R.id.score1);
-        np1.setMaxValue(100);
-        np1.setMinValue(0);
-        np1.setWrapSelectorWheel(false);
-        // Set the min and max values of the number pickers
-        NumberPicker np2 = getView().findViewById(R.id.score2);
-        np2.setMaxValue(100);
-        np2.setMinValue(0);
-        np2.setWrapSelectorWheel(false);
-
         Log.e(LOG_TAG,"Value of color is: " + value);
-
-        Set<String> selectedSports = getActivity().getSharedPreferences(getString(R.string.shared_preferences), MODE_PRIVATE).getStringSet(getString(R.string.selected_sports), null);
-        mActivitySpinner = (Spinner) getView().findViewById(R.id.activity_spinner);
-        if(selectedSports != null) {
-            List<String> selected_sports_arraylist = new ArrayList<String>(selectedSports);
-            ArrayAdapter<String> arrayAdapterActivities = new ArrayAdapter<String>(
-                    getActivity(),
-                    android.R.layout.simple_list_item_1,
-                    selected_sports_arraylist);
-            mActivitySpinner.setAdapter(arrayAdapterActivities);
-        }
     }
 
     @Override
@@ -183,19 +163,5 @@ public class NewChallenge extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
-    }
-
-    /**
-     * Method currently called to store values to shared preferences file.
-     */
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        SharedPreferences.Editor preferencesEditor5 = mPreferences.edit();
-
-        preferencesEditor5.putString(PLACEHOLDER3, "Placeholder text 3");
-
-        preferencesEditor5.apply();
     }
 }

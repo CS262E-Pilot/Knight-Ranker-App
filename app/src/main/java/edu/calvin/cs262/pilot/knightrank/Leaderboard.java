@@ -13,7 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -78,6 +80,16 @@ public class Leaderboard extends Fragment implements AdapterView.OnItemSelectedL
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        // Change the background color to what was selected in color picker.
+        // Note: Change color by using findViewById and ID of the UI element you wish to change.
+        LinearLayout thisLayout = Objects.requireNonNull(getView()).findViewById(R.id.fragment_leaderboard_root_layout);
+        thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.WHITE));
+
+        int value = mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.BLACK);
+
+        Log.e(LOG_TAG,"Value of color is: " + value);
+
         // Set our adapter
         playerRankAdapter = new PlayerRankAdapter(getActivity(), playerRankItems);
         // Setup the sport spinner

@@ -78,9 +78,8 @@ public class ChallengeConfirmation extends Fragment {
 
         // Change the background color to what was selected in color picker.
         // Note: Change color by using findViewById and ID of the UI element you wish to change.
-        RelativeLayout thisLayout = Objects.requireNonNull(getView()).findViewById(R.id.fragment_challenge_results_root_layout);
-        thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.YELLOW));
-
+        RelativeLayout thisLayout = Objects.requireNonNull(getView()).findViewById(R.id.fragment_challenge_confirmation_root_layout);
+        thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.WHITE));
 
         mChallengeResults = (ListView) getView().findViewById(R.id.challenge_confirmation_listview);
         List<String> challenge_results_arraylist = new ArrayList<String>();
@@ -94,7 +93,6 @@ public class ChallengeConfirmation extends Fragment {
                 android.R.layout.simple_list_item_1,
                 challenge_results_arraylist);
         mChallengeResults.setAdapter(arrayAdapter);
-
 
         int value = mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.BLACK);
 

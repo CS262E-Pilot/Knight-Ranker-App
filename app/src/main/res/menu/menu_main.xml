@@ -14,4 +14,10 @@
         android:orderInCategory="100"
         app:showAsAction="never"
         android:title="@string/color_picker" />
+    <item
+        android:id="@+id/online_help_system"
+        android:icon="@drawable/ic_android_black_24dp"
+        android:orderInCategory="100"
+        app:showAsAction="never"
+        android:title="Help Manual" />
 </menu>
