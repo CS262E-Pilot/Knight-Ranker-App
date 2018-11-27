@@ -14,19 +14,19 @@
         <item
             android:id="@+id/nav_new_challenge"
             android:icon="@drawable/ic_android_black_24dp"
-            android:title="@string/title_new_challenge" />
+            android:title="@string/title_declare_match" />
         <item
             android:id="@+id/nav_challenge_confirmation"
             android:icon="@drawable/ic_android_black_24dp"
-            android:title="@string/title_challenge_results" />
+            android:title="@string/title_confirm_matches" />
         <item
             android:id="@+id/nav_past_challenges"
             android:icon="@drawable/ic_android_black_24dp"
-            android:title="@string/title_past_challenges" />
+            android:title="@string/match_history" />
         <item
             android:id="@+id/nav_sport_selection"
             android:icon="@drawable/ic_android_black_24dp"
-            android:title="@string/sport_selection" />
+            android:title="@string/activity_selection" />
 
     </group>
 </menu>

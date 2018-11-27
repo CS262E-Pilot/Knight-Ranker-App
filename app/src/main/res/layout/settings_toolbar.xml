@@ -8,7 +8,6 @@
     android:layout_height="wrap_content"
     android:minHeight="?attr/actionBarSize"
     app:navigationContentDescription="Action bar"
-    android:background="#211ef7"
+    android:background="@color/colorBackground"
     app:navigationIcon="?attr/homeAsUpIndicator"
-    app:title="Settings"
-    />
+    app:title="Settings" />

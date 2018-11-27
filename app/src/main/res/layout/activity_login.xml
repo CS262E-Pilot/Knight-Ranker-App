@@ -9,6 +9,16 @@
     android:id="@+id/activity_login_root_layout"
     tools:context=".Login">
 
+    <ImageView
+        android:id="@+id/splash"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="93dp"
+        android:contentDescription="@string/splash"
+        android:src="@drawable/knight_ranker_logo" />
+
     <android.support.v7.widget.Toolbar
     android:id="@+id/my_toolbar"
     android:layout_width="match_parent"
@@ -24,14 +34,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="284dp" />
+        android:layout_marginTop="369dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="193dp"
+        android:layout_marginBottom="124dp"
         android:clickable="true"
         android:focusable="true"
         android:onClick="startNextActivity"

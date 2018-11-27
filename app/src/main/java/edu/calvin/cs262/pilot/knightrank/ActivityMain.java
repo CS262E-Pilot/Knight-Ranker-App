@@ -20,20 +20,19 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-public class ActivityRankings extends AppCompatActivity
+public class ActivityMain extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        NewChallenge.OnFragmentInteractionListener,
+        DeclareMatch.OnFragmentInteractionListener,
         PastChallenges.OnFragmentInteractionListener {
 
     //Class variables.
     private static final String LOG_TAG =
-            ActivityRankings.class.getSimpleName();
+            ActivityMain.class.getSimpleName();
 
     // For use with shared preferences.
     private static final String PLACEHOLDER1 = "placeholder1";
@@ -54,7 +53,7 @@ public class ActivityRankings extends AppCompatActivity
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rankings);
+        setContentView(R.layout.activity_main);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.fragment_content, new Leaderboard());
@@ -159,7 +158,7 @@ public class ActivityRankings extends AppCompatActivity
     /**
      * Method to set-up the navigation drawer.
      *
-     * @param navigationView navigation drawer .xml code in activity_rankings * @param savedInstanceState necessary for conditional checks before implementing fragment switch
+     * @param navigationView navigation drawer .xml code in activity_main * @param savedInstanceState necessary for conditional checks before implementing fragment switch
      */
     private void setupDrawerContent(NavigationView navigationView, final Bundle savedInstanceState) {
         navigationView.setNavigationItemSelectedListener(
@@ -180,14 +179,14 @@ public class ActivityRankings extends AppCompatActivity
                 fragment = new Leaderboard();
                 break;
             case R.id.nav_new_challenge:
-                fragment = new NewChallenge();
+                fragment = new DeclareMatch();
                 break;
             case R.id.nav_sport_selection:
-                Intent intent4 = new Intent(getApplicationContext(), SportSelection.class);
+                Intent intent4 = new Intent(getApplicationContext(), ActivitySelection.class);
                 startActivity(intent4);
                 return true;
             case R.id.nav_challenge_confirmation:
-                fragment = new ChallengeConfirmation();
+                fragment = new ConfirmMatch();
                 break;
             case R.id.nav_past_challenges:
                 fragment = new PastChallenges();
@@ -223,17 +222,17 @@ public class ActivityRankings extends AppCompatActivity
                 fragmentClass = Leaderboard.class;
                 break;
             case R.id.nav_sport_selection:
-                fragmentClass = SportSelection.class;
-                Intent intent4 = new Intent(getApplicationContext(), SportSelection.class);
+                fragmentClass = ActivitySelection.class;
+                Intent intent4 = new Intent(getApplicationContext(), ActivitySelection.class);
                 startActivity(intent4);
                 Log.e(LOG_TAG, "Selected the sport selection activity!");
                 Toast.makeText(getApplicationContext(), "Selected", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.nav_new_challenge:
-                fragmentClass = NewChallenge.class;
+                fragmentClass = DeclareMatch.class;
                 break;
             case R.id.nav_challenge_confirmation:
-                fragmentClass = ChallengeConfirmation.class;
+                fragmentClass = ConfirmMatch.class;
                 break;
             case R.id.nav_past_challenges:
                 fragmentClass = PastChallenges.class;

@@ -28,12 +28,12 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link NewChallenge.OnFragmentInteractionListener} interface
+ * {@link DeclareMatch.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link NewChallenge#newInstance} factory method to
+ * Use the {@link DeclareMatch#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NewChallenge extends Fragment {
+public class DeclareMatch extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -41,7 +41,7 @@ public class NewChallenge extends Fragment {
 
     //Class variables.
     private static final String LOG_TAG =
-            NewChallenge.class.getSimpleName();
+            DeclareMatch.class.getSimpleName();
 
     // For use with shared preferences.
     private static final String PLACEHOLDER3 = "";
@@ -60,7 +60,7 @@ public class NewChallenge extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public NewChallenge() {
+    public DeclareMatch() {
         // Required empty public constructor
     }
 
@@ -70,11 +70,11 @@ public class NewChallenge extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment NewChallenge.
+     * @return A new instance of fragment DeclareMatch.
      */
     // TODO: Rename and change types and number of parameters
-    public static NewChallenge newInstance(String param1, String param2) {
-        NewChallenge fragment = new NewChallenge();
+    public static DeclareMatch newInstance(String param1, String param2) {
+        DeclareMatch fragment = new DeclareMatch();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -101,7 +101,7 @@ public class NewChallenge extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_challenge_declaration, container, false);
+        return inflater.inflate(R.layout.fragment_declare_match, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

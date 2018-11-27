@@ -24,5 +24,4 @@
         android:src="@drawable/knight_ranker_logo"
         android:contentDescription="@string/splash"
         android:layout_centerInParent="true" />
-
 </RelativeLayout>
