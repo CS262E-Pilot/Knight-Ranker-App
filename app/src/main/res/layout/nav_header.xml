@@ -14,5 +14,4 @@
         android:text="@string/title_screen"
         android:textSize="30sp"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
 </LinearLayout>

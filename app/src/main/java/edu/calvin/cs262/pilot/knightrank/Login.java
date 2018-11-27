@@ -1,12 +1,10 @@
 package edu.calvin.cs262.pilot.knightrank;
 
-import android.accounts.Account;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,15 +14,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
@@ -39,7 +34,7 @@ import java.util.Set;
 public class Login extends AppCompatActivity {
 
     // Private class members.
-    private static final String LOG_TAG = SportSelection.class.getSimpleName();
+    private static final String LOG_TAG = ActivitySelection.class.getSimpleName();
 
     // Share preferences file (custom)
     private SharedPreferences mPreferences;
@@ -152,9 +147,9 @@ public class Login extends AppCompatActivity {
 
         Intent intent;
         if (selectedSports == null) {
-            intent = new Intent(this, SportSelection.class);
+            intent = new Intent(this, ActivitySelection.class);
         } else {
-            intent = new Intent(this, ActivityRankings.class);
+            intent = new Intent(this, ActivityMain.class);
         }
         startActivity(intent);
     }

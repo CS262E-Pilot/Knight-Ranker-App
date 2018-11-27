@@ -7,7 +7,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    tools:context="edu.calvin.cs262.pilot.knightrank.SportSelection"
+    tools:context="edu.calvin.cs262.pilot.knightrank.ActivitySelection"
     tools:showIn="@layout/activity_sport_selection">
 
     <TextView
@@ -19,5 +19,4 @@
         android:id="@+id/sport_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
 </LinearLayout>

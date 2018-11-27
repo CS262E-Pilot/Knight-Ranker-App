@@ -1,38 +1,35 @@
 package edu.calvin.cs262.pilot.knightrank;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.preference.PreferenceManager;
+import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+public class ActivitySelection extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
-/* TODO: Delete this class, as it has been phased out */
-public class ActivitySelection extends AppCompatActivity {
-
-    //Class variables.
-    private static final String LOG_TAG =
-            ActivitySelection.class.getSimpleName();
-
-    // For use with shared preferences.
-    private static String PLACEHOLDER5 = "";
+    // Private class members.
+    private static final String LOG_TAG = ActivitySelection.class.getSimpleName();
 
     // Share preferences file (custom)
     private SharedPreferences mPreferences;
@@ -42,13 +39,18 @@ public class ActivitySelection extends AppCompatActivity {
     // Name of the custom shared preferences file.
     private static final String sharedPrefFile = "pilot.cs262.calvin.edu.knightrank";
 
-    private ListView mActivitiesListView;
+
+    private ListView mSportListView;
+    private FloatingActionButton mFab;
+
+    private String[] sports = new String[]{};
+    private ArrayAdapter<String> sportAdapter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_selection);
+        setContentView(R.layout.activity_sport_selection);
 
         // my_child_toolbar is defined in the layout file
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
@@ -69,18 +71,30 @@ public class ActivitySelection extends AppCompatActivity {
 
         // Set shared preferences component.
         mPreferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
-        mPreferencesDefault = android.support.v7.preference.PreferenceManager.getDefaultSharedPreferences(this);
+        mPreferencesDefault = PreferenceManager.getDefaultSharedPreferences(this);
+
 
         // Placeholder code as example of how to get values from the default SharedPrefs file.
         String syncFreq = mPreferencesDefault.getString(SettingsActivity.KEY_SYNC_FREQUENCY, "-1");
 
-        // Placeholder code as example of how to restore values to UI components from shared preferences.
-        //username_main.setText(mPreferences.getString(USER_NAME, ""));
-        //password_main.setText(mPreferences.getString(USER_PASSWORD, ""));
+        // Find component(s).
+        mFab = findViewById(R.id.fab);
+        // Make the fab invisible until we have some sports checked
+        mFab.setVisibility(View.INVISIBLE);
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(view);
+            }
+        });
+
+        // Loads Sport Relation entries from the Knight Ranker Database.
+        mSportListView = findViewById(R.id.sport_list);
+        loadSports();
 
         // Change the background color to what was selected in color picker.
         // Note: Change color by using findViewById and ID of the UI element you wish to change.
-        RelativeLayout thisLayout = findViewById(R.id.activity_selection_root_layout);
+        CoordinatorLayout thisLayout = findViewById(R.id.activity_sport_selection_root_layout);
         thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.WHITE));
 
         int value = mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.BLACK);
@@ -90,43 +104,91 @@ public class ActivitySelection extends AppCompatActivity {
         // Change the toolbar color to what was selected in color picker.
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(toolbarColor));
 
-        mActivitiesListView = (ListView) findViewById(R.id.activity_selection_listview);
+        Log.e(LOG_TAG, "Value of color is: " + value);
+    }
 
-        List<String> myActivitiesArrayList = new ArrayList<String>();
-
-        myActivitiesArrayList.add("Super Smash Bros. Melee");
-        myActivitiesArrayList.add("Chess");
-        myActivitiesArrayList.add("Tekken 7");
-        myActivitiesArrayList.add("Tennis");
-        myActivitiesArrayList.add("Super Smash Bros. 4");
-        myActivitiesArrayList.add("Street Fighter V");
-        myActivitiesArrayList.add("Injustice 2");
-        myActivitiesArrayList.add("FIFA");
-        myActivitiesArrayList.add("Frisbee Golf");
-        myActivitiesArrayList.add("Golf");
-        myActivitiesArrayList.add("World of Warcraft Arena");
-
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                this,
-                android.R.layout.simple_list_item_1,
-                myActivitiesArrayList);
-
-
-        mActivitiesListView.setAdapter(arrayAdapter);
-
-        mActivitiesListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+    /**
+     * Method obtains list of sports from the database.
+     */
+    private void loadSports() {
+        new SportNetworkUtils().getSports(this, new SportNetworkUtils.GETSportsResponse() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String item = arrayAdapter.getItem(position);
-
-                Intent intent = new Intent(ActivitySelection.this, ActivityRankings.class);
-                //based on item add info to intent
-                intent.putExtra("activityName", item);
-                startActivity(intent);
+            public void onResponse(ArrayList<Sport> result) {
+                setSports(result);
             }
         });
+    }
 
-        Log.e(LOG_TAG,"Value of color is: " + value);
+    /**
+     * Method populates the sport selection list with sport activities.
+     *
+     * @param result list of all sport activities.
+     */
+    private void setSports(ArrayList<Sport> result) {
+        ArrayList<String> sportNamesList = new ArrayList<>();
+        for (Sport sport : result) {
+            sportNamesList.add(sport.getName());
+        }
+        sports = sportNamesList.toArray(new String[0]);
+        sportAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_multiple_choice, sports);
+        mSportListView.setAdapter(sportAdapter);
+        mSportListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        mSportListView.setOnItemClickListener(this);
+        // Check any sports we have already selected from our preferences
+        Set<String> selectedSportsSet = getSharedPreferences(getString(R.string.shared_preferences), MODE_PRIVATE).getStringSet(getString(R.string.selected_sports), null);
+        if (selectedSportsSet != null) {
+            mFab.setVisibility(View.VISIBLE);
+            List<String> selectedSports = new ArrayList<>(selectedSportsSet);
+            for (String sport : selectedSports) {
+                mSportListView.setItemChecked(Arrays.asList(sports).indexOf(sport), true);
+            }
+        }
+    }
+
+    /**
+     * Method starts the ActivityMain.java activity upon user button click.
+     *
+     * @param view View object.
+     */
+    public void startActivity(View view) {
+        SharedPreferences.Editor editor = getSharedPreferences(getString(R.string.shared_preferences), MODE_PRIVATE).edit();
+        // Add all our checked sports into the shared preferences so we can reference them later
+        SparseBooleanArray checked = mSportListView.getCheckedItemPositions();
+        Set<String> selectedSports = new HashSet<>();
+        for (int i = 0; i < mSportListView.getAdapter().getCount(); i++) {
+            // If we have a check, show the button and stop looping
+            if (checked.get(i)) {
+                selectedSports.add(sports[i]);
+            }
+        }
+        editor.putStringSet(getString(R.string.selected_sports), selectedSports).apply();
+
+        // Start our new intent
+        Intent intent = new Intent(this, ActivityMain.class);
+        startActivity(intent);
+    }
+
+    /**
+     * Method controls events once user selects a sport.
+     *
+     * @param adapter AdapterView object
+     * @param arg1    View object
+     * @param arg2    integer value
+     * @param arg3    long value.
+     */
+    @Override
+    public void onItemClick(AdapterView<?> adapter, View arg1, int arg2, long arg3) {
+        // Loop over the checked array and show the continue button if we have at least one check
+        SparseBooleanArray checked = mSportListView.getCheckedItemPositions();
+        for (int i = 0; i < mSportListView.getAdapter().getCount(); i++) {
+            // If we have a check, show the button and stop looping
+            if (checked.get(i)) {
+                mFab.setVisibility(View.VISIBLE);
+                return;
+            }
+        }
+        // We haven't returned so that means we have no checks, so hide the continue button
+        mFab.setVisibility(View.INVISIBLE);
     }
 
     /**
@@ -168,33 +230,5 @@ public class ActivitySelection extends AppCompatActivity {
                 // Do nothing
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * Method for button click that launches the activity.
-     *
-     * @param view as stated
-     */
-    public void launchActivity(View view) {
-
-        Intent intent = new Intent(this, ActivityRankings.class);
-
-        startActivity(intent);
-
-        Log.d(LOG_TAG, "Button clicked!");
-    }
-
-    /**
-     * Method currently called to store values to shared preferences file.
-     */
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        SharedPreferences.Editor preferencesEditor7 = mPreferences.edit();
-
-        preferencesEditor7.putString(PLACEHOLDER5, "Placeholder text 5");
-
-        preferencesEditor7.apply();
     }
 }
