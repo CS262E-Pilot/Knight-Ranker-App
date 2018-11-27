@@ -15,10 +15,14 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 /**
@@ -51,6 +55,7 @@ public class PastChallenges extends Fragment {
     private static final String sharedPrefFile = "pilot.cs262.calvin.edu.knightrank";
 
     private ListView mRecentChallenges;
+    private Spinner mPastChallengeSpinner;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -127,6 +132,17 @@ public class PastChallenges extends Fragment {
 
         mRecentChallenges = (ListView) getView().findViewById(R.id.recent_challenges_listview);
         List<String> recent_challenges_arraylist = new ArrayList<String>();
+        mPastChallengeSpinner = (Spinner) getView().findViewById(R.id.past_challenges_spinner);
+
+        Set<String> selectedSports = getActivity().getSharedPreferences(getString(R.string.shared_preferences), MODE_PRIVATE).getStringSet(getString(R.string.selected_sports), null);
+        if(selectedSports != null) {
+            List<String> selected_sports_arraylist = new ArrayList<String>(selectedSports);
+            ArrayAdapter<String> arrayAdapterActivities = new ArrayAdapter<String>(
+                    getActivity(),
+                    android.R.layout.simple_list_item_1,
+                    selected_sports_arraylist);
+            mPastChallengeSpinner.setAdapter(arrayAdapterActivities);
+        }
         /*
         Theoretical entries, as we don't have a backend #FIXME
         */

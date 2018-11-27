@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -36,7 +37,9 @@ public class ChallengeConfirmation extends Fragment {
     // Name of the custom shared preferences file.
     private static final String sharedPrefFile = "pilot.cs262.calvin.edu.knightrank";
 
-    private ListView mChallengeResults;
+    private ListView mUnconfirmedMatches;
+
+    List<Match> unconfirmed_challenges_arraylist = new ArrayList<Match>();
 
 
     @Override
@@ -81,18 +84,20 @@ public class ChallengeConfirmation extends Fragment {
         RelativeLayout thisLayout = Objects.requireNonNull(getView()).findViewById(R.id.fragment_challenge_confirmation_root_layout);
         thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.WHITE));
 
-        mChallengeResults = (ListView) getView().findViewById(R.id.challenge_confirmation_listview);
-        List<String> challenge_results_arraylist = new ArrayList<String>();
+        mUnconfirmedMatches = (ListView) getView().findViewById(R.id.challenge_confirmation_listview);
+        loadUnconfirmedMatches();
+
         /*
         Theoretical entries, as we don't have a backend #FIXME
-        */
-        challenge_results_arraylist.add("vs. Tommy, Smash 4");
-        challenge_results_arraylist.add("vs. Samantha, Tekken 7");
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+
+        unconfirmed_challenges_arraylist.add("vs. Tommy, Smash 4");
+        unconfirmed_challenges_arraylist.add("vs. Samantha, Tekken 7");
+        ArrayAdapter<Match> arrayAdapter = new ArrayAdapter<String>(
                 getActivity(),
                 android.R.layout.simple_list_item_1,
-                challenge_results_arraylist);
+                unconfirmed_challenges_arraylist);
         mChallengeResults.setAdapter(arrayAdapter);
+        */
 
         int value = mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.BLACK);
 
@@ -111,5 +116,25 @@ public class ChallengeConfirmation extends Fragment {
         preferencesEditor4.putString(PLACEHOLDER2, "Placeholder text 2");
 
         preferencesEditor4.apply();
+    }
+
+    public void onNothingSelected(AdapterView<?> parent) {
+        // Another interface callback
+    }
+
+    private void loadUnconfirmedMatches() {
+        new MatchNetworkUtils().getUnconfirmedMatches(getContext(), new MatchNetworkUtils.GETMatchResponse() {
+            @Override
+            public void onResponse(ArrayList<Match> result) {
+                setUnconfirmedMatches(result);
+            }
+        });
+    }
+
+    private void setUnconfirmedMatches(ArrayList<Match> matches) {
+        Log.d(LOG_TAG, "Matches: " + matches.toString());
+        unconfirmed_challenges_arraylist.clear();
+        unconfirmed_challenges_arraylist.addAll(matches);
+        //playerRankAdapter.notifyDataSetChanged();
     }
 }
