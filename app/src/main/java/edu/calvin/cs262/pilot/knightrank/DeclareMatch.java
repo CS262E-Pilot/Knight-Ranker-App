@@ -128,21 +128,10 @@ public class DeclareMatch extends Fragment {
 
         int value = mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.BLACK);
 
-        // Set the min and max values of the number pickers
-        NumberPicker np1 = getView().findViewById(R.id.score1);
-        np1.setMaxValue(100);
-        np1.setMinValue(0);
-        np1.setWrapSelectorWheel(false);
-        // Set the min and max values of the number pickers
-        NumberPicker np2 = getView().findViewById(R.id.score2);
-        np2.setMaxValue(100);
-        np2.setMinValue(0);
-        np2.setWrapSelectorWheel(false);
-
         Log.e(LOG_TAG,"Value of color is: " + value);
 
         Set<String> selectedSports = getActivity().getSharedPreferences(getString(R.string.shared_preferences), MODE_PRIVATE).getStringSet(getString(R.string.selected_sports), null);
-        mActivitySpinner = (Spinner) getView().findViewById(R.id.activity_spinner);
+        mActivitySpinner = getView().findViewById(R.id.activity_spinner);
         if(selectedSports != null) {
             List<String> selected_sports_arraylist = new ArrayList<String>(selectedSports);
             ArrayAdapter<String> arrayAdapterActivities = new ArrayAdapter<String>(
