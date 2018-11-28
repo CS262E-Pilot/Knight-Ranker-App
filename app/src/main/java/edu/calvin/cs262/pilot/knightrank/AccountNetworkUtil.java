@@ -17,6 +17,11 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+/**
+ * Class AccountNetworkUtil defines the methods and functions necessary to communicate with the
+ * RESTFul web service to retrieve information from the PostgreSQL database for Google OAuth
+ * back-end font-end functionality.
+ */
 public class AccountNetworkUtil {
 
     /** Callback interface for delivering sports request. */

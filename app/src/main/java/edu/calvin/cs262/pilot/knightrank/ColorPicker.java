@@ -20,12 +20,11 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 /**
- * This class implements a color picker.
+ * Class ColorPicker implements a RGB color picker.
  * Uses pref_color_pick.xml for the layout file.
  *
  * Note: Will not function as part of SettingsActivity.java due to unknown reasons.
  */
-
 public class ColorPicker extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
 
     private static final String LOG_TAG =

@@ -30,6 +30,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Class SportNetworkUtils defines the methods and functions necessary to communicate with the
+ * RESTFul web service to retrieve information from the PostgreSQL database for Sport endpoint
+ * back-end front-end functionality.
+ */
 public class SportNetworkUtils {
 
     /** Callback interface for delivering sports request. */
@@ -364,7 +369,6 @@ public class SportNetworkUtils {
 
     /**
      * Method deletes the data entry in the table specified by the ID.
-     * TODO: Not functional yet.
      *
      * @param sport_data_entry_id sport id - primary key
      * @return the results of the request

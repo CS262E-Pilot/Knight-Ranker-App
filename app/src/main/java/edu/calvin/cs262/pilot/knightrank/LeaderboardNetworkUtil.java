@@ -19,6 +19,11 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
+/**
+ * Class LeaderboardNetworkUtil defines the methods and functions necessary to communicate with the
+ * RESTFul web service to retrieve information from the PostgreSQL database for Leaderboard endpoint
+ * back-end front-end functionality.
+ */
 public class LeaderboardNetworkUtil {
 
     /** Callback interface for delivering sports request. */

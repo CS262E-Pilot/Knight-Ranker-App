@@ -1,7 +1,7 @@
 package edu.calvin.cs262.pilot.knightrank;
 
 /**
- * Sport class that models a sport
+ * Class Sport defines and models a sport activity.
  */
 public class Sport {
     private int id;

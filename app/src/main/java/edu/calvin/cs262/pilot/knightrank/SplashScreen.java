@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 /**
- * This class implements an animated splash screen.
+ *  Class SplashScreen implements an animated splash screen.
  */
 public class SplashScreen extends AppCompatActivity {
 

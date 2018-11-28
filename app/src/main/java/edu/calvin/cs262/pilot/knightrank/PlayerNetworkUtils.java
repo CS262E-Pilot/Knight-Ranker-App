@@ -17,9 +17,9 @@ import java.net.URL;
 import java.util.Objects;
 
 /**
- * Meta class that currently handles all the connections to the Knight-Ranker WebService Endpoints.
- *
- * Note: Need to refactor into separate .java files otherwise it's going to get hellishly long.
+ * Class PlayerNetworkUtils defines the methods and functions necessary to communicate with the
+ * RESTFul web service to retrieve information from the PostgreSQL database for Player endpoint
+ * back-end front-end functionality.
  */
 public class PlayerNetworkUtils {
 
@@ -40,7 +40,6 @@ public class PlayerNetworkUtils {
      * @param account_creation_date player account creation date
      * @return
      */
-
     public static String putPlayerInfo(String id, String email, String account_creation_date) {
 
         HttpURLConnection urlConnection = null;
@@ -317,7 +316,6 @@ public class PlayerNetworkUtils {
 
     /**
      * Method deletes the data entry in the table specified by the ID.
-     * TODO: Not functional yet.
      *
      * @param player_data_entry_id player id - primary key
      * @return the results of the request

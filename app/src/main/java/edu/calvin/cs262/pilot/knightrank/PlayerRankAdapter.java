@@ -10,6 +10,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+/**
+ * Class PlayerRankAdapter defines and configures a ArrayAdapter for the purpose of displaying
+ * player rankings.
+ */
 public class PlayerRankAdapter extends ArrayAdapter<PlayerRank> {
     private final Context mContext;
 
