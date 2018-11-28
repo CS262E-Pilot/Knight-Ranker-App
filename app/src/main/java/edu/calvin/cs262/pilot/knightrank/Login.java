@@ -27,9 +27,9 @@ import com.google.android.gms.tasks.Task;
 import java.util.Set;
 
 /**
- * Login class provides Google OAuth functionality.
- *
- * Note: Good luck Mark Wissink in integrating this with out back-end ;D
+ * Class Login defines an Activity that provides Google OAuth Account Creation and Login
+ * functionality.
+ * (currently also implements an option to skip Google OAuth account functionality)
  */
 public class Login extends AppCompatActivity {
 

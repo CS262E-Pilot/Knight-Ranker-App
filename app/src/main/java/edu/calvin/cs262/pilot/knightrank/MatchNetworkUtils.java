@@ -16,6 +16,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Objects;
 
+/**
+ * Class MatchNetworkUtils defines the methods and functions necessary to communicate with the
+ * RESTFul web service to retrieve information from the PostgreSQL database for Match endpoint
+ * back-end front-end functionality.
+ */
 public class MatchNetworkUtils {
 
     private static final String LOG_TAG = MatchNetworkUtils.class.getSimpleName();
@@ -338,7 +343,6 @@ public class MatchNetworkUtils {
 
     /**
      * Method deletes the data entry in the table specified by the ID.
-     * TODO: Not functional yet.
      *
      * @param match_data_entry_id match id - primary key
      * @return the results of the request

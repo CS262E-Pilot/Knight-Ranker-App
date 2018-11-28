@@ -1,5 +1,8 @@
 package edu.calvin.cs262.pilot.knightrank;
 
+/**
+ * Class PlayerRank defines and models a player's rank based on the "eloRank" algorithm.
+ */
 public class PlayerRank {
     private int eloRank;
     private String name;

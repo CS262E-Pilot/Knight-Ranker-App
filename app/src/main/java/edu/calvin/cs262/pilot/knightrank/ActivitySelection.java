@@ -26,6 +26,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Class Activity Selection defines an Activity that displays to the user and allows the user to
+ * select from a list of sport activities they are interested in.
+ */
 public class ActivitySelection extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     // Private class members.

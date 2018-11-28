@@ -26,12 +26,8 @@ import static android.content.Context.MODE_PRIVATE;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link DeclareMatch.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link DeclareMatch#newInstance} factory method to
- * create an instance of this fragment.
+ * Class DeclareMath defines a Fragment that permits a user to challenge another user to a match
+ * in a particular sport activity.
  */
 public class DeclareMatch extends Fragment {
     // TODO: Rename parameter arguments, choose names that match

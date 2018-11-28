@@ -22,12 +22,8 @@ import java.util.Objects;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link AccountCreationInstructions.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link AccountCreationInstructions#newInstance} factory method to
- * create an instance of this fragment.
+ * Class AccountCreationInstructions defines a Fragment that provides the user with technical
+ * instructions on how to create an Google account within the Knight-Ranker Application.
  */
 public class AccountCreationInstructions extends Fragment {
     // TODO: Rename parameter arguments, choose names that match

@@ -24,6 +24,10 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+/**
+ * Class OnlineHelpSystem defines an Activity that hosts various Fragments that presents to the user
+ * technical instructions on how to navigate and perform certain action in the Knight-Ranker application.
+ */
 public class OnlineHelpSystem extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         AccountCreationInstructions.OnFragmentInteractionListener, AccountLoginInstructions.OnFragmentInteractionListener {
 

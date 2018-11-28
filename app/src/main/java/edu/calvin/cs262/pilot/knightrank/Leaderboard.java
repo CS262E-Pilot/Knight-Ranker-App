@@ -27,6 +27,10 @@ import java.util.Set;
 
 import static android.content.Context.MODE_PRIVATE;
 
+/**
+ * Class Leaderboard defines a Fragment that displays the leaderboard rankings of all users
+ * participating in a given sport activity.
+ */
 public class Leaderboard extends Fragment implements AdapterView.OnItemSelectedListener{
 
     //Class variables.

@@ -1,5 +1,8 @@
 package edu.calvin.cs262.pilot.knightrank;
 
+/**
+ * Class Player defines and models a player.
+ */
 public class Player {
     private int id;
     private String name;

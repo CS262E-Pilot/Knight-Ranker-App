@@ -25,6 +25,11 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+/**
+ * Class ActivityMain defines an Activity that hosts all sport activity and match related Fragments.
+ * Utilizes Drawer Navigation for Fragment and Activity accessibility.
+ * It is the main hub of the Knight-Ranker Application.
+ */
 public class ActivityMain extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         DeclareMatch.OnFragmentInteractionListener,

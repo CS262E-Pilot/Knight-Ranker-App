@@ -19,6 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Class ConfirmMatch defines a Fragment that permits a user to confirm his or her match with another
+ * user that has issued a challenge.
+ */
 public class ConfirmMatch extends Fragment {
 
     //Class variables.

@@ -22,12 +22,8 @@ import java.util.Objects;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link PastChallenges.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link PastChallenges#newInstance} factory method to
- * create an instance of this fragment.
+ * Class PastChallenges defines a Fragment that displays the previous challenges the user
+ * has participated in.
  */
 public class PastChallenges extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
