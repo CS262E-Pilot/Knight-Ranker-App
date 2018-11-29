@@ -32,7 +32,7 @@ import android.widget.Toast;
  */
 public class ActivityMain extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        DeclareMatch.OnFragmentInteractionListener,
+        RecordMatch.OnFragmentInteractionListener,
         PastChallenges.OnFragmentInteractionListener {
 
     //Class variables.
@@ -180,20 +180,20 @@ public class ActivityMain extends AppCompatActivity
         Fragment fragment = null;
 
         switch (menuItem.getItemId()) {
-            case R.id.nav_activity_selection:
+            case R.id.nav_leaderboard:
                 fragment = new Leaderboard();
                 break;
             case R.id.nav_new_challenge:
-                fragment = new DeclareMatch();
+                fragment = new RecordMatch();
                 break;
-            case R.id.nav_sport_selection:
+            case R.id.nav_activity_selection:
                 Intent intent4 = new Intent(getApplicationContext(), ActivitySelection.class);
                 startActivity(intent4);
                 return true;
             case R.id.nav_challenge_confirmation:
                 fragment = new ConfirmMatch();
                 break;
-            case R.id.nav_past_challenges:
+            case R.id.nav_match_history:
                 fragment = new PastChallenges();
                 break;
             default:
@@ -223,10 +223,10 @@ public class ActivityMain extends AppCompatActivity
 
         // To handle selection of menu items.
         switch (menuItem.getItemId()) {
-            case R.id.nav_activity_selection:
+            case R.id.nav_leaderboard:
                 fragmentClass = Leaderboard.class;
                 break;
-            case R.id.nav_sport_selection:
+            case R.id.nav_activity_selection:
                 fragmentClass = ActivitySelection.class;
                 Intent intent4 = new Intent(getApplicationContext(), ActivitySelection.class);
                 startActivity(intent4);
@@ -234,12 +234,12 @@ public class ActivityMain extends AppCompatActivity
                 Toast.makeText(getApplicationContext(), "Selected", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.nav_new_challenge:
-                fragmentClass = DeclareMatch.class;
+                fragmentClass = RecordMatch.class;
                 break;
             case R.id.nav_challenge_confirmation:
                 fragmentClass = ConfirmMatch.class;
                 break;
-            case R.id.nav_past_challenges:
+            case R.id.nav_match_history:
                 fragmentClass = PastChallenges.class;
                 break;
             default:

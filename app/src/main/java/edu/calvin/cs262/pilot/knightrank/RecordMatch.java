@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
@@ -29,7 +28,7 @@ import static android.content.Context.MODE_PRIVATE;
  * Class DeclareMath defines a Fragment that permits a user to challenge another user to a match
  * in a particular sport activity.
  */
-public class DeclareMatch extends Fragment {
+public class RecordMatch extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -37,7 +36,7 @@ public class DeclareMatch extends Fragment {
 
     //Class variables.
     private static final String LOG_TAG =
-            DeclareMatch.class.getSimpleName();
+            RecordMatch.class.getSimpleName();
 
     // For use with shared preferences.
     private static final String PLACEHOLDER3 = "";
@@ -56,7 +55,7 @@ public class DeclareMatch extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public DeclareMatch() {
+    public RecordMatch() {
         // Required empty public constructor
     }
 
@@ -66,11 +65,11 @@ public class DeclareMatch extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment DeclareMatch.
+     * @return A new instance of fragment RecordMatch.
      */
     // TODO: Rename and change types and number of parameters
-    public static DeclareMatch newInstance(String param1, String param2) {
-        DeclareMatch fragment = new DeclareMatch();
+    public static RecordMatch newInstance(String param1, String param2) {
+        RecordMatch fragment = new RecordMatch();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -97,7 +96,7 @@ public class DeclareMatch extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_declare_match, container, false);
+        return inflater.inflate(R.layout.fragment_record_match, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

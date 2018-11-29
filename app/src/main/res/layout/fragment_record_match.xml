@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
-    tools:context=".DeclareMatch">
+    tools:context=".RecordMatch">
 
     <Spinner
         android:id="@+id/activity_spinner"
@@ -65,7 +65,7 @@
         android:layout_alignParentStart="true"
         android:layout_marginStart="10dp"
         android:padding="10dp"
-        android:inputType="numberSigned">
+        android:inputType="number">
 
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"
@@ -82,7 +82,7 @@
         android:layout_marginStart="225dp"
         android:layout_marginEnd="10dp"
         android:padding="10dp"
-        android:inputType="numberSigned">
+        android:inputType="number">
 
         <android.support.design.widget.TextInputEditText
             android:layout_width="match_parent"

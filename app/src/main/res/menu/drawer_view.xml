@@ -8,23 +8,23 @@
             android:title="Main Activity" />
             -->
         <item
-            android:id="@+id/nav_activity_selection"
+            android:id="@+id/nav_leaderboard"
             android:icon="@drawable/ic_android_black_24dp"
-            android:title="@string/title_view_rankings" />
+            android:title="@string/title_leaderboard" />
         <item
             android:id="@+id/nav_new_challenge"
             android:icon="@drawable/ic_android_black_24dp"
-            android:title="@string/title_declare_match" />
+            android:title="@string/title_record_match" />
         <item
             android:id="@+id/nav_challenge_confirmation"
             android:icon="@drawable/ic_android_black_24dp"
             android:title="@string/title_confirm_matches" />
         <item
-            android:id="@+id/nav_past_challenges"
+            android:id="@+id/nav_match_history"
             android:icon="@drawable/ic_android_black_24dp"
             android:title="@string/match_history" />
         <item
-            android:id="@+id/nav_sport_selection"
+            android:id="@+id/nav_activity_selection"
             android:icon="@drawable/ic_android_black_24dp"
             android:title="@string/activity_selection" />
 
