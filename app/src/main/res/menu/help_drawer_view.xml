@@ -9,5 +9,9 @@
             android:id="@+id/nav_account_login_instructions"
             android:icon="@drawable/ic_android_black_24dp"
             android:title="Account Login" />
+        <item
+            android:id="@+id/nav_exit_help"
+            android:icon="@drawable/ic_android_black_24dp"
+            android:title="Exit Help" />
     </group>
 </menu>
