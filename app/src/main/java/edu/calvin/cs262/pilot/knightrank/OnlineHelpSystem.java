@@ -159,6 +159,10 @@ public class OnlineHelpSystem extends AppCompatActivity implements NavigationVie
             case R.id.nav_account_login_instructions:
                 fragment = new AccountLoginInstructions();
                 break;
+            case R.id.nav_exit_help:
+                Intent intent1 = new Intent(getApplicationContext(), ActivityMain.class);
+                startActivity(intent1);
+                return true;
             default:
                 fragment = new AccountCreationInstructions();
         }
