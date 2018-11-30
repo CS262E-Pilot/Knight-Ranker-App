@@ -27,6 +27,10 @@
             android:id="@+id/nav_activity_selection"
             android:icon="@drawable/ic_android_black_24dp"
             android:title="@string/activity_selection" />
+        <item
+            android:id="@+id/nav_switch_account"
+            android:icon="@drawable/ic_android_black_24dp"
+            android:title="Switch Account" />
 
     </group>
 </menu>

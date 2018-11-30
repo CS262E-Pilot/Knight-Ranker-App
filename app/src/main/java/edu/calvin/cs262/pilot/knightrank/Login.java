@@ -219,4 +219,14 @@ public class Login extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    /**
+     * Method accesses the Online Help System Activity upon button click.
+     *
+     * @param view view component
+     */
+    public void help(View view) {
+        Intent intent = new Intent(this, OnlineHelpSystem.class);
+        startActivity(intent);
+    }
 }

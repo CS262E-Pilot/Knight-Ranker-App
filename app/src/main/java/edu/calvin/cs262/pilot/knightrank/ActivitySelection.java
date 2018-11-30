@@ -63,15 +63,15 @@ public class ActivitySelection extends AppCompatActivity implements AdapterView.
         // Get a support ActionBar corresponding to this toolbar
         ActionBar ab = getSupportActionBar();
 
-        // Enable the Up button
-        if (ab != null) {
-            ab.setDisplayHomeAsUpEnabled(true);
-        }
-
-        // Custom icon for the Up button
-        if (ab != null) {
-            ab.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
-        }
+//        // Enable the Up button
+//        if (ab != null) {
+//            ab.setDisplayHomeAsUpEnabled(true);
+//        }
+//
+//        // Custom icon for the Up button
+//        if (ab != null) {
+//            ab.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
+//        }
 
         // Set shared preferences component.
         mPreferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE);

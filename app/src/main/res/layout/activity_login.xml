@@ -47,4 +47,16 @@
         android:onClick="startNextActivity"
         android:text="Skip and view rankings" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/float_login_Help"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="40dp"
+        android:clickable="true"
+        android:onClick="help"
+        app:srcCompat="@android:drawable/ic_menu_help" />
+
 </RelativeLayout>

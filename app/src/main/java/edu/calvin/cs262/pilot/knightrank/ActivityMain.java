@@ -20,6 +20,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -196,6 +197,10 @@ public class ActivityMain extends AppCompatActivity
             case R.id.nav_match_history:
                 fragment = new PastChallenges();
                 break;
+            case R.id.nav_switch_account:
+                Intent intent5 = new Intent(getApplicationContext(), Login.class);
+                startActivity(intent5);
+                return true;
             default:
                 fragment = new Leaderboard();
         }
