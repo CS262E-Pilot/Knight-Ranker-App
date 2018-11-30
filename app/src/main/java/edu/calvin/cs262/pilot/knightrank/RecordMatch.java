@@ -13,10 +13,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -29,14 +34,9 @@ import static android.content.Context.MODE_PRIVATE;
  * in a particular sport activity.
  */
 public class RecordMatch extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
     //Class variables.
-    private static final String LOG_TAG =
-            RecordMatch.class.getSimpleName();
+    private static final String LOG_TAG = RecordMatch.class.getSimpleName();
 
     // For use with shared preferences.
     private static final String PLACEHOLDER3 = "";
@@ -49,10 +49,7 @@ public class RecordMatch extends Fragment {
     // Name of the custom shared preferences file.
     private static final String sharedPrefFile = "pilot.cs262.calvin.edu.knightrank";
 
-
-    // TODO: Rename and change types of parameters
-    private Spinner mActivitySpinner;
-
+    private AutoCompleteTextView mAutoCompleteTextView;
     private OnFragmentInteractionListener mListener;
 
     public RecordMatch() {
@@ -126,15 +123,17 @@ public class RecordMatch extends Fragment {
         Log.e(LOG_TAG,"Value of color is: " + value);
 
         Set<String> selectedSports = getActivity().getSharedPreferences(getString(R.string.shared_preferences), MODE_PRIVATE).getStringSet(getString(R.string.selected_sports), null);
-        mActivitySpinner = getView().findViewById(R.id.activity_spinner);
+        Spinner activitySpinner = getView().findViewById(R.id.activity_spinner);
         if(selectedSports != null) {
             List<String> selected_sports_arraylist = new ArrayList<String>(selectedSports);
             ArrayAdapter<String> arrayAdapterActivities = new ArrayAdapter<String>(
                     getActivity(),
                     android.R.layout.simple_list_item_1,
                     selected_sports_arraylist);
-            mActivitySpinner.setAdapter(arrayAdapterActivities);
+            activitySpinner.setAdapter(arrayAdapterActivities);
         }
+        mAutoCompleteTextView = getView().findViewById(R.id.search_bar);
+        loadPlayers();
     }
 
     @Override
@@ -175,11 +174,31 @@ public class RecordMatch extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
+    }
 
-        SharedPreferences.Editor preferencesEditor5 = mPreferences.edit();
+    /**
+     * Load players and add them to the autocompletetext so that they can be selected
+     */
+    private void loadPlayers() {
+        PlayerNetworkUtils.getPlayers(getContext(), new PlayerNetworkUtils.GETPlayersResponse() {
+            @Override
+            public void onResponse(ArrayList<Player> players) {
+                setPlayers(players);
+            }
+        });
+    }
 
-        preferencesEditor5.putString(PLACEHOLDER3, "Placeholder text 3");
-
-        preferencesEditor5.apply();
+    /**
+     * Creates a list of names for the AutoCompleteTextView adapter
+     * @param result
+     */
+    private void setPlayers(ArrayList<Player> result) {
+        ArrayList<String> playerNameList = new ArrayList<>();
+        for (Player player : result) {
+            playerNameList.add(player.getName());
+        }
+        String[] players = playerNameList.toArray(new String[0]);
+        ArrayAdapter sportAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, players);
+        mAutoCompleteTextView.setAdapter(sportAdapter);
     }
 }
