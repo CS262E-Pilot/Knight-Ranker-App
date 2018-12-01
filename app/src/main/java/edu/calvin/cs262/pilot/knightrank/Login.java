@@ -47,12 +47,6 @@ public class Login extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 1;
     private GoogleSignInClient mGoogleSignInClient;
-    // Create an anonymous implementation of OnClickListener
-    private View.OnClickListener mClickListener = new View.OnClickListener() {
-        public void onClick(View v) {
-            signIn();
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +86,11 @@ public class Login extends AppCompatActivity {
         // Set the dimensions of the sign-in button.
         SignInButton signInButton = findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_WIDE);
-        signInButton.setOnClickListener(mClickListener);
+        signInButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                signIn();
+            }
+        });
 
         // Set default values for SettingsActivity SharedPreferences values.
         PreferenceManager.setDefaultValues(this, R.xml.pref_general, false);
@@ -122,7 +120,7 @@ public class Login extends AppCompatActivity {
 //        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         String token = getSharedPreferences(getString(R.string.shared_preferences), MODE_PRIVATE).getString(getString(R.string.token), null);
         if (token != null) {
-            startNextActivity(null);
+//            startNextActivity(null);
         }
     }
 

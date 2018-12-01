@@ -7,13 +7,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -33,7 +36,7 @@ import static android.content.Context.MODE_PRIVATE;
  * Class DeclareMath defines a Fragment that permits a user to challenge another user to a match
  * in a particular sport activity.
  */
-public class RecordMatch extends Fragment {
+public class RecordMatch extends Fragment implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
     //Class variables.
     private static final String LOG_TAG = RecordMatch.class.getSimpleName();
@@ -49,7 +52,11 @@ public class RecordMatch extends Fragment {
     // Name of the custom shared preferences file.
     private static final String sharedPrefFile = "pilot.cs262.calvin.edu.knightrank";
 
+    private String sport;
+    private ArrayList<Player> players;
     private AutoCompleteTextView mAutoCompleteTextView;
+    private TextInputLayout mPlayerScoreTextInput;
+    private TextInputLayout mOpponentScoreTextInput;
     private OnFragmentInteractionListener mListener;
 
     public RecordMatch() {
@@ -132,8 +139,17 @@ public class RecordMatch extends Fragment {
                     selected_sports_arraylist);
             activitySpinner.setAdapter(arrayAdapterActivities);
         }
+        activitySpinner.setOnItemSelectedListener(this);
+
         mAutoCompleteTextView = getView().findViewById(R.id.search_bar);
         loadPlayers();
+
+        // Set out click listener for the submit button
+        Button submitButton = getView().findViewById(R.id.submit_match);
+        submitButton.setOnClickListener(this);
+
+        mPlayerScoreTextInput = getView().findViewById(R.id.player_score);
+        mOpponentScoreTextInput = getView().findViewById(R.id.opponent_score);
     }
 
     @Override
@@ -176,6 +192,50 @@ public class RecordMatch extends Fragment {
         super.onPause();
     }
 
+    @Override
+    public void onClick(View view) {
+        switch(view.getId()) {
+            case R.id.submit_match:
+                submitMatch();
+                break;
+        }
+    }
+
+    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+        sport = parent.getItemAtPosition(pos).toString();
+    }
+
+    public void onNothingSelected(AdapterView<?> parent) {
+        // Another interface callback
+    }
+
+    /**
+     * Submit the match to the server
+     */
+    private void submitMatch() {
+        String opponentName = mAutoCompleteTextView.getText().toString();
+        Player opponent = null;
+        for (Player p : players) {
+            if (p.getName().equals(opponentName)) {
+                opponent = p;
+            }
+        }
+        if (opponent != null) {
+            try {
+                int playerScore = Integer.parseInt(mPlayerScoreTextInput.getEditText().getText().toString());
+                int opponentScore = Integer.parseInt(mOpponentScoreTextInput.getEditText().getText().toString());
+                MatchNetworkUtils.postMatch(getContext(), sport, opponent.getId(), playerScore, opponentScore, new MatchNetworkUtils.POSTMatchResponse() {
+                    @Override
+                    public void onResponse(String message) {
+                        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+                    }
+                });
+            } catch (NullPointerException e) {
+                Toast.makeText(getContext(), "Invalid score", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
     /**
      * Load players and add them to the autocompletetext so that they can be selected
      */
@@ -193,6 +253,8 @@ public class RecordMatch extends Fragment {
      * @param result
      */
     private void setPlayers(ArrayList<Player> result) {
+        // Set a reference to our result so we can use it later
+        players = result;
         ArrayList<String> playerNameList = new ArrayList<>();
         for (Player player : result) {
             playerNameList.add(player.getName());
