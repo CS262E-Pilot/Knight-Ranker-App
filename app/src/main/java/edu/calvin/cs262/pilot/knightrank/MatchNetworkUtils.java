@@ -54,12 +54,10 @@ public class MatchNetworkUtils {
      * @param res
      */
     static void postMatch(final Context context, String sport, int opponentID, int playerScore, int opponentScore, final MatchNetworkUtils.POSTMatchResponse res) {
-        // Get the token
-        SharedPreferences preferences = context.getSharedPreferences(context.getString(R.string.shared_preferences), MODE_PRIVATE);
-        String token = preferences.getString(context.getString(R.string.token), null);
+        // Build the request object
         JSONObject data = new JSONObject();
         try {
-            data.put("token", token);
+            data.put("token", AccountNetworkUtil.getToken(context));
             data.put("sport", sport);
             data.put("opponentID", opponentID);
             data.put("playerScore", playerScore);

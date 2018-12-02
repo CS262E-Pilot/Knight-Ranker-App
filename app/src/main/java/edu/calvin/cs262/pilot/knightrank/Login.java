@@ -118,8 +118,8 @@ public class Login extends AppCompatActivity {
         // Check for existing Google Sign In account, if the user is already signed in
         // the GoogleSignInAccount will be non-null.
 //        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        String token = getSharedPreferences(getString(R.string.shared_preferences), MODE_PRIVATE).getString(getString(R.string.token), null);
-        if (token != null) {
+        // If the user is already signed in just start the next activity
+        if (AccountNetworkUtil.isUserSignedIn(this)) {
             startNextActivity(null);
         }
     }
@@ -162,7 +162,7 @@ public class Login extends AppCompatActivity {
             final GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             // Signed in successfully, show authenticated UI.
 
-            new AccountNetworkUtil().postToken(this, account.getIdToken(), new AccountNetworkUtil.POSTTokenResponse() {
+            AccountNetworkUtil.postToken(this, account.getIdToken(), new AccountNetworkUtil.POSTTokenResponse() {
                 @Override
                 public void onResponse(String token) {
                     SharedPreferences.Editor editor = getSharedPreferences(getString(R.string.shared_preferences), MODE_PRIVATE).edit();

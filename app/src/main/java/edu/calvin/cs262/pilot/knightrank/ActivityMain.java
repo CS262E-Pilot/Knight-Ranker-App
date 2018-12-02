@@ -213,6 +213,8 @@ public class ActivityMain extends AppCompatActivity
                 mGoogleSignInClient.signOut().addOnCompleteListener(this, new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
+                        // Sign out the user and invalidate the token
+                        // TODO: we should send the token to the server so we can remove it from the database
                         SharedPreferences.Editor preferences =
                                 getSharedPreferences(getString(R.string.shared_preferences), MODE_PRIVATE).edit();
                         preferences.remove(getString(R.string.token));
