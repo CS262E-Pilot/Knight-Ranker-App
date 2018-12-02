@@ -191,9 +191,6 @@ public class ActivityMain extends AppCompatActivity
                 Intent intent4 = new Intent(getApplicationContext(), ActivitySelection.class);
                 startActivity(intent4);
                 return true;
-            case R.id.nav_challenge_confirmation:
-                fragment = new ConfirmMatch();
-                break;
             case R.id.nav_match_history:
                 fragment = new PastChallenges();
                 break;
@@ -240,9 +237,6 @@ public class ActivityMain extends AppCompatActivity
                 return true;
             case R.id.nav_new_challenge:
                 fragmentClass = RecordMatch.class;
-                break;
-            case R.id.nav_challenge_confirmation:
-                fragmentClass = ConfirmMatch.class;
                 break;
             case R.id.nav_match_history:
                 fragmentClass = PastChallenges.class;

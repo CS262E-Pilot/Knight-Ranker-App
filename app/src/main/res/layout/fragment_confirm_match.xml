@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_challenge_confirmation_root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackground"
-    tools:context=".ConfirmMatch">
+    android:background="@color/colorBackground">
 
     <TextView
         android:id="@+id/challenge_confirmation_textview"
@@ -17,9 +14,37 @@
         android:padding="5dp"/>
 
     <ListView
-        android:id="@+id/challenge_confirmation_listview"
+        android:id="@+id/list_view_with_checkbox"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/challenge_confirmation_textview">
-    </ListView>
+        android:layout_height="449dp"
+        android:layout_below="@+id/challenge_confirmation_textview"/>
+
+    <Button
+        android:id="@+id/list_confirm"
+        android:layout_width="115dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/list_view_with_checkbox"
+        android:layout_toEndOf="@+id/list_select"
+        android:layout_toRightOf="@+id/list_select"
+        android:padding="15dp"
+        android:text="Confirm" />
+
+    <Button
+        android:id="@+id/list_select"
+        android:layout_width="115dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/list_view_with_checkbox"
+        android:layout_centerHorizontal="true"
+        android:text="Invert"
+        android:padding="15dp"/>
+
+    <Button
+        android:id="@+id/list_reject"
+        android:layout_width="115dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/list_view_with_checkbox"
+        android:layout_toStartOf="@+id/list_select"
+        android:layout_toLeftOf="@+id/list_select"
+        android:padding="15dp"
+        android:text="Reject" />
 </RelativeLayout>
