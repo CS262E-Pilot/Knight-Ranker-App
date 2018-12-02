@@ -23,6 +23,13 @@
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
         tools:ignore="GoogleAppIndexingWarning">
         <!-- Below label controls the display name of the application's icon -->
+        <activity android:name=".ConfirmCheckboxActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".SplashScreen"
             android:label="Knight-Ranker">
