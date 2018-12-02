@@ -26,6 +26,12 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+
 /**
  * Class ActivityMain defines an Activity that hosts all sport activity and match related Fragments.
  * Utilizes Drawer Navigation for Fragment and Activity accessibility.
@@ -49,6 +55,8 @@ public class ActivityMain extends AppCompatActivity
     private SharedPreferences mPreferences;
     // Shared preferences file (default)
     private SharedPreferences mPreferencesDefault;
+
+    private GoogleSignInClient mGoogleSignInClient;
 
     // Name of the custom shared preferences file.
     private static final String sharedPrefFile = "pilot.cs262.calvin.edu.knightrank";
@@ -196,8 +204,23 @@ public class ActivityMain extends AppCompatActivity
                 fragment = new PastChallenges();
                 break;
             case R.id.nav_switch_account:
-                Intent intent5 = new Intent(getApplicationContext(), Login.class);
-                startActivity(intent5);
+                // Build out GoogleSignIn object and sign out the user
+                GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                        .requestIdToken(getString(R.string.server_client_id))
+                        .requestEmail()
+                        .build();
+                mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+                mGoogleSignInClient.signOut().addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        SharedPreferences.Editor preferences =
+                                getSharedPreferences(getString(R.string.shared_preferences), MODE_PRIVATE).edit();
+                        preferences.remove(getString(R.string.token));
+                        preferences.apply();
+                        Intent intent = new Intent(getApplicationContext(), Login.class);
+                        startActivity(intent);
+                    }
+                });
                 return true;
             default:
                 fragment = new Leaderboard();

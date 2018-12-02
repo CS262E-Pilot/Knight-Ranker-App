@@ -65,7 +65,7 @@ public class MatchNetworkUtils {
             data.put("playerScore", playerScore);
             data.put("opponentScore", opponentScore);
         } catch (JSONException e) {
-            Log.d(LOG_TAG, "Failed to add token to request");
+            Log.d(LOG_TAG, "Failed to build request object");
         }
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, MATCH_POST_URL, data,
                 new Response.Listener<JSONObject>() {

@@ -120,7 +120,7 @@ public class Login extends AppCompatActivity {
 //        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         String token = getSharedPreferences(getString(R.string.shared_preferences), MODE_PRIVATE).getString(getString(R.string.token), null);
         if (token != null) {
-//            startNextActivity(null);
+            startNextActivity(null);
         }
     }
 
