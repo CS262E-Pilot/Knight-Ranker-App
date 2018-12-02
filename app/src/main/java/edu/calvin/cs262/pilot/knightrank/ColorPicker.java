@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -16,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -106,6 +108,20 @@ public class ColorPicker extends AppCompatActivity implements SeekBar.OnSeekBarC
         // Placeholder code as example of how to restore values to UI components from shared preferences.
         //username_main.setText(mPreferences.getString(USER_NAME, ""));
         //password_main.setText(mPreferences.getString(USER_PASSWORD, ""));
+
+        // Change the background color to what was selected in color picker.
+        // Note: Change color by using findViewById and ID of the UI element you wish to change.
+        RelativeLayout thisLayout = findViewById(R.id.activity_color_picker_root_layout);
+        thisLayout.setBackgroundColor(mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.WHITE));
+
+        int value = mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.BLACK);
+
+        int toolbarColor = mPreferences.getInt(ColorPicker.APP_TOOLBAR_COLOR_ARGB, Color.RED);
+
+        // Change the toolbar color to what was selected in color picker.
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(toolbarColor));
+
+        Log.e(LOG_TAG,"Value of color is: " + value);
     }
 
     /**

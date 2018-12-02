@@ -115,8 +115,6 @@ public class ActivityMain extends AppCompatActivity
         Log.e(LOG_TAG,"Value of color is: " + value);
     }
 
-
-
     /**
      * Method adds an options menu to the toolbar.
      *
