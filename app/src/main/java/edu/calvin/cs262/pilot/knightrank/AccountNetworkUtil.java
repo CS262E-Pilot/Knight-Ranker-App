@@ -17,12 +17,14 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * Class AccountNetworkUtil defines the methods and functions necessary to communicate with the
  * RESTFul web service to retrieve information from the PostgreSQL database for Google OAuth
  * back-end font-end functionality.
  */
-public class AccountNetworkUtil {
+class AccountNetworkUtil {
 
     /** Callback interface for delivering sports request. */
     public interface POSTTokenResponse {
@@ -36,7 +38,7 @@ public class AccountNetworkUtil {
      * POST
      * and adds to Volley request queue.
      */
-    void postToken(final Context context, String idToken, final AccountNetworkUtil.POSTTokenResponse res) {
+    static void postToken(final Context context, String idToken, final AccountNetworkUtil.POSTTokenResponse res) {
         Log.d(LOG_TAG, "token:" + idToken);
         JSONObject data = new JSONObject();
         try {
@@ -64,5 +66,20 @@ public class AccountNetworkUtil {
 
         // Add the request to the RequestQueue.
         Volley.newRequestQueue(context).add(jsonObjectRequest);
+    }
+
+    /**
+     * Get's the token that is stored for a logged in user
+     * @param context
+     * @return String - the token
+     */
+    static String getToken(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(context.getString(R.string.shared_preferences), MODE_PRIVATE);
+        return preferences.getString(context.getString(R.string.token), null);
+    }
+
+    static boolean isUserSignedIn(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(context.getString(R.string.shared_preferences), MODE_PRIVATE);
+        return preferences.getString(context.getString(R.string.token), null) != null;
     }
 }
