@@ -129,4 +129,5 @@
     <string name="activity_selection">Activity Selection</string>
     <string name="match_history">Match History</string>
     <string name="unresolved_matches">Unresolved Matches</string>
+    <string name="sign_out">Sign Out</string>
 </resources>
