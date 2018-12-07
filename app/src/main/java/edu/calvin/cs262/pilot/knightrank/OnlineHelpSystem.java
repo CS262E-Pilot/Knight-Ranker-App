@@ -29,7 +29,8 @@ import android.widget.RelativeLayout;
  * technical instructions on how to navigate and perform certain action in the Knight-Ranker application.
  */
 public class OnlineHelpSystem extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
-        AccountCreationInstructions.OnFragmentInteractionListener, AccountLoginInstructions.OnFragmentInteractionListener {
+        AccountCreationInstructions.OnFragmentInteractionListener, AccountLoginInstructions.OnFragmentInteractionListener,
+        MatchCreationInstructions.OnFragmentInteractionListener, MatchConfirmationInstructions.OnFragmentInteractionListener {
 
     //Class variables.
     private static final String LOG_TAG =
@@ -158,6 +159,12 @@ public class OnlineHelpSystem extends AppCompatActivity implements NavigationVie
                 break;
             case R.id.nav_account_login_instructions:
                 fragment = new AccountLoginInstructions();
+                break;
+            case R.id.nav_match_creation_instructions:
+                fragment = new MatchCreationInstructions();
+                break;
+            case R.id.nav_match_confirmation_instructions:
+                fragment = new MatchConfirmationInstructions();
                 break;
             case R.id.nav_exit_help:
                 Intent intent1 = new Intent(getApplicationContext(), ActivityMain.class);
