@@ -8,6 +8,10 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import java.util.List;
 
+/**
+ * Class ConfirmCheckboxAdapter defines and configures a BaseAdapter for the purpose of displaying
+ * player rankings.
+ */
 public class ConfirmCheckboxAdapter extends BaseAdapter {
 
     private List<ConfirmItemDTO> listViewItemDtoList = null;

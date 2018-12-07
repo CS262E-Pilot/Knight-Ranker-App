@@ -5,6 +5,10 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+/**
+ * Class ConfirmItemViewHolder defines getters and setters for the UI widgets present in the
+ * ConfirmCheckboxActivity.java class.
+ */
 public class ConfirmItemViewHolder extends RecyclerView.ViewHolder {
 
     private CheckBox itemCheckbox;

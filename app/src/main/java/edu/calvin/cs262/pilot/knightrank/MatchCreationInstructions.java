@@ -18,12 +18,8 @@ import java.util.Objects;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link MatchCreationInstructions.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link MatchCreationInstructions#newInstance} factory method to
- * create an instance of this fragment.
+ * Class MatchCreationInstructions defines a Fragment that provides the user with technical
+ * instructions on how to create a competition match within the Knight-Ranker Application.
  */
 public class MatchCreationInstructions extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
