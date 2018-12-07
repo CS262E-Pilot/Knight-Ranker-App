@@ -1,5 +1,10 @@
 package edu.calvin.cs262.pilot.knightrank;
 
+/**
+ * Class ConfirmItemDTO defines getter and setter methods for the ConfirmCheckboxActivity.java
+ * class that relate to the list of unresolved matches populated from the Knight-Ranker
+ * PostgreSQL database.
+ */
 public class ConfirmItemDTO {
 
     private boolean checked = false;

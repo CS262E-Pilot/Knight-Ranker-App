@@ -18,12 +18,8 @@ import java.util.Objects;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link MatchConfirmationInstructions.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link MatchConfirmationInstructions#newInstance} factory method to
- * create an instance of this fragment.
+ * Class MatchConfirmationInstructions defines a Fragment that provides the user with technical
+ * instructions on how to confirm a competition match within the Knight-Ranker Application.
  */
 public class MatchConfirmationInstructions extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
