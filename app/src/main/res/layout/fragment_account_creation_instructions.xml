@@ -285,6 +285,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="32.	You are now logged into the Knight-Ranker App with your new account." />
+
         </LinearLayout>
     </ScrollView>
 

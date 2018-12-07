@@ -10,6 +10,14 @@
             android:icon="@drawable/ic_android_black_24dp"
             android:title="Account Login" />
         <item
+            android:id="@+id/nav_match_creation_instructions"
+            android:icon="@drawable/ic_android_black_24dp"
+            android:title="Create Match" />
+        <item
+            android:id="@+id/nav_match_confirmation_instructions"
+            android:icon="@drawable/ic_android_black_24dp"
+            android:title="Confirm Match" />
+        <item
             android:id="@+id/nav_exit_help"
             android:icon="@drawable/ic_android_black_24dp"
             android:title="Exit Help" />
