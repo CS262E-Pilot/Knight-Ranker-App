@@ -31,6 +31,9 @@
             android:id="@+id/nav_switch_account"
             android:icon="@drawable/ic_android_black_24dp"
             android:title="@string/sign_out" />
-
+        <item
+            android:id="@+id/nav_resolve_matches"
+            android:icon="@drawable/ic_android_black_24dp"
+            android:title="Resolve Matches" />
     </group>
 </menu>
