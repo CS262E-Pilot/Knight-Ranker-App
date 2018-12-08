@@ -201,9 +201,8 @@ public class ActivityMain extends AppCompatActivity
                 fragment = new PastChallenges();
                 break;
             case R.id.nav_resolve_matches:
-                Intent intent5 = new Intent(getApplicationContext(), ConfirmCheckboxActivity.class);
-                startActivity(intent5);
-                return true;
+                fragment = new ConfirmCheckboxActivity();
+                break;
             case R.id.nav_switch_account:
                 // Build out GoogleSignIn object and sign out the user
                 GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
