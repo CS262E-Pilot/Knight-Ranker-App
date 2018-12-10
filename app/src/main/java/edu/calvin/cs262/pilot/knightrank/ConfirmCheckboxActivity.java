@@ -47,8 +47,9 @@ public class ConfirmCheckboxActivity extends Fragment {
     private static final String LOG_TAG =
             ConfirmCheckboxActivity.class.getSimpleName();
 
-    // For use with shared preferences.
-    private static final String PLACEHOLDER1 = "placeholder1";
+    private ConfirmCheckboxAdapter mListViewDataAdapter;
+    private ListView mListViewWithCheckbox;
+    private ArrayList<ConfirmItemDTO> mConfirmMatches;
 
     // Share preferences file (custom)
     private SharedPreferences mPreferences;
@@ -99,21 +100,10 @@ public class ConfirmCheckboxActivity extends Fragment {
         Log.e(LOG_TAG,"Value of color is: " + value);
 
         // Get listview checkbox.
-        final ListView listViewWithCheckbox = (ListView) getView().findViewById(R.id.list_view_with_checkbox);
-
-        // Initiate listview data.
-        final List<ConfirmItemDTO> initItemList = this.getInitViewItemDtoList();
-
-        // Create a custom list view adapter with checkbox control.
-        final ConfirmCheckboxAdapter listViewDataAdapter = new ConfirmCheckboxAdapter(getActivity().getApplicationContext(), initItemList);
-
-        listViewDataAdapter.notifyDataSetChanged();
-
-        // Set data adapter to list view.
-        listViewWithCheckbox.setAdapter(listViewDataAdapter);
+        mListViewWithCheckbox = (ListView) getView().findViewById(R.id.list_view_with_checkbox);
 
         // When list view item is clicked.
-        listViewWithCheckbox.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mListViewWithCheckbox.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int itemIndex, long l) {
                 // Get user selected item.
@@ -123,7 +113,7 @@ public class ConfirmCheckboxActivity extends Fragment {
                 ConfirmItemDTO itemDto = (ConfirmItemDTO)itemObject;
 
                 // Get the checkbox.
-                CheckBox itemCheckbox = (CheckBox) view.findViewById(R.id.list_view_item_checkbox);
+                CheckBox itemCheckbox = view.findViewById(R.id.list_view_item_checkbox);
 
                 // Reverse the checkbox and clicked item check state.
                 if(itemDto.isChecked()) {
@@ -141,10 +131,10 @@ public class ConfirmCheckboxActivity extends Fragment {
         invertButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int size = initItemList.size();
+                int size = mConfirmMatches.size();
                 for(int i=0;i<size;i++)
                 {
-                    ConfirmItemDTO dto = initItemList.get(i);
+                    ConfirmItemDTO dto = mConfirmMatches.get(i);
 
                     if(dto.isChecked()) {
                         dto.setChecked(false);
@@ -152,7 +142,7 @@ public class ConfirmCheckboxActivity extends Fragment {
                         dto.setChecked(true);
                     }
                 }
-                listViewDataAdapter.notifyDataSetChanged();
+                mListViewDataAdapter.notifyDataSetChanged();
             }
         });
 
@@ -168,17 +158,17 @@ public class ConfirmCheckboxActivity extends Fragment {
                 alertDialog.setButton(Dialog.BUTTON_POSITIVE, "Confirm", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
-                        int size = initItemList.size();
+                        int size = mConfirmMatches.size();
                         for(int i=0;i<size;i++) {
-                            ConfirmItemDTO dto = initItemList.get(i);
+                            ConfirmItemDTO dto = mConfirmMatches.get(i);
 
                             if(dto.isChecked()) {
-                                initItemList.remove(i);
+                                mConfirmMatches.remove(i);
                                 i--;
-                                size = initItemList.size();
+                                size = mConfirmMatches.size();
                             }
                         }
-                        listViewDataAdapter.notifyDataSetChanged();
+                        mListViewDataAdapter.notifyDataSetChanged();
                     }
                 });
                 alertDialog.show();
@@ -196,46 +186,40 @@ public class ConfirmCheckboxActivity extends Fragment {
                 alertDialog.setButton(Dialog.BUTTON_POSITIVE, "Confirm", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int which) {
-                        int size = initItemList.size();
+                        int size = mConfirmMatches.size();
                         for(int i=0;i<size;i++) {
-                            ConfirmItemDTO dto = initItemList.get(i);
+                            ConfirmItemDTO dto = mConfirmMatches.get(i);
 
                             if(dto.isChecked()) {
-                                initItemList.remove(i);
+                                mConfirmMatches.remove(i);
                                 i--;
-                                size = initItemList.size();
+                                size = mConfirmMatches.size();
                             }
                         }
-                        listViewDataAdapter.notifyDataSetChanged();
+                        mListViewDataAdapter.notifyDataSetChanged();
                     }
                 });
                 alertDialog.show();
             }
         });
 
+        // Load the matches
+        loadConfirmMatches();
     }
 
-    // Return an initialize list of ConfirmItemDTO.
-    private List<ConfirmItemDTO> getInitViewItemDtoList()
-    {
-        String itemTextArr[] = {"\tOpponent: score\n\tUser: score",
-                "\tAlex: 300\n\tMark: 0",
-                "\tIan: 2\n\tCaleb: 1",
-                "other examples", "other examples", "other examples", "other examples", "other examples" };
+    private void loadConfirmMatches() {
+        MatchNetworkUtils.getConfirmMatches(getContext(), new MatchNetworkUtils.GETMatchesResponse() {
+            @Override
+            public void onResponse(ArrayList<ConfirmItemDTO> confirmMatches) {
+                mConfirmMatches = confirmMatches;
+                // Create a custom list view adapter with checkbox control.
+                mListViewDataAdapter = new ConfirmCheckboxAdapter(getContext(), confirmMatches);
 
-        List<ConfirmItemDTO> ret = new ArrayList<ConfirmItemDTO>();
+                mListViewDataAdapter.notifyDataSetChanged();
 
-        int length = itemTextArr.length;
-
-        for(int i=0; i<length; i++) {
-            String itemText = itemTextArr[i];
-
-            ConfirmItemDTO dto = new ConfirmItemDTO();
-            dto.setChecked(false);
-            dto.setItemText(itemText);
-
-            ret.add(dto);
-        }
-        return ret;
+                // Set data adapter to list view.
+                mListViewWithCheckbox.setAdapter(mListViewDataAdapter);
+            }
+        });
     }
 }

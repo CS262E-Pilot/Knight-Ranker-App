@@ -115,7 +115,7 @@ public class ActivitySelection extends AppCompatActivity implements AdapterView.
      * Method obtains list of sports from the database.
      */
     private void loadSports() {
-        new SportNetworkUtils().getSports(this, new SportNetworkUtils.GETSportsResponse() {
+        SportNetworkUtils.getSports(this, new SportNetworkUtils.GETSportsResponse() {
             @Override
             public void onResponse(ArrayList<Sport> result) {
                 setSports(result);

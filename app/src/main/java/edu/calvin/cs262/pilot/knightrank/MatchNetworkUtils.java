@@ -3,6 +3,7 @@ package edu.calvin.cs262.pilot.knightrank;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.service.autofill.FieldClassification;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -12,6 +13,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -22,8 +24,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -39,10 +44,14 @@ public class MatchNetworkUtils {
 
     // Match URI for Knight-Ranker Database Match Table.
     private static final String MATCH_POST_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/match";
-
+    private static final String UNCONFIRMED_MATCH_GET_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/matches";
     /** Callback interface for delivering sports request. */
     public interface POSTMatchResponse {
         void onResponse(String message);
+    }
+
+    public interface GETMatchesResponse {
+        void onResponse(ArrayList<ConfirmItemDTO> confirmMatches);
     }
 
     /**
@@ -80,6 +89,52 @@ public class MatchNetworkUtils {
             public void onErrorResponse(VolleyError error) {
                 Log.d(LOG_TAG, error.toString());
                 Toast.makeText(context, "Failed to record match", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        // Add the request to the RequestQueue.
+        Volley.newRequestQueue(context).add(jsonObjectRequest);
+    }
+
+    static void getConfirmMatches(final Context context, final MatchNetworkUtils.GETMatchesResponse res) {
+        StringBuilder query = new StringBuilder();
+        query.append(UNCONFIRMED_MATCH_GET_URL);
+        query.append("/?token=");
+        try {
+            query.append(URLEncoder.encode(AccountNetworkUtil.getToken(context), "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            Toast.makeText(context, "Can't parse sport name", Toast.LENGTH_LONG).show();
+        }
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, query.toString(), null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            // Parse the results
+                            ArrayList<ConfirmItemDTO> confirmMatches = new ArrayList<>();
+                            JSONArray sportsJSONArray = response.getJSONArray("items");
+                            // Create an ArrayList of sports
+                            for (int i = 0; i < sportsJSONArray.length(); i++) {
+                                JSONObject sportJSON = (JSONObject) sportsJSONArray.get(i);
+                                confirmMatches.add(new ConfirmItemDTO(
+                                        sportJSON.getInt("id"),
+                                        sportJSON.getString("sport"),
+                                        sportJSON.getString("playerName"),
+                                        sportJSON.getString("opponentName"),
+                                        sportJSON.getInt("playerScore"),
+                                        sportJSON.getInt("opponentScore")
+                                ));
+                            }
+                            // Return the resulting sport array list
+                            res.onResponse(confirmMatches);
+                        } catch (JSONException e) {
+                            Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, "Failed to load matches", Toast.LENGTH_LONG).show();
             }
         });
 

@@ -6,10 +6,22 @@ package edu.calvin.cs262.pilot.knightrank;
  * PostgreSQL database.
  */
 public class ConfirmItemDTO {
-
+    private int id;
+    private String sport;
+    private String playerName;
+    private String opponentName;
+    private int playerScore;
+    private int opponentScore;
     private boolean checked = false;
 
-    private String itemText = "";
+    ConfirmItemDTO(int id, String sport, String playerName, String opponentName, int playerScore, int opponentScore) {
+        this.id = id;
+        this.sport = sport;
+        this.playerName = playerName;
+        this.opponentName = opponentName;
+        this.playerScore = playerScore;
+        this.opponentScore = opponentScore;
+    }
 
     public boolean isChecked() {
         return checked;
@@ -20,10 +32,7 @@ public class ConfirmItemDTO {
     }
 
     public String getItemText() {
-        return itemText;
+        return playerName + ":" + playerScore + ", " + opponentName + ":" + opponentScore;
     }
 
-    public void setItemText(String itemText) {
-        this.itemText = itemText;
-    }
 }

@@ -57,7 +57,7 @@ public class SportNetworkUtils {
      * GETS all the sports in JSON format, creates new Sport objects (Sport.java), adds to ArrayList<Sport>,
      * and adds to Volley request queue.
      */
-    void getSports(final Context context, final GETSportsResponse res) {
+    static void getSports(final Context context, final GETSportsResponse res) {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, SPORT_URL, null,
                 new Response.Listener<JSONObject>() {
                     @Override
