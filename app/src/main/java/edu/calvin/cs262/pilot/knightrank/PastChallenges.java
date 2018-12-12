@@ -27,18 +27,12 @@ import static android.content.Context.MODE_PRIVATE;
 
 
 /**
- * Class PastChallenges defines a Fragment that displays the previous challenges the user
- * has participated in.
+ * Class PastChallenges defines a Fragment that displays the previous matches in various sports
  */
-public class PastChallenges extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
+public class PastChallenges extends Fragment implements AdapterView.OnItemSelectedListener {
 
     //Class variables.
-    private static final String LOG_TAG =
-            PastChallenges.class.getSimpleName();
-
-    // For use with shared preferences.
-    private static String PLACEHOLDER4 = "";
+    private static final String LOG_TAG = PastChallenges.class.getSimpleName();
 
     // Share preferences file (custom)
     private SharedPreferences mPreferences;
@@ -55,27 +49,6 @@ public class PastChallenges extends Fragment {
     private PastMatchAdapter pastMatchAdapter;
 
 
-
-    private OnFragmentInteractionListener mListener;
-
-    public PastChallenges() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment PastChallenges.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PastChallenges newInstance(String param1, String param2) {
-        PastChallenges fragment = new PastChallenges();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,10 +60,6 @@ public class PastChallenges extends Fragment {
 
         // Placeholder code as example of how to get values from the default SharedPrefs file.
         String syncFreq = mPreferencesDefault.getString(SettingsActivity.KEY_SYNC_FREQUENCY, "-1");
-
-        // Placeholder code as example of how to restore values to UI components from shared preferences.
-        //username_main.setText(mPreferences.getString(USER_NAME, ""));
-        //password_main.setText(mPreferences.getString(USER_PASSWORD, ""));
     }
 
     @Override
@@ -130,49 +99,11 @@ public class PastChallenges extends Fragment {
         }
 
         pastMatchAdapter = new PastMatchAdapter(getActivity(), pastMatches);
-        mPastChallenges = (ListView) getView().findViewById(R.id.past_challenges_listview);
+        mPastChallenges = getView().findViewById(R.id.past_challenges_listview);
         mPastChallenges.setAdapter(pastMatchAdapter);
+        mSportSpinner.setOnItemSelectedListener(this);
 
         Log.e(LOG_TAG,"Value of color is: " + value);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
     }
 
     /**
@@ -181,12 +112,6 @@ public class PastChallenges extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-
-        SharedPreferences.Editor preferencesEditor6 = mPreferences.edit();
-
-        preferencesEditor6.putString(PLACEHOLDER4, "Placeholder text 4");
-
-        preferencesEditor6.apply();
     }
 
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
@@ -199,14 +124,6 @@ public class PastChallenges extends Fragment {
 
 
     private void loadPastMatches(String sport) {
-        /*
-        new SportNetworkUtils().getSportNameInfo(getContext(), sport, new SportNetworkUtils.GETSportResponse() {
-            @Override
-            public void onResponse(int sportID) {
-
-            }
-        });
-        */
         new MatchNetworkUtils().getPastMatches(getContext(), sport, new MatchNetworkUtils.GETMatchResponse() {
             @Override
             public void onResponse(ArrayList<PastMatch> result) {

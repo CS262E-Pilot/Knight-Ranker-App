@@ -39,8 +39,7 @@ import com.google.android.gms.tasks.Task;
  */
 public class ActivityMain extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        RecordMatch.OnFragmentInteractionListener,
-        PastChallenges.OnFragmentInteractionListener {
+        RecordMatch.OnFragmentInteractionListener {
 
     //Class variables.
     private static final String LOG_TAG =

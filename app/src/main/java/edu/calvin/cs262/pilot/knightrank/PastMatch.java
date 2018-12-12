@@ -3,8 +3,6 @@ package edu.calvin.cs262.pilot.knightrank;
 public class PastMatch {
     private int id;
     private String timestamp;
-    private String verified;
-    private int winner;
     private int playerScore;
     private int opponentScore;
     private String playerName;
