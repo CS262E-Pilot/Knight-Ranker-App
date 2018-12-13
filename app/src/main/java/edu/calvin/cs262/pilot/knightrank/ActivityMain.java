@@ -181,6 +181,10 @@ public class ActivityMain extends AppCompatActivity
                 });
     }
 
+    /*
+case R.id.nav_match_history:
+    fragment = new PastChallenges();
+    break;*/
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         Fragment fragment = null;
@@ -196,9 +200,6 @@ public class ActivityMain extends AppCompatActivity
                 Intent intent4 = new Intent(getApplicationContext(), ActivitySelection.class);
                 startActivity(intent4);
                 return true;
-            case R.id.nav_match_history:
-                fragment = new PastChallenges();
-                break;
             case R.id.nav_resolve_matches:
                 fragment = new ConfirmCheckboxActivity();
                 break;
@@ -236,6 +237,11 @@ public class ActivityMain extends AppCompatActivity
         return true;
     }
 
+                    /*
+            case R.id.nav_match_history:
+                fragmentClass = PastChallenges.class;
+                break;
+                */
     /**
      * Method that controls what happens when we select a navigation drawer item.
      *
@@ -262,9 +268,6 @@ public class ActivityMain extends AppCompatActivity
                 return true;
             case R.id.nav_new_challenge:
                 fragmentClass = RecordMatch.class;
-                break;
-            case R.id.nav_match_history:
-                fragmentClass = PastChallenges.class;
                 break;
             default:
                 fragmentClass = ActivitySelection.class;
