@@ -12,31 +12,27 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 /**
- * Class PastChallenges defines a Fragment that displays the previous challenges the user
- * has participated in.
+ * Class PastChallenges defines a Fragment that displays the previous matches in various sports
  */
-public class PastChallenges extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class PastChallenges extends Fragment implements AdapterView.OnItemSelectedListener {
 
     //Class variables.
-    private static final String LOG_TAG =
-            PastChallenges.class.getSimpleName();
-
-    // For use with shared preferences.
-    private static String PLACEHOLDER4 = "";
+    private static final String LOG_TAG = PastChallenges.class.getSimpleName();
 
     // Share preferences file (custom)
     private SharedPreferences mPreferences;
@@ -46,43 +42,16 @@ public class PastChallenges extends Fragment {
     // Name of the custom shared preferences file.
     private static final String sharedPrefFile = "pilot.cs262.calvin.edu.knightrank";
 
-    private ListView mRecentChallenges;
+    private ListView mPastChallenges;
+    private Spinner mSportSpinner;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private ArrayList<PastMatch> pastMatches = new ArrayList<>();
+    private PastMatchAdapter pastMatchAdapter;
 
-    private OnFragmentInteractionListener mListener;
-
-    public PastChallenges() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PastChallenges.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static PastChallenges newInstance(String param1, String param2) {
-        PastChallenges fragment = new PastChallenges();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
 
         // Set shared preferences component.
         // Note: modified from the one in activities as this is a fragment.
@@ -91,10 +60,6 @@ public class PastChallenges extends Fragment {
 
         // Placeholder code as example of how to get values from the default SharedPrefs file.
         String syncFreq = mPreferencesDefault.getString(SettingsActivity.KEY_SYNC_FREQUENCY, "-1");
-
-        // Placeholder code as example of how to restore values to UI components from shared preferences.
-        //username_main.setText(mPreferences.getString(USER_NAME, ""));
-        //password_main.setText(mPreferences.getString(USER_PASSWORD, ""));
     }
 
     @Override
@@ -121,60 +86,24 @@ public class PastChallenges extends Fragment {
 
         int value = mPreferences.getInt(ColorPicker.APP_BACKGROUND_COLOR_ARGB, Color.BLACK);
 
-        mRecentChallenges = (ListView) getView().findViewById(R.id.recent_challenges_listview);
-        List<String> recent_challenges_arraylist = new ArrayList<String>();
-        /*
-        Theoretical entries, as we don't have a backend #FIXME
-        */
-        recent_challenges_arraylist.add("Samantha vs. Tommy, Street Fighter V");
-        recent_challenges_arraylist.add("Adrien vs. John, Chess");
-        recent_challenges_arraylist.add("Jeluba vs. Jesse, Super Mario Strikers");
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                getActivity(),
-                android.R.layout.simple_list_item_1,
-                recent_challenges_arraylist);
-        mRecentChallenges.setAdapter(arrayAdapter);
+        // Setup the sport spinner
+        Set<String> selectedSports = getActivity().getSharedPreferences(getString(R.string.shared_preferences), MODE_PRIVATE).getStringSet(getString(R.string.selected_sports), null);
+        mSportSpinner = getView().findViewById(R.id.past_challenges_spinner);
+        if(selectedSports != null) {
+            List<String> selected_sports_arraylist = new ArrayList<String>(selectedSports);
+            ArrayAdapter<String> arrayAdapterActivities = new ArrayAdapter<String>(
+                    getActivity(),
+                    android.R.layout.simple_list_item_1,
+                    selected_sports_arraylist);
+            mSportSpinner.setAdapter(arrayAdapterActivities);
+        }
+
+        pastMatchAdapter = new PastMatchAdapter(getActivity(), pastMatches);
+        mPastChallenges = getView().findViewById(R.id.past_challenges_listview);
+        mPastChallenges.setAdapter(pastMatchAdapter);
+        mSportSpinner.setOnItemSelectedListener(this);
 
         Log.e(LOG_TAG,"Value of color is: " + value);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
     }
 
     /**
@@ -183,11 +112,30 @@ public class PastChallenges extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
+    }
 
-        SharedPreferences.Editor preferencesEditor6 = mPreferences.edit();
+    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+        loadPastMatches(parent.getItemAtPosition(pos).toString());
+    }
 
-        preferencesEditor6.putString(PLACEHOLDER4, "Placeholder text 4");
+    public void onNothingSelected(AdapterView<?> parent) {
+        // Another interface callback
+    }
 
-        preferencesEditor6.apply();
+
+    private void loadPastMatches(String sport) {
+        new MatchNetworkUtils().getPastMatches(getContext(), sport, new MatchNetworkUtils.GETMatchResponse() {
+            @Override
+            public void onResponse(ArrayList<PastMatch> result) {
+                setPastMatches(result);
+            }
+        });
+    }
+
+    private void setPastMatches(ArrayList<PastMatch> pastMatchItems) {
+        Log.d(LOG_TAG, "Past Matches: " + pastMatchItems.toString());
+        pastMatches.clear();
+        pastMatches.addAll(pastMatchItems);
+        pastMatchAdapter.notifyDataSetChanged();
     }
 }

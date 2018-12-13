@@ -62,10 +62,6 @@ public class Leaderboard extends Fragment implements AdapterView.OnItemSelectedL
 
         // Placeholder code as example of how to get values from the default SharedPrefs file.
         String syncFreq = mPreferencesDefault.getString(SettingsActivity.KEY_SYNC_FREQUENCY, "-1");
-
-        // Placeholder code as example of how to restore values to UI components from shared preferences.
-        //username_main.setText(mPreferences.getString(USER_NAME, ""));
-        //password_main.setText(mPreferences.getString(USER_PASSWORD, ""));
     }
 
     @Override
