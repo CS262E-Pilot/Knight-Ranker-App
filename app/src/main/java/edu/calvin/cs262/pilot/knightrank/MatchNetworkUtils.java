@@ -47,6 +47,7 @@ public class MatchNetworkUtils {
 
     // PastMatch URI for Knight-Ranker Database PastMatch Table.
     private static final String MATCH_POST_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/match";
+    private static final String CONFIRM_MATCH_PUT_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/match";
     private static final String UNCONFIRMED_MATCH_GET_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/matches";
     private static final String MATCH_GET_URL = "https://calvin-cs262-fall2018-pilot.appspot.com/knightranker/v1/matches";
 
@@ -54,6 +55,10 @@ public class MatchNetworkUtils {
     public interface POSTMatchResponse {
         void onResponse(String message);
     }
+    public interface PUTConfirmMatchResponse {
+        void onResponse(String message);
+    }
+
 
     public interface GETMatchesResponse {
         void onResponse(ArrayList<ConfirmItemDTO> confirmMatches);
@@ -197,6 +202,38 @@ public class MatchNetworkUtils {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(context, "Failed to load matches", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        // Add the request to the RequestQueue.
+        Volley.newRequestQueue(context).add(jsonObjectRequest);
+    }
+
+    static void confirmMatch(final Context context, int matchID, final MatchNetworkUtils.PUTConfirmMatchResponse res) {
+        // Build the request object
+        JSONObject data = new JSONObject();
+        try {
+            data.put("token", AccountNetworkUtil.getToken(context));
+            data.put("matchID", matchID);
+        } catch (JSONException e) {
+            Log.d(LOG_TAG, "Failed to build request object");
+        }
+        Log.d(LOG_TAG, data.toString());
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, CONFIRM_MATCH_PUT_URL, data,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            res.onResponse(response.getString("message"));
+                        } catch (JSONException e) {
+                            Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d(LOG_TAG, error.toString());
+                Toast.makeText(context, "Failed to confirm match", Toast.LENGTH_LONG).show();
             }
         });
 

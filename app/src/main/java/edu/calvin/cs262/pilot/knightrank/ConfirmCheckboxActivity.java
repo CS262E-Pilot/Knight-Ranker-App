@@ -190,10 +190,16 @@ public class ConfirmCheckboxActivity extends Fragment {
                         for(int i=0;i<size;i++) {
                             ConfirmItemDTO dto = mConfirmMatches.get(i);
 
+
                             if(dto.isChecked()) {
-                                mConfirmMatches.remove(i);
-                                i--;
-                                size = mConfirmMatches.size();
+                                final int index = i;
+                                MatchNetworkUtils.confirmMatch(getContext(), dto.getId(), new MatchNetworkUtils.PUTConfirmMatchResponse() {
+                                    @Override
+                                    public void onResponse(String message) {
+
+                                        mConfirmMatches.remove(index);
+                                    }
+                                });
                             }
                         }
                         mListViewDataAdapter.notifyDataSetChanged();

@@ -23,6 +23,10 @@ public class ConfirmItemDTO {
         this.opponentScore = opponentScore;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public boolean isChecked() {
         return checked;
     }
