@@ -94,5 +94,5 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:text="Submit"
-        android:layout_margin="10dp"/>
+        android:layout_margin="15dp"/>
 </RelativeLayout>

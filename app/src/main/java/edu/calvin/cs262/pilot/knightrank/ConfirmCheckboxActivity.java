@@ -28,6 +28,7 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -126,26 +127,6 @@ public class ConfirmCheckboxActivity extends Fragment {
             }
         });
 
-        // Click this button to reverse select listview items.
-        Button invertButton = (Button) getView().findViewById(R.id.list_select);
-        invertButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int size = mConfirmMatches.size();
-                for(int i=0;i<size;i++)
-                {
-                    ConfirmItemDTO dto = mConfirmMatches.get(i);
-
-                    if(dto.isChecked()) {
-                        dto.setChecked(false);
-                    } else {
-                        dto.setChecked(true);
-                    }
-                }
-                mListViewDataAdapter.notifyDataSetChanged();
-            }
-        });
-
         // Click this button to remove selected items from listview.
         Button rejectButton = (Button) getView().findViewById(R.id.list_reject);
         rejectButton.setOnClickListener(new View.OnClickListener() {
@@ -196,8 +177,9 @@ public class ConfirmCheckboxActivity extends Fragment {
                                 MatchNetworkUtils.confirmMatch(getContext(), dto.getId(), new MatchNetworkUtils.PUTConfirmMatchResponse() {
                                     @Override
                                     public void onResponse(String message) {
-
-                                        mConfirmMatches.remove(index);
+                                        Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+//                                        mConfirmMatches.remove(index);
+                                        loadConfirmMatches();
                                     }
                                 });
                             }
