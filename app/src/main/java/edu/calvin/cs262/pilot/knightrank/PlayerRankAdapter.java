@@ -35,12 +35,15 @@ public class PlayerRankAdapter extends ArrayAdapter<PlayerRank> {
         }
 
         if (playerItem != null) {
-            // Set player elo rank
-            TextView playerEloRank = (convertView.findViewById(R.id.player_rank_elo));
-            playerEloRank.setText(String.valueOf(playerItem.getEloRank()));
+            // Set player rank
+            TextView playerRank = (convertView.findViewById(R.id.player_rank));
+            playerRank.setText(String.valueOf(position + 1).concat("."));
             // Set player email
             TextView playerText = (convertView.findViewById(R.id.player_rank_name));
-            playerText.setText(playerItem.getName());
+            playerText.setText(playerItem.getName().concat(", "));
+            // Set player elo rank
+            TextView playerEloRank = (convertView.findViewById(R.id.player_rank_elo));
+            playerEloRank.setText("Elo: ".concat(String.valueOf(playerItem.getEloRank())));
         }
         return convertView;
     }

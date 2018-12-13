@@ -23,9 +23,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -216,6 +218,53 @@ public class SportNetworkUtils {
                 return "POST failed!";
             }
         }
+    }
+
+    /** Callback interface for delivering sports request. */
+    public interface GETSportResponse {
+        void onResponse(int sportID);
+    }
+
+    /**
+     * Method essentially returns the ID associated with a sport name to context via res
+     *
+     * @param context
+     * @param sport
+     * @param res
+     */
+    static void getSportNameInfo(final Context context, final String sport, final GETSportResponse res) {
+        StringBuilder query = new StringBuilder();
+        query.append(SPORT_LIST_URL);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, query.toString(), null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            int sportID = 0;
+                            // Parse the results
+                            JSONArray sportListJSONArray = response.getJSONArray("items");
+                            // Create an ArrayList of past matches for a sport
+                            for (int i = 0; i < sportListJSONArray.length(); i++) {
+                                JSONObject sportJSON = (JSONObject) sportListJSONArray.get(i);
+                                if (sportJSON.getString("name").equals(sport)) {
+                                    sportID = sportJSON.getInt("id");
+                                }
+                            }
+                            // Return the resulting sport array list
+                            res.onResponse(sportID);
+                        } catch (JSONException e) {
+                            Toast.makeText(context, "Something went wrong", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, "Failed to load sportID", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        // Add the request to the RequestQueue.
+        Volley.newRequestQueue(context).add(jsonObjectRequest);
     }
 
     /**
