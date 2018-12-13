@@ -36,7 +36,7 @@ public class ConfirmItemDTO {
     }
 
     public String getItemText() {
-        return playerName + ":" + playerScore + ", " + opponentName + ":" + opponentScore;
+        return sport + "\n" + playerName + ":" + playerScore + "\n" + opponentName + ":" + opponentScore;
     }
 
 }

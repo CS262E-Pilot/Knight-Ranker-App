@@ -38,32 +38,20 @@
 
     <Button
         android:id="@+id/list_confirm"
-        android:layout_width="115dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/list_view_with_checkbox"
-        android:layout_toEndOf="@+id/list_select"
+        android:layout_alignParentEnd="true"
         android:text="Confirm"
-        android:layout_marginBottom="0dp"
-        android:padding="15dp"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="15dp"
         />
 
     <Button
-        android:id="@+id/list_select"
-        android:layout_width="115dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/list_view_with_checkbox"
-        android:layout_centerHorizontal="true"
-        android:text="Invert"
-        android:layout_marginBottom="0dp"
-        android:padding="15dp"/>
-
-    <Button
         android:id="@+id/list_reject"
-        android:layout_width="115dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/list_view_with_checkbox"
-        android:layout_toStartOf="@+id/list_select"
+        android:layout_alignParentStart="true"
         android:text="Reject"
-        android:layout_marginBottom="0dp"
-        android:padding="15dp"/>
+        android:layout_alignParentBottom="true"
+        android:layout_margin="15dp"/>
 </RelativeLayout>
